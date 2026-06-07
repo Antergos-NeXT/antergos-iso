@@ -109,7 +109,11 @@ echo "------------------" >> "/etc/motd"
 
 echo "---> Install locally built packages on ISO (place packages under airootfs/root/packages) --->"
 echo "--> content of /root/packages:"
-ls "/root/packages/" 2>&1 || echo "  (empty - no local packages)"
+if [[ -d "/root/packages/" ]]; then
+  ls "/root/packages/"
+else
+  echo "  (empty - no local packages)"
+fi
 echo "end of content of /root/packages. <---"
 
 if [[ -d "/root/packages/" ]]; then
