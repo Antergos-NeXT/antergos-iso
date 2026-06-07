@@ -8,7 +8,7 @@ Provides a live KDE Plasma environment to install Arch Linux using **Cnchi**, th
 
 ## Download
 
-ISO images are available on [SourceForge](https://sourceforge.net/projects/antergos-next).
+ISO images are available under [Releases](https://github.com/Antergos-NeXT/Antergos-NeXT-ISO/releases).
 
 ## How to build
 
