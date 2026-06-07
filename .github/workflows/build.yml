@@ -24,7 +24,8 @@ jobs:
           squashfs-tools \
           wget \
           imagemagick \
-          sudo
+          sudo \
+          base-devel
 
     - name: Create build user
       run: |
