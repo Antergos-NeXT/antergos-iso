@@ -1,0 +1,16 @@
+Antergos NeXT - A modern, elegant Linux distribution revived.
+
+Sources:
+https://github.com/antergos/antergos-iso-next
+
+Arch-ISO Source:
+https://gitlab.archlinux.org/archlinux/archiso
+
+Live environment will start now and let you install Antergos to disk.
+
+- The Live session runs entirely from the ISO, changes cannot be saved.
+- Hardware or driver support in the Live session may be limited.
+- The Live ISO is not intended for daily use.
+
+Welcome to Antergos NeXT.
+------------------
