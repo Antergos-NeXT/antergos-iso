@@ -53,7 +53,7 @@ jobs:
         IA_EMAIL: ${{ secrets.IA_EMAIL }}
         IA_PASSWORD: ${{ secrets.IA_PASSWORD }}
       run: |
-        pip install internetarchive
+        pip install --break-system-packages internetarchive
         ia configure --email="$IA_EMAIL" --password="$IA_PASSWORD"
         ISO=$(ls out/*.iso | head -1)
         ia upload antergos-next "$ISO" \
