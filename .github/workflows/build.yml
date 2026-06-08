@@ -50,14 +50,10 @@ jobs:
     - name: Upload to Internet Archive
       if: github.ref == 'refs/heads/master'
       env:
-        IA_EMAIL: ${{ secrets.IA_EMAIL }}
-        IA_PASSWORD: ${{ secrets.IA_PASSWORD }}
+        IA_ACCESS_KEY: ${{ secrets.IA_ACCESS_KEY }}
+        IA_SECRET_KEY: ${{ secrets.IA_SECRET_KEY }}
       run: |
-        pip install --break-system-packages "internetarchive<1.0.0"
-        # Try netrc auth
-        mkdir -p ~/.config
-        printf 'machine archive.org\nlogin %s\npassword %s\n' "$IA_EMAIL" "$IA_PASSWORD" > ~/.netrc
-        chmod 600 ~/.netrc
+        pip install --break-system-packages internetarchive
         ISO=$(ls out/*.iso | head -1)
         ia upload antergos-next "$ISO" \
           --metadata="title:Antergos NeXT Live ISO" \
@@ -68,4 +64,4 @@ jobs:
           --metadata="subject:Antergos NeXT; Arch Linux; live ISO; Linux distribution" \
           --metadata="language:eng" \
           --metadata="mediatype:software" \
-          --metadata="collection:opensource" || echo "Upload failed, skipping..."
+          --metadata="collection:opensource"
