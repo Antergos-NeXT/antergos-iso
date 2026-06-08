@@ -3,7 +3,7 @@
 
 iso_name="Antergos_NeXT"
 iso_label="ANTERGOS_$(date +%Y%m)"
-iso_publisher="Antergos NeXT <https://github.com/antergos>"
+iso_publisher="Antergos NeXT <https://github.com/Antergos-NeXT>"
 iso_application="Antergos NeXT Live/Rescue CD"
 iso_version="$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y.%m.%d)"
 install_dir="arch"
