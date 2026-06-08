@@ -50,11 +50,10 @@ jobs:
     - name: Upload to Internet Archive
       if: github.ref == 'refs/heads/master'
       env:
-        IA_EMAIL: ${{ secrets.IA_EMAIL }}
-        IA_PASSWORD: ${{ secrets.IA_PASSWORD }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.IA_ACCESS_KEY }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.IA_SECRET_KEY }}
       run: |
         pip install --break-system-packages internetarchive
-        ia configure --email="$IA_EMAIL" --password="$IA_PASSWORD"
         ISO=$(ls out/*.iso | head -1)
         ia upload antergos-next "$ISO" \
           --metadata="title:Antergos NeXT Live ISO" \
