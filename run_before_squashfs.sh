@@ -68,11 +68,11 @@ echo "---> generate mirrorlist done ---> "
 pacman -Syy
 echo "---> updating package db done ---> "
 
-echo "---> backup bash configs from skel to replace after liveuser creation --->"
+echo "---> backup bash configs from skel to replace after antergos creation --->"
 mkdir -p "/root/filebackups/"
 cp -af "/etc/skel/"{".bashrc",".bash_profile"} "/root/filebackups/"
 
-echo "---> Install liveuser skel (in case of conflicts use overwrite) --->"
+echo "---> Install antergos skel (in case of conflicts use overwrite) --->"
 pacman -U --noconfirm --overwrite "/etc/skel/.bash_profile","/etc/skel/.bashrc" -- "/root/antergos-skel-liveuser/"*".pkg.tar.zst"
 echo "---> start validate skel files --->"
 ls /etc/skel/.*
@@ -87,14 +87,13 @@ ln -sf "/usr/share/zoneinfo/UTC" "/etc/localtime"
 echo "---> Set root permission and shell --->"
 usermod -s /usr/bin/bash root
 
-echo "---> Create liveuser --->"
-useradd -m -p "" -g 'liveuser' -G 'sys,rfkill,wheel,uucp,nopasswdlogin,adm,tty' -s /bin/bash liveuser
+echo "---> Create antergos --->"
+useradd -m -p "" -g 'antergos' -G 'sys,rfkill,wheel,uucp,nopasswdlogin,adm,tty' -s /bin/bash antergos
 if [[ -f "/root/liveuser.png" ]]; then
-  cp "/root/liveuser.png" "/var/lib/AccountsService/icons/liveuser"
-  rm "/root/liveuser.png"
+  cp "/root/liveuser.png" "/var/lib/AccountsService/icons/antergos"
 fi
 
-echo "---> Remove liveuser skel to clean for target skel --"
+echo "---> Remove antergos skel to clean for target skel --"
 pacman -Sy
 pacman -Rns --noconfirm -- "antergos-skel-liveuser"
 rm -rf "/root/antergos-skel-liveuser"
@@ -135,10 +134,15 @@ mv "/root/antergos-wallpaper.png" "/usr/share/antergos/backgrounds/antergos-wall
 mv "/root/livewall.png" "/usr/share/antergos/backgrounds/antergos-wallpaper-live.png"
 chmod 644 "/usr/share/antergos/backgrounds/"*".png"
 
+echo "---> Register wallpaper for Plasma --->"
+mkdir -p "/usr/share/wallpapers/Antergos/contents/images"
+cp "/usr/share/antergos/backgrounds/antergos-wallpaper-live.png" "/usr/share/wallpapers/Antergos/contents/images/1920x1080.png"
+
 echo "---> Install Antergos icon --->"
 mkdir -p "/usr/share/antergos"
 if [[ -f "/root/liveuser.png" ]]; then
   cp "/root/liveuser.png" "/usr/share/antergos/antergos-icon.png"
+  rm "/root/liveuser.png"
 fi
 
 echo "---> install bash configs back into /etc/skel for offline install target --->"
@@ -159,7 +163,7 @@ pacman -Qs | grep "/linux " | cut -c7- >> iso_package_versions
 pacman -Qs | grep "/mesa " | cut -c7- >> iso_package_versions
 pacman -Qs | grep "/xorg-server " | cut -c7- >> iso_package_versions
 pacman -Qs | grep "/nvidia-utils " | cut -c7- >> iso_package_versions
-mv "iso_package_versions" "/home/liveuser/"
+mv "iso_package_versions" "/home/antergos/"
 
 echo "---> Clean pacman log and package cache --->"
 rm "/var/log/pacman.log"

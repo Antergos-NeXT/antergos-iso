@@ -7,9 +7,9 @@
 
 [[ -f ~/.welcome_screen ]] && . ~/.welcome_screen
 
-_set_liveuser_PS1() {
+_set_antergos_PS1() {
     PS1='[\u@\h \W]\$ '
-    if [ "$(whoami)" = "liveuser" ] ; then
+    if [ "$(whoami)" = "antergos" ] ; then
         local iso_version="$(grep ^VERSION= /usr/lib/antergos-release 2>/dev/null | cut -d '=' -f 2)"
         if [ -n "$iso_version" ] ; then
             local prefix="antergos-"
@@ -18,8 +18,8 @@ _set_liveuser_PS1() {
         fi
     fi
 }
-_set_liveuser_PS1
-unset -f _set_liveuser_PS1
+_set_antergos_PS1
+unset -f _set_antergos_PS1
 
 ShowInstallerIsoInfo() {
     local file=/usr/lib/antergos-release

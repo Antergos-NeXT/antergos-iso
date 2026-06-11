@@ -17,7 +17,6 @@ linux-firmware
 linux-firmware-marvell
 linux-headers
 logrotate
-lsb-release
 man-db
 man-pages
 mdadm
@@ -278,4 +277,3 @@ yay
 
 ## Installer
 cnchi
-
