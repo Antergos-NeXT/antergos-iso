@@ -26,6 +26,10 @@ Provides a live KDE Plasma environment to install Arch Linux using **Cnchi**, th
 | i3 | antergos-i3 | available |
 | MATE | antergos-mate | available |
 
+## Community
+
+Join us on Matrix: [#antergos-next:matrix.org](https://matrix.to/#/%23antergos-next:matrix.org)
+
 ## Download
 
 ISO images exceed GitHub's 2 GB release limit. They are uploaded to [Internet Archive](https://archive.org/details/antergos-next).
