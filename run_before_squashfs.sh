@@ -172,6 +172,20 @@ rm -rf "/var/cache/pacman/pkg/"
 echo "---> remove ranked mirrorlist, used for fetching offline packages replacing it with original from package --->"
 mv "/etc/pacman.d/mirrorlist-from-package" "/etc/pacman.d/mirrorlist"
 
+echo "---> Set Antergos NeXT os-release --->"
+cat > "/usr/lib/os-release" << 'OSEOF'
+NAME="Antergos NeXT"
+PRETTY_NAME="Antergos NeXT"
+ID=antergos
+ID_LIKE="arch"
+BUILD_ID=rolling
+VERSION_ID="rolling"
+HOME_URL="https://github.com/Antergos-NeXT"
+SUPPORT_URL="https://github.com/Antergos-NeXT"
+BUG_REPORT_URL="https://github.com/Antergos-NeXT/issues"
+LOGO=antergos-icon
+OSEOF
+
 echo "############################"
 echo "# end chrooted commandlist #"
 echo "############################"
