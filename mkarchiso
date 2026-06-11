@@ -200,7 +200,7 @@ _run_mksquashfs() {
 
 # change for Antergos NeXT start
 
-    "$RUN_BEFORE_SQUASHFS"
+    "$RUN_BEFORE_SQUASHFS" "$work_dir"
 
 # change for Antergos NeXT end
 

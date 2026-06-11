@@ -6,7 +6,7 @@
 # refining and changes november 2021 @killajoe and @manuel
 
 script_path=$(readlink -f "${0%/*}")
-work_dir="work"
+work_dir="${1:-work}"
 
 # needed for ranking mirrors inside the chroot start
 get_country() {
