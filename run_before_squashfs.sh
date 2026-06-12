@@ -175,11 +175,14 @@ echo "---> Clean pacman log and package cache --->"
 rm "/var/log/pacman.log"
 # pacman -Scc seem to fail so:
 rm -rf "/var/cache/pacman/pkg/"
-echo "---> remove ranked mirrorlist, used for fetching offline packages replacing it with original from package --->"
-mv "/etc/pacman.d/mirrorlist-from-package" "/etc/pacman.d/mirrorlist"
+echo "---> Keep ranked mirrorlist for live session (removed revert to packaged default) --->"
+rm -f "/etc/pacman.d/mirrorlist-from-package"
 
 echo "---> Fix cnchi desktop file to use pkexec --->"
 sed -i 's|^Exec=cnchi$|Exec=pkexec cnchi|' "/usr/share/applications/cnchi.desktop"
+
+echo "---> Fix cnchi regain_privileges bug (false return before seteuid) --->"
+sed -i '/^        if os.geteuid() != 0:$/,/^        os\.setgroups(\[\])$/c\        if os.geteuid() != 0:\n            os.seteuid(0)\n            os.setegid(0)\n            os.setgroups([])' "/usr/share/cnchi/misc/extra.py"
 
 echo "---> Set Antergos NeXT os-release --->"
 cat > "/usr/lib/os-release" << 'OSEOF'
