@@ -1,27 +1,43 @@
 # NOTICES
 
-## Trademark & Branding
+## Disclaimers
 
-Antergos™ and associated logos, branding, and visual identity are 
-trademarks or registered trademarks of their respective owners.
+### Project Status
+This project is a **community-driven revival** and is **not affiliated with**,
+**not endorsed by**, and **not supported by** the original Antergos team or any
+corporate entity.
 
-This project is a **community-driven revival** and is **not affiliated with**, 
-**not endorsed by**, and **not supported by** the original Antergos team 
-or any corporate entity.
+### Branding
+The "Antergos" name and associated visual elements are used in a referential
+capacity to indicate this project's inspiration. The original Antergos project
+ended in 2019. This is an independent project by different people.
+
+### No Warranty
+This software is provided "as is", without warranty of any kind, express or
+implied. Use at your own risk. The authors are not responsible for any damage
+or data loss resulting from the use of this software.
+
+### Third-Party Components
+This project incorporates and builds upon several open-source projects. Each
+component is used under the terms of its respective license. See the
+dependencies and source files for specific licensing information.
 
 ## Credits & Acknowledgments
 
 ### Sources & Inspiration
 - [EndeavourOS-ISO](https://github.com/endeavouros-team/EndeavourOS-ISO) - Base build system
 - [Arch ISO](https://gitlab.archlinux.org/archlinux/archiso) - Original archiso
-- [Cnchi](https://github.com/Antergos/Cnchi) - The amazing installer
-- [Antergos Wallpapers](https://github.com/Antergos/wallpapers) - Beautiful art
+- [Cnchi](https://github.com/Antergos/Cnchi) - The Antergos installer
+- [Antergos Wallpapers](https://github.com/Antergos/wallpapers) - Original wallpapers
 
-### Community Heroes
-Thanks to everyone who tested, provided feedback, and kept the Antergos 
-spirit alive throughout the years! 🖤
+### Original Antergos Team
+Thanks to the original Antergos team (2012-2019) for creating the project that
+inspired this revival. Dustin Falgout, the original founder, has given his
+blessing for this community project to carry the Antergos name forward.
 
-This project exists because the community wanted it back.
+### Contributors
+Thanks to everyone who tested, provided feedback, and kept the Antergos
+spirit alive throughout the years.
 
 ## License
 
@@ -29,18 +45,5 @@ This project is licensed under GPLv3. See the LICENSE file for details.
 
 ## Contributions
 
-Contributions are welcome! By submitting pull requests, you agree to license 
+Contributions are welcome! By submitting pull requests, you agree to license
 your work under the same GPLv3 license.
-
----
-
-## Random Quote
-
-> "Hope is something that people think is absolutely good, but I think it's dangerous. 
-> If you think about it, hope can only exist when there's despair. 
-> In other words, hope is the counterpart of despair."
-> — Nagito Komaeda, Danganronpa 2
-
----
-
-*Made with ❤️ by the community, for the community.*
