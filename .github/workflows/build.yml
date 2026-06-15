@@ -27,7 +27,9 @@ jobs:
           imagemagick \
           sudo \
           base-devel \
-          python-pip
+          python-pip \
+          rsync \
+          openssh
 
     - name: Create build user
       run: |
@@ -52,9 +54,92 @@ jobs:
       env:
         SF_SSH_KEY: ${{ secrets.SF_SSH_KEY }}
       run: |
-        mkdir -p ~/.ssh
-        printf '%s' "$SF_SSH_KEY" > ~/.ssh/id_ed25519
-        chmod 600 ~/.ssh/id_ed25519
-        ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts 2>/dev/null
+        mkdir -p /root/.ssh
+        echo "$SF_SSH_KEY" > /root/.ssh/id_ed25519
+        chmod 600 /root/.ssh/id_ed25519
+        ssh-keyscan -t rsa,ed25519 frs.sourceforge.net >> /root/.ssh/known_hosts 2>/dev/null || true
+        chmod 644 /root/.ssh/known_hosts
+
+        # Find ISO
         ISO=$(ls out/*.iso | head -1)
-        rsync -avP "$ISO" "antergos-txen@frs.sourceforge.net:/home/frs/project/antergos-next/"
+        DATE=$(date +%Y.%m.%d)
+        REMOTE_DIR="/home/frs/project/pulsar-linux/Antergos-NeXT ISO's/${DATE}"
+
+        # Validate ISO exists
+        if [[ -z "$ISO" || ! -f "$ISO" ]]; then
+          echo "ERROR: No ISO found!"
+          exit 1
+        fi
+
+        # Debug SSH
+        echo "Testing SSH key..."
+        ssh -i /root/.ssh/id_ed25519 -o BatchMode=yes -o StrictHostKeyChecking=no pulsar-dev@frs.sourceforge.net "echo SSH_OK" 2>&1 || echo "SSH_TEST_FAILED"
+
+        # Check ISO size (must be > 500MB)
+        SIZE=$(stat -c%s "$ISO")
+        if [[ $SIZE -lt 524288000 ]]; then
+          echo "WARNING: ISO smaller than expected (${SIZE} bytes), checking..."
+          if file "$ISO" | grep -q "ISO 9660\|UDF"; then
+            echo "ISO appears valid, proceeding..."
+          else
+            echo "ERROR: ISO is corrupted!"
+            exit 1
+          fi
+        fi
+
+        # Check if ISO already exists and auto-increment release number
+        RELEASE=1
+        if ssh pulsar-dev@frs.sourceforge.net ls "${REMOTE_DIR}/"*.iso &>/dev/null; then
+          EXISTING=$(ssh pulsar-dev@frs.sourceforge.net ls "${REMOTE_DIR}/"*.iso 2>/dev/null)
+          for f in $EXISTING; do
+            if echo "$f" | grep -q "release-"; then
+              N=$(echo "$f" | sed 's/.*release-\([0-9]*\)\.iso/\1/')
+              if [ "$N" -gt "$RELEASE" ]; then RELEASE=$N; fi
+            fi
+          done
+          RELEASE=$((RELEASE + 1))
+          echo "Existing ISOs found, uploading as release #${RELEASE}"
+        fi
+
+        # Rename ISO with release number
+        ISO_BASENAME=$(basename "$ISO" .iso)
+        ISO_DIR=$(dirname "$ISO")
+        NEW_ISO="${ISO_DIR}/${ISO_BASENAME}-release-${RELEASE}.iso"
+        mv "$ISO" "$NEW_ISO"
+        ISO="$NEW_ISO"
+
+        # Create README
+        echo "# Antergos NeXT ISO" > README.md
+        echo "" >> README.md
+        echo "## Build Info" >> README.md
+        echo "- **Date**: ${DATE}" >> README.md
+        echo "- **Version**: rolling (release ${RELEASE})" >> README.md
+        echo "- **Architecture**: x86_64" >> README.md
+        echo "" >> README.md
+        echo "## Desktop Environments" >> README.md
+        echo "- GNOME (default), KDE Plasma, XFCE, Cinnamon, and more..." >> README.md
+        echo "" >> README.md
+        echo "## Why is this on the pulsar-linux SourceForge project?" >> README.md
+        echo "The old Antergos-NeXT SourceForge project was deleted. ISOs are now hosted" >> README.md
+        echo "under /Antergos-NeXT ISO's/ on the shared pulsar-linux project." >> README.md
+        echo "This folder is exclusively for Antergos NeXT releases." >> README.md
+        echo "" >> README.md
+        echo "Antergos NeXT is a separate project from Pulsar Linux. See:" >> README.md
+        echo "- https://github.com/Antergos-NeXT/antergos-iso" >> README.md
+        echo "" >> README.md
+        echo "## Installation" >> README.md
+        echo "1. Boot from ISO" >> README.md
+        echo "2. Select desktop environment" >> README.md
+        echo "3. Run Cnchi installer" >> README.md
+        echo "" >> README.md
+        echo "## Issues" >> README.md
+        echo "Report at: https://github.com/Antergos-NeXT/antergos-iso/issues" >> README.md
+        echo "" >> README.md
+        echo "## Source" >> README.md
+        echo "- ISO Build: https://github.com/Antergos-NeXT/antergos-iso" >> README.md
+        echo "- Cnchi: https://github.com/Antergos-NeXT/cnchi-next" >> README.md
+        echo "- Packages: https://github.com/Antergos-NeXT/antergos-packages" >> README.md
+
+        # Upload ISO + README
+        rsync -avP -e "ssh -i /root/.ssh/id_ed25519 -o IdentitiesOnly=yes -o StrictHostKeyChecking=no" "$ISO" README.md "pulsar-dev@frs.sourceforge.net:${REMOTE_DIR}/"
+        echo "Uploaded ${ISO} to ${REMOTE_DIR}"
