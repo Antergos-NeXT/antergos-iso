@@ -33,7 +33,7 @@ Join us on Matrix: [#antergos-next:matrix.org](https://matrix.to/#/%23antergos-n
 ## Download
 
 ISO images exceed GitHub's 2 GB release limit. They are uploaded to **SourceForge**
-[![Download antergos-next](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/antergos-next/files/latest/download)
+[![Download antergos-next](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/pulsar-linux/files/Antergos_NeXT/latest/download)
 
 **⚠️ Early releases may have incomplete DE package lists.** The latest `packages.xml` is always in the [cnchi-next repo](https://github.com/Antergos-NeXT/cnchi-next/blob/cnchi-dev/data/packages.xml). Building from source after a fresh clone ensures you have the most up-to-date package selection.
 
