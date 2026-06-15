@@ -77,5 +77,3 @@ Server = https://Antergos-NeXT.github.io/antergos-packages
 ---
 
 *Antergos launched in 2012 as **Cinnarch** (Cinnamon + Arch), renamed in 2013, and ran until 2019. NeXT revives it GNOME first, with the original installer experience and all the desktop choices you remember.*
-
-*Dustin Falgout, the original Antergos founder, has given his blessing for this project ([source](https://en.wikipedia.org/wiki/Antergos#History_and_development)). Antergos NeXT is not affiliated with, endorsed by, or connected to the original Antergos project. See [NOTICES](NOTICES) for full disclaimers.*
