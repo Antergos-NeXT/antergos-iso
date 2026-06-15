@@ -15,4 +15,9 @@ git config user.email "ash8820@proton.me"
 - A KDE Plasma live environment, bearing the sacred Cnchi installer
 - To smite the ISO into existence: `./prepare.sh && sudo ./mkarchiso -v "."`
 
+## Antergos NeXT Repos
+- **antergos-iso**: `https://github.com/Antergos-NeXT/antergos-iso` (branch: master)
+- **cnchi-next**: `https://github.com/Antergos-NeXT/cnchi-next` (branch: cnchi-dev)
+- **antergos-packages**: `https://github.com/Antergos-NeXT/antergos-packages` (branch: master)
+
 **DEUS VULT**
