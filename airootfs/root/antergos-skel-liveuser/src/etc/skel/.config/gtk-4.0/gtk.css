@@ -1,1 +1,94 @@
-@import 'colors.css';
+/* Antergos-NeXT User GTK4 Theme Override - Light Blue */
+
+selection {
+  background-color: #1d90cd;
+  color: #f9f9f9;
+}
+
+entry selection,
+textview text selection,
+textview text:selected {
+  background-color: #1d90cd;
+  color: #f9f9f9;
+}
+
+button:checked {
+  background-color: #1d90cd;
+  color: #ffffff;
+}
+
+button:checked:hover {
+  background-color: #1a7fb5;
+}
+
+button:checked:active {
+  background-color: #156e9c;
+}
+
+button.suggested-action {
+  background-color: #1d90cd;
+  color: #ffffff;
+}
+
+button.suggested-action:hover {
+  background-color: #1a7fb5;
+}
+
+button.suggested-action:checked {
+  background-color: #156e9c;
+}
+
+entry:focus-within {
+  border-color: #1d90cd;
+}
+
+switch:checked {
+  background-color: #1d90cd;
+}
+
+switch:checked slider {
+  background-color: #ffffff;
+}
+
+progressbar progress {
+  background-color: #1d90cd;
+}
+
+levelbar block.filled {
+  background-color: #1d90cd;
+}
+
+levelbar block.empty {
+  background-color: #e0e0e0;
+}
+
+scale highlight {
+  background-color: #1d90cd;
+}
+
+scrollbar slider:hover {
+  background-color: #1d90cd;
+}
+
+scrollbar slider:active {
+  background-color: #1a7fb5;
+}
+
+list row:selected {
+  background-color: #1d90cd;
+  color: #f9f9f9;
+}
+
+flowboxchild:selected {
+  background-color: #1d90cd;
+  color: #f9f9f9;
+}
+
+treeview.view:selected {
+  background-color: #1d90cd;
+  color: #f9f9f9;
+}
+
+label:link {
+  color: #1a7fb5;
+}

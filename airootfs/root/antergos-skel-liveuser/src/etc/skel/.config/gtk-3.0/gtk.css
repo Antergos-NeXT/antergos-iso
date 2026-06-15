@@ -1,1 +1,307 @@
-@import 'colors.css';
+/* Antergos-NeXT User GTK3 Theme Override - Light Blue */
+/* Based on Numix-Frost color palette */
+
+@define-color antergos_blue #1d90cd;
+@define-color antergos_dark #444444;
+
+/* Selection */
+selection {
+  background-color: #1d90cd;
+  color: #f9f9f9;
+}
+
+/* Text selection in entries, text views */
+entry selection,
+textview text selection,
+textview text:selected,
+textview text selection:focus,
+textview text:selected:focus {
+  background-color: #1d90cd;
+  color: #f9f9f9;
+}
+
+/* Buttons */
+button:checked {
+  background-color: #1d90cd;
+  color: #ffffff;
+  border-color: #1a7fb5;
+}
+
+button:checked:hover {
+  background-color: #1a7fb5;
+}
+
+button:checked:active {
+  background-color: #156e9c;
+}
+
+button.suggested-action {
+  background-color: #1d90cd;
+  color: #ffffff;
+  border-color: #1a7fb5;
+}
+
+button.suggested-action:hover {
+  background-color: #1a7fb5;
+}
+
+button.suggested-action:checked {
+  background-color: #156e9c;
+}
+
+/* Toggle buttons */
+toggle:checked {
+  background-color: #1d90cd;
+  color: #ffffff;
+}
+
+/* Entries */
+entry:focus {
+  border-color: #1d90cd;
+}
+
+/* Scales */
+scale highlight {
+  background-color: #1d90cd;
+}
+
+scale trough:disabled highlight {
+  background-color: #b0b0b0;
+}
+
+/* Progress bars */
+progressbar progress {
+  background-color: #1d90cd;
+}
+
+progressbar trough {
+  background-color: #e0e0e0;
+}
+
+/* Level bars */
+levelbar block.filled {
+  background-color: #1d90cd;
+}
+
+levelbar block.empty {
+  background-color: #e0e0e0;
+}
+
+/* Tree/List views */
+treeview.view:selected {
+  background-color: #1d90cd;
+  color: #f9f9f9;
+}
+
+treeview.view:selected:focus {
+  background-color: #1d90cd;
+  color: #ffffff;
+}
+
+list row:selected {
+  background-color: #1d90cd;
+  color: #f9f9f9;
+}
+
+/* Calendar */
+calendar:selected {
+  background-color: #1d90cd;
+  color: #ffffff;
+}
+
+/* Headerbars */
+headerbar {
+  background-color: #444444;
+  color: #eeeeee;
+  border-color: #3a3a3a;
+}
+
+headerbar label.title {
+  color: #eeeeee;
+  font-weight: bold;
+}
+
+headerbar label.subtitle {
+  color: #aaaaaa;
+}
+
+headerbar button {
+  background-color: #555555;
+  color: #eeeeee;
+  border-color: #4a4a4a;
+}
+
+headerbar button:hover {
+  background-color: #666666;
+}
+
+headerbar button:active {
+  background-color: #4a4a4a;
+}
+
+headerbar button:checked {
+  background-color: #1d90cd;
+  color: #ffffff;
+  border-color: #1a7fb5;
+}
+
+headerbar entry {
+  border-color: #555555;
+}
+
+headerbar switch:checked {
+  background-color: #1d90cd;
+}
+
+/* Toolbars */
+toolbar {
+  background-color: #f0f0f0;
+  border-color: #d0d0d0;
+}
+
+/* Menubar */
+menubar {
+  background-color: #444444;
+  color: #eeeeee;
+  border-color: #3a3a3a;
+}
+
+menubar > menuitem:hover {
+  background-color: #1d90cd;
+  color: #ffffff;
+}
+
+/* Menus */
+menu {
+  background-color: #444444;
+  color: #eeeeee;
+  border: 1px solid #3a3a3a;
+}
+
+menu menuitem:hover {
+  background-color: #1d90cd;
+  color: #ffffff;
+}
+
+menu menuitem:disabled {
+  color: #888888;
+}
+
+/* Popovers */
+popover {
+  background-color: #444444;
+  color: #eeeeee;
+  border: 1px solid #3a3a3a;
+}
+
+popover label {
+  color: #eeeeee;
+}
+
+popover list {
+  background-color: #444444;
+}
+
+/* Notebooks/Tabs */
+notebook tab:checked {
+  background-color: #f0f0f0;
+  border-bottom-color: #f0f0f0;
+}
+
+notebook tab:checked label {
+  color: #1d90cd;
+}
+
+/* Switches */
+switch:checked {
+  background-color: #1d90cd;
+}
+
+switch:checked slider {
+  background-color: #ffffff;
+}
+
+/* Scrollbars */
+scrollbar slider {
+  background-color: #b0b0b0;
+  border-radius: 4px;
+}
+
+scrollbar slider:hover {
+  background-color: #1d90cd;
+}
+
+scrollbar slider:active {
+  background-color: #1a7fb5;
+}
+
+scrollbar trough {
+  background-color: #e0e0e0;
+}
+
+/* Statusbar */
+statusbar {
+  background-color: #f0f0f0;
+  color: #555555;
+}
+
+/* Links */
+label:link {
+  color: #1a7fb5;
+}
+
+label:visited {
+  color: #673ab7;
+}
+
+/* Infobars */
+infobar.info {
+  background-color: #1d90cd;
+  color: #ffffff;
+}
+
+/* Tooltips */
+tooltip {
+  background-color: #444444;
+  color: #eeeeee;
+  border: 1px solid #555555;
+}
+
+/* Spinbuttons */
+spinbutton:focus {
+  border-color: #1d90cd;
+}
+
+/* Combo boxes */
+combobox:focus {
+  border-color: #1d90cd;
+}
+
+/* Color chooser */
+colorswatch:selected {
+  border-color: #1d90cd;
+}
+
+/* Flow/List box selection */
+flowboxchild:selected {
+  background-color: #1d90cd;
+  color: #f9f9f9;
+}
+
+/* App notifications */
+.app-notification {
+  background-color: #444444;
+  color: #eeeeee;
+  border: 1px solid #3a3a3a;
+}
+
+/* Action bar */
+actionbar {
+  background-color: #f0f0f0;
+  border-color: #d0d0d0;
+}
+
+/* Revealer */
+revealer {
+  background-color: #f0f0f0;
+}

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Name=Antergos-NeXT
+Comment=Antergos NeXT light theme with blue accents
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme=Antergos-NeXT
+MetacityTheme=Antergos-NeXT
+IconTheme=Adwaita
+CursorTheme=Adwaita
+ButtonLayout=:

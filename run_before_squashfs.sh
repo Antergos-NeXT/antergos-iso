@@ -195,6 +195,14 @@ BUG_REPORT_URL="https://github.com/Antergos-NeXT/issues"
 LOGO=antergos-icon
 OSEOF
 
+echo "---> Configure GNOME Shell theme for live user --->"
+su - antergos -c "dbus-launch --exit-with-session gsettings set org.gnome.shell.extensions.user-theme name 'Antergos-NeXT'" 2>/dev/null || true
+su - antergos -c "dbus-launch --exit-with-session gsettings set org.gnome.shell enabled-extensions \"['user-theme@gnome-shell-extensions.gcampax.github.com']\"" 2>/dev/null || true
+su - antergos -c "dbus-launch --exit-with-session gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'" 2>/dev/null || true
+su - antergos -c "dbus-launch --exit-with-session gsettings set org.gnome.desktop.background picture-uri 'file:///usr/share/antergos/backgrounds/antergos-wallpaper.png'" 2>/dev/null || true
+su - antergos -c "dbus-launch --exit-with-session gsettings set org.gnome.desktop.background picture-uri-dark 'file:///usr/share/antergos/backgrounds/antergos-wallpaper.png'" 2>/dev/null || true
+su - antergos -c "dbus-launch --exit-with-session gsettings set org.gnome.desktop.screensaver picture-uri 'file:///usr/share/antergos/backgrounds/antergos-wallpaper.png'" 2>/dev/null || true
+
 echo "############################"
 echo "# end chrooted commandlist #"
 echo "############################"

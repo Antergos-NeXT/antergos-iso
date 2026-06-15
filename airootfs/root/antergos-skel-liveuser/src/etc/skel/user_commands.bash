@@ -50,7 +50,7 @@
 
 _PostInstallCommands() {
     ## Add your "late-install" commands here.
-    ## This is executed as root near the end of calamares execution.
+    ## This is executed as root near the end of cnchi execution.
 
     local -r username="$1"              # new user you created for the target
 

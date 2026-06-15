@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Type=Application
-Exec=/usr/lib/firefox/firefox --new-window https://antergos.com/
+Exec=/usr/lib/firefox/firefox
 Terminal=false
 X-MultipleArgs=false
 Icon=firefox
@@ -563,7 +563,7 @@ X-GNOME-FullName[zh_CN]=Firefox 浏览器
 X-GNOME-FullName[zh_TW]=Firefox 網頁瀏覽器
 
 [Desktop Action new-window]
-Exec=/usr/lib/firefox/firefox --new-window https://antergos.com/
+Exec=/usr/lib/firefox/firefox --new-window
 Name=New Window
 Name[ach]=New Window
 Name[af]=New Window

@@ -59,11 +59,6 @@ _open_files_for_editing() {
     #    - Uses 'mime' bindings, so you may need to use
     #      e.g. a file manager to make proper file bindings.
 
-    if [ -x /usr/bin/exo-open ] ; then
-        echo "exo-open $@" >&2
-        setsid exo-open "$@" >& /dev/null
-        return
-    fi
     if [ -x /usr/bin/xdg-open ] ; then
         for file in "$@" ; do
             echo "xdg-open $file" >&2
@@ -72,16 +67,7 @@ _open_files_for_editing() {
         return
     fi
 
-    echo "$FUNCNAME: package 'xdg-utils' or 'exo' is required." >&2
+    echo "$FUNCNAME: package 'xdg-utils' is required." >&2
 }
-
-#------------------------------------------------------------
-
-## Aliases for the functions above.
-## Uncomment an alias if you want to use it.
-##
-
-# alias ef='_open_files_for_editing'     # 'ef' opens given file(s) for editing
-# alias pacdiff=antergos-pacdiff
 ################################################################################
 
