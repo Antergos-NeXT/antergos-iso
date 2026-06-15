@@ -1,0 +1,6 @@
+[org.gnome.desktop.background]
+picture-uri='file:///root/antergos-wallpaper.png'
+picture-uri-dark='file:///root/antergos-wallpaper.png'
+
+[org.gnome.desktop.screensaver]
+picture-uri='file:///root/antergos-wallpaper.png'

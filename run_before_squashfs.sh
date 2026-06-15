@@ -103,9 +103,8 @@ pacman -Sy
 pacman -Rns --noconfirm -- "antergos-skel-liveuser"
 rm -rf "/root/antergos-skel-liveuser"
 
-echo "---> setup theming for root user --->"
-cp -a "/root/root-theme" "/root/.config"
-rm -R "/root/root-theme"
+echo "---> Compile GNOME gsettings schemas for wallpaper --->"
+glib-compile-schemas "/usr/share/glib-2.0/schemas/"
 
 echo "---> Add Antergos version to motd --->"
 echo "Antergos NeXT $(date +%Y.%m.%d)" >> "/etc/motd"
@@ -139,10 +138,8 @@ mv "/root/antergos-wallpaper.png" "/usr/share/antergos/backgrounds/antergos-wall
 mv "/root/livewall.png" "/usr/share/antergos/backgrounds/antergos-wallpaper-live.png"
 chmod 644 "/usr/share/antergos/backgrounds/"*".png"
 
-echo "---> Register wallpaper for Plasma (overwrite default KDE Next/ wallpaper) --->"
-for res in 1920x1080 3840x2160 1440x2960 5120x2880 7680x2160; do
-  cp "/usr/share/antergos/backgrounds/antergos-wallpaper-live.png" "/usr/share/wallpapers/Next/contents/images/${res}.png"
-done
+echo "---> Set wallpaper for GNOME live session --->"
+glib-compile-schemas "/usr/share/glib-2.0/schemas/"
 
 echo "---> Install Antergos icon --->"
 mkdir -p "/usr/share/antergos"

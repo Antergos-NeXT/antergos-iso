@@ -55,9 +55,7 @@ Main() {
                     echo "==> $progname: found Intel graphics device with id $id, installing package $pkg"
                     local pkgs=(/usr/share/packages/{$pkg,libxvmc}-*.pkg.tar.zst)
                     sudo pacman -U --noconfirm "${pkgs[@]}"
-                    echo "==> $progname: disable compositor for legacy intel in KDE live session"
-                    mv /home/antergos/.config/intel-kwinrc /home/antergos/.config/kwinrc
-                    chown antergos:antergos /home/antergos/.config/kwinrc
+                    echo "==> $progname: legacy intel GPU driver installed"
                     return 0
                 fi
             fi
