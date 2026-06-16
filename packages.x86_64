@@ -199,7 +199,6 @@ fsarchiver
 gpart
 gparted
 grsync
-partitionmanager
 hdparm
 
 # DESKTOP
@@ -271,3 +270,4 @@ yay
 
 ## Installer
 cnchi
+python-libnacl
