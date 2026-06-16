@@ -130,7 +130,9 @@ echo " --> per default now in airootfs/etc/systemd/system/multi-user.target.want
 #systemctl enable NetworkManager.service systemd-timesyncd.service bluetooth.service firewalld.service
 #systemctl enable vboxservice.service vmtoolsd.service vmware-vmblock-fuse.service
 #systemctl enable intel.service
-systemctl set-default multi-user.target
+# Use graphical target with GDM for GNOME live session
+systemctl set-default graphical.target
+systemctl enable gdm.service
 
 echo "---> Set wallpaper for live-session and installed system --->"
 mkdir -p "/usr/share/antergos/backgrounds"
