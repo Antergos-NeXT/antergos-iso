@@ -180,8 +180,7 @@ rm -f "/etc/pacman.d/mirrorlist-from-package"
 echo "---> Fix cnchi desktop file to use pkexec --->"
 sed -i 's|^Exec=cnchi$|Exec=pkexec cnchi|' "/usr/share/applications/cnchi.desktop"
 
-echo "---> Fix cnchi regain_privileges bug (false return before seteuid) --->"
-sed -i '/^        if os.geteuid() != 0:$/,/^        os\.setgroups(\[\])$/c\        if os.geteuid() != 0:\n            os.seteuid(0)\n            os.setegid(0)\n            os.setgroups([])' "/usr/share/cnchi/misc/extra.py"
+# cnchi 0.17.1+ already has the regain_privileges fix in source
 
 echo "---> Set Antergos NeXT os-release --->"
 cat > "/usr/lib/os-release" << 'OSEOF'
