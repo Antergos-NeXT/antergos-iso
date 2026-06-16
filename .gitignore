@@ -1,5 +1,7 @@
 Cnchi/
 antergos-pkgs/
 internetarchive.log
+airootfs/root/antergos-skel-liveuser/*.pkg.tar.zst
+airootfs/root/antergos-skel-liveuser/pkg/
 out/
 work/
