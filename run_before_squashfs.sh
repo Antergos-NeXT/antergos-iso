@@ -183,6 +183,12 @@ mkdir -p "/usr/share/cnchi-memes"
 echo "---> Fix cnchi desktop file to use sudo -E --->"
 sed -i 's|^Exec=.*cnchi.*|Exec=sudo -E cnchi|' "/usr/share/applications/cnchi.desktop"
 
+echo "---> Fix calamares desktop file to use sudo -E --->"
+sed -i 's|^Exec=.*calamares.*|Exec=sudo -E calamares -d|' "/usr/share/applications/calamares.desktop" 2>/dev/null || true
+
+echo "---> Symlink antergos icon for calamares branding --->"
+ln -sf "/usr/share/antergos/antergos-icon.png" "/usr/share/calamares/branding/antergos-next/squid.png" 2>/dev/null || true
+
 # cnchi 0.17.1+ already has the regain_privileges fix in source
 
 echo "---> Set Antergos NeXT os-release --->"
