@@ -178,7 +178,7 @@ echo "---> Keep ranked mirrorlist for live session (removed revert to packaged d
 rm -f "/etc/pacman.d/mirrorlist-from-package"
 
 echo "---> Fix cnchi desktop file to use sudo -E --->"
-sed -i 's|^Exec=cnchi$|Exec=sudo -E cnchi|' "/usr/share/applications/cnchi.desktop"
+sed -i 's|^Exec=.*cnchi.*|Exec=sudo -E cnchi|' "/usr/share/applications/cnchi.desktop"
 
 # cnchi 0.17.1+ already has the regain_privileges fix in source
 
