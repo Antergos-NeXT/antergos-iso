@@ -177,6 +177,9 @@ rm -rf "/var/cache/pacman/pkg/"
 echo "---> Keep ranked mirrorlist for live session (removed revert to packaged default) --->"
 rm -f "/etc/pacman.d/mirrorlist-from-package"
 
+echo "---> Create cnchi memes directory --->"
+mkdir -p "/usr/share/cnchi-memes"
+
 echo "---> Fix cnchi desktop file to use sudo -E --->"
 sed -i 's|^Exec=.*cnchi.*|Exec=sudo -E cnchi|' "/usr/share/applications/cnchi.desktop"
 
