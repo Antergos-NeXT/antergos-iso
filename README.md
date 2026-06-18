@@ -100,6 +100,12 @@ Server = https://Antergos-NeXT.github.io/antergos-packages
 
 ---
 
+## A Note to the "Branding Police"
+
+If you came here to hate and you're about to type "why are you using Antergos's branding" — pack your bags and go to Pulsar Linux (formerly Antergos NeXT). We have Dustin's blessing. We are respectful. We are not them. Move on.
+
+---
+
 *Antergos launched in 2012 as **Cinnarch** (Cinnamon + Arch), renamed in 2013, and ran until 2019. NeXT revives it GNOME first, with the original installer experience and all the desktop choices you remember.*
 
 *Dustin Falgout, one of the original Antergos developers, has given his blessing for this community revival ([see NOTICES](NOTICES)). Antergos NeXT is not affiliated with, endorsed by, or connected to the original Antergos project.*
