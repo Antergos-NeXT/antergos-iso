@@ -7,9 +7,33 @@
 [![GNOME](https://img.shields.io/badge/DE-GNOME-4A86CF.svg)]()
 [![Multi-DE](https://img.shields.io/badge/DE-Cinnamon%20%7C%20XFCE%20%7C%20GNOME%20%7C%20Budgie%20%7C%20Deepin%20%7C%20LXQT%20%7C%20Openbox%20%7C%20i3-ff69b4.svg)]()
 
-Modern revival of the Antergos live installer ISO, based on the maintained EndeavourOS-ISO.
+Both a revival **and** a modernization of the Antergos live installer ISO, based on the maintained EndeavourOS-ISO.
 
-Provides a live GNOME environment to install Arch Linux using **Cnchi**, the original Antergos installer — now patched for modern Python, with multi-DE support and the original installer experience.
+Provides a live GNOME environment to install Arch Linux using **Cnchi**, the original Antergos installer — overhauled for modern Python (GTK4), with multi-DE support and the original installer experience re-engineered for 2026.
+
+This is not a museum piece. We keep what worked, fix what broke, and aren't afraid to add new things. Cnchi stays because it's what makes Antergos *Antergos* — but we've gutted the guts and replaced the pipes.
+
+**Calamares** is also included as an **experimental** alternative installer.
+
+## Why Cnchi and not Calamares?
+
+| | Cnchi (default) | Calamares (experimental) |
+|---|---|---|
+| **Status** | Primary installer, actively developed | Experimental, community requested |
+| **Experience** | Original Antergos feel, custom GTK4 UI | Standard Calamares workflow |
+| **Development** | Part of the project's DNA | Porting effort, needs testing |
+
+**Q: Why not just use Calamares like everyone else?**  
+A: Because Antergos NeXT is a revival of *Antergos*, not another EndeavourOS or Arch derivative. Cnchi *is* the Antergos installer. Replacing it would defeat the purpose.
+
+**Q: So why include Calamares at all?**  
+A: Community feedback. Some users prefer Calamares' workflow. We're not here to force anyone — both are available. Pick the one that fits you.
+
+**Q: Is Calamares fully functional?**  
+A: Not yet. It's experimental. Some features (lembrame, desktop-specific tweaks) are Cnchi-only. Calamares is there for testing and as a fallback.
+
+**Q: Will Calamares become the default in the future?**  
+A: Only if Cnchi becomes unmaintainable. As long as Cnchi works, it stays default. Calamares is a backup, not a replacement.
 
 ## Desktop Editions
 
