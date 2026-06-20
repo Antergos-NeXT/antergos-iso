@@ -52,11 +52,11 @@ A: Only if Cnchi becomes unmaintainable. As long as Cnchi works, it stays defaul
 
 ## Community
 
-Join us on Matrix: [#antergos-next:matrix.org](https://matrix.to/#/%23antergos-next:matrix.org)
+Join us on Matrix: (uses pulsar's matrix) [#pulsar-linux:matrix.org](https://matrix.to/#/#pulsar-linux:matrix.org)
 
 ## Download
 
-ISO images exceed GitHub's 2 GB release limit. They are uploaded to **SourceForge**
+ISO images exceed GitHub's 2 GB release limit. They are uploaded to **SourceForge** (uses pulsar's SF Project since the old antergos-next project was deleted oopsie!)
 [![Download antergos-next](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/pulsar-linux/files/Antergos_NeXT/latest/download)
 
 **⚠️ Early releases may have incomplete DE package lists.** The latest `packages.xml` is always in the [cnchi-next repo](https://github.com/Antergos-NeXT/cnchi-next/blob/cnchi-dev/data/packages.xml). Building from source after a fresh clone ensures you have the most up-to-date package selection.
@@ -106,6 +106,6 @@ If you came here to hate and you're about to type "why are you using Antergos's 
 
 ---
 
-*Antergos launched in 2012 as **Cinnarch** (Cinnamon + Arch), renamed in 2013, and ran until 2019. NeXT revives it GNOME first, with the original installer experience and all the desktop choices you remember.*
+*Antergos launched in 2012 as **Cinnarch** (Cinnamon + Arch), renamed in 2013, and ran until 2019. NeXT *modernizes* it GNOME first, with the original installer experience and all the desktop choices you remember.*
 
 *Dustin Falgout, one of the original Antergos developers, has given his blessing for this community revival ([see NOTICES](NOTICES)). Antergos NeXT is not affiliated with, endorsed by, or connected to the original Antergos project.*
