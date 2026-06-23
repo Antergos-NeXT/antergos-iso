@@ -273,6 +273,7 @@ hal
 ## Installer
 calamares
 calamares-branding-antergos-next
+zenity
 squashfs-tools
 mpv
 antergos-next-memes
