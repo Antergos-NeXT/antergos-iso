@@ -183,8 +183,8 @@ mkdir -p "/usr/share/cnchi-memes"
 echo "---> Fix cnchi desktop file to use sudo -E --->"
 sed -i 's|^Exec=.*cnchi.*|Exec=sudo -E cnchi|' "/usr/share/applications/cnchi.desktop"
 
-echo "---> Fix calamares desktop file to use sudo -E --->"
-sed -i 's|^Exec=.*calamares.*|Exec=sudo -E calamares -d|' "/usr/share/applications/calamares.desktop" 2>/dev/null || true
+echo "---> Fix calamares desktop file to use launcher --->"
+sed -i 's|^Exec=.*calamares.*|Exec=sudo -E calamares-next|' "/usr/share/applications/calamares.desktop" 2>/dev/null || true
 
 echo "---> Symlink antergos icon for calamares branding --->"
 ln -sf "/usr/share/antergos/antergos-icon.png" "/usr/share/calamares/branding/antergos-next/squid.png" 2>/dev/null || true
@@ -199,11 +199,20 @@ ID=antergos
 ID_LIKE="arch"
 BUILD_ID=rolling
 VERSION_ID="rolling"
+VERSION_CODENAME=NeXT
 HOME_URL="https://github.com/Antergos-NeXT"
 SUPPORT_URL="https://github.com/Antergos-NeXT"
 BUG_REPORT_URL="https://github.com/Antergos-NeXT/issues"
 LOGO=antergos-icon
 OSEOF
+
+echo "---> Set Antergos NeXT lsb-release --->"
+cat > "/etc/lsb-release" << 'LSBEOF'
+DISTRIB_ID=Antergos
+DISTRIB_RELEASE=rolling
+DISTRIB_CODENAME=NeXT
+DISTRIB_DESCRIPTION="Antergos NeXT"
+LSBEOF
 
 echo "---> Configure GNOME Shell theme for live user --->"
 su - antergos -c "dbus-launch --exit-with-session gsettings set org.gnome.shell.extensions.user-theme name 'Antergos-NeXT'" 2>/dev/null || true
