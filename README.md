@@ -82,8 +82,8 @@ The ISO uses the `antergos-packages` repo for custom packages (Cnchi, keyring, m
 ```ini
 [antergos-pkgs]
 SigLevel = Optional TrustAll
-Server = https://Antergos-NeXT.github.io/antergos-packages/$repo/os/$arch
-Server = https://Antergos-NeXT.github.io/antergos-packages
+Server = https://antergos-next.github.io/antergos-packages/$repo/os/$arch
+Server = https://antergos-next.github.io/antergos-packages
 ```
 
 ## Sources
