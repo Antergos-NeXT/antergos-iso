@@ -130,14 +130,14 @@ jobs:
         echo "## Installation" >> README.md
         echo "1. Boot from ISO" >> README.md
         echo "2. Select desktop environment" >> README.md
-        echo "3. Run Cnchi installer" >> README.md
+        echo "3. Run Calamares installer" >> README.md
         echo "" >> README.md
         echo "## Issues" >> README.md
         echo "Report at: https://github.com/Antergos-NeXT/antergos-iso/issues" >> README.md
         echo "" >> README.md
         echo "## Source" >> README.md
         echo "- ISO Build: https://github.com/Antergos-NeXT/antergos-iso" >> README.md
-        echo "- Cnchi: https://github.com/Antergos-NeXT/cnchi-next" >> README.md
+        echo "- Calamares: https://codeberg.org/calamares/calamares" >> README.md
         echo "- Packages: https://github.com/Antergos-NeXT/antergos-packages" >> README.md
 
         # Upload ISO + README

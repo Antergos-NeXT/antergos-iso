@@ -12,12 +12,12 @@ git config user.email "ash8820@proton.me"
 
 ## The Crusade
 - Arch Linux live ISO, forged from the bones of EndeavourOS-ISO
-- A KDE Plasma live environment, bearing the sacred Cnchi installer
+- A GNOME live environment with Calamares installer (offline + online)
 - To smite the ISO into existence: `./prepare.sh && sudo ./mkarchiso -v "."`
 
 ## Antergos NeXT Repos
 - **antergos-iso**: `https://github.com/Antergos-NeXT/antergos-iso` (branch: master)
-- **cnchi-next**: `https://github.com/Antergos-NeXT/cnchi-next` (branch: cnchi-dev)
+- **calamares**: `https://codeberg.org/calamares/calamares` (upstream)
 - **antergos-packages**: `https://github.com/Antergos-NeXT/antergos-packages` (branch: master)
 
 **DEUS VULT**

@@ -1,11 +1,11 @@
 #!/bin/bash
 #
 # This file can contain commands that will be executed (as root) before
-# cnchi is started. So here you may configure various settings of cnchi.
+# Calamares is started. So here you may configure various settings.
 #
 # NOTE! This is an advanced feature, so you need to know *exactly* what
 # you are doing. Otherwise bad things can happen...
-# Sound knowledge of cnchi, bash language, and linux commands is required
+# Sound knowledge of bash language and linux commands is required
 # for a meaningful customization.
 #
 # If you add commands to this file, start the whole install process fresh
@@ -24,7 +24,7 @@
 
 _IsoConfig() {
     ## Add your ISO configurations here.
-    ## This is executed as root before cnchi is started.
+    ## This is executed as root before the installer is started.
 
     local -r install_mode="$1"          # 'online' or 'offline'
 

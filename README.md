@@ -9,31 +9,39 @@
 
 Both a revival **and** a modernization of the Antergos live installer ISO, based on the maintained EndeavourOS-ISO.
 
-Provides a live GNOME environment to install Arch Linux using **Cnchi**, the original Antergos installer — overhauled for modern Python (GTK4), with multi-DE support and the original installer experience re-engineered for 2026.
+Provides a live GNOME environment to install Arch Linux using **Calamares** — the mature, upstream-supported universal installer framework — with offline (GNOME squashfs) and online (netinstall with 8 DE choices) modes, and dracut initramfs.
 
-This is not a museum piece. We keep what worked, fix what broke, and aren't afraid to add new things. Cnchi stays because it's what makes Antergos *Antergos* — but we've gutted the guts and replaced the pipes.
+> *"I can't let you do that, Dave."* — Cnchi, 2012–2026
 
-**Calamares** is also included as an **experimental** alternative installer.
+## Why Calamares and not Cnchi?
 
-## Why Cnchi and not Calamares?
+Cnchi was the original Antergos installer — a custom GTK+ tool that gave Antergos its identity. For Antergos NeXT, we initially ported it to GTK4 and fought to keep it alive. But after days of fighting with a brittle Python codebase, broken GTK4 bindings, and an ever-growing maintenance burden, the honest call was made:
 
-| | Cnchi (default) | Calamares (experimental) |
-|---|---|---|
-| **Status** | Primary installer, actively developed | Experimental, community requested |
-| **Experience** | Original Antergos feel, custom GTK4 UI | Standard Calamares workflow |
-| **Development** | Part of the project's DNA | Porting effort, needs testing |
+**Cnchi is not coming back.**
 
-**Q: Why not just use Calamares like everyone else?**  
-A: Because Antergos NeXT is a revival of *Antergos*, not another EndeavourOS or Arch derivative. Cnchi *is* the Antergos installer. Replacing it would defeat the purpose.
+| Reason | Detail |
+|--------|--------|
+| **GTK4 breakage** | Python GTK4 bindings were unstable; widgets broke on every upstream release |
+| **Maintenance hell** | Single developer couldn't keep up with Python dependency churn + GTK4 + systemd + dracut |
+| **Calamares is better** | Mature, modular C++/Qt6 framework, upstream-supported, offline+online already built in |
+| **Time** | Every hour fixing Cnchi was an hour not spent on actual improvements |
 
-**Q: So why include Calamares at all?**  
-A: Community feedback. Some users prefer Calamares' workflow. We're not here to force anyone — both are available. Pick the one that fits you.
+### A brief eulogy
 
-**Q: Is Calamares fully functional?**  
-A: Not yet. It's experimental. Some features (lembrame, desktop-specific tweaks) are Cnchi-only. Calamares is there for testing and as a fallback.
+Cnchi (originally written as a Bash script, then Python/GTK2, then GTK3) served Antergos from 2012 to 2019, and was briefly revived for NeXT. It was ambitious, opinionated, and deeply tied to what made Antergos *Antergos*. But the 2026 Linux desktop is not 2012 — dracut replaces mkinitcpio, systemd-boot replaces grub, and a single-dev team can't carry a full custom installer framework.
 
-**Q: Will Calamares become the default in the future?**  
-A: Only if Cnchi becomes unmaintainable. As long as Cnchi works, it stays default. Calamares is a backup, not a replacement.
+Calamares is the big boy installer now. It works. It's maintained. And with our custom branding, offline/online split, and dracut support, it's more capable than Cnchi ever was.
+
+*Requiescat in pace, Cnchi. You did your job.*
+
+## Installer modes
+
+| Mode | Description |
+|------|-------------|
+| **Offline** | Unpacks a GNOME squashfs from the ISO — no internet needed, fast install |
+| **Online** | Netinstall with 8 DE choices (GNOME, KDE, Xfce, Budgie, Cinnamon, MATE, LXQt, i3/Sway) |
+
+The launcher (`calamares-next`) presents a zenity/kdialog/dialog GUI to pick offline or online mode before launching Calamares.
 
 ## Desktop Editions
 
@@ -59,7 +67,7 @@ Join us on Matrix: (uses pulsar's matrix) [#pulsar-linux:matrix.org](https://mat
 ISO images exceed GitHub's 2 GB release limit. They are uploaded to **SourceForge** (uses pulsar's SF Project since the old antergos-next project was deleted oopsie!)
 [![Download antergos-next](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/pulsar-linux/files/Antergos_NeXT/latest/download)
 
-**⚠️ Early releases may have incomplete DE package lists.** The latest `packages.xml` is always in the [cnchi-next repo](https://github.com/Antergos-NeXT/cnchi-next/blob/cnchi-dev/data/packages.xml). Building from source after a fresh clone ensures you have the most up-to-date package selection.
+**⚠️ Early releases may have incomplete DE package lists.**
 
 ## How to build
 
@@ -77,7 +85,7 @@ The `.iso` appears in the `out/` directory.
 
 ## Custom packages
 
-The ISO uses the `antergos-packages` repo for custom packages (Cnchi, keyring, mirrorlist, desktop settings, wallpapers). Add it to your system:
+The ISO uses the `antergos-packages` repo for custom packages (Calamares branding, keyring, mirrorlist, desktop settings, wallpapers). Add it to your system:
 
 ```ini
 [antergos-pkgs]
@@ -90,7 +98,7 @@ Server = https://antergos-next.github.io/antergos-packages
 
 - [EndeavourOS-ISO](https://github.com/endeavouros-team/EndeavourOS-ISO) — base ISO build system
 - [Arch-ISO](https://gitlab.archlinux.org/archlinux/archiso) — archiso tools
-- [cnchi-next](https://github.com/Antergos-NeXT/cnchi-next) — our patched Cnchi fork
+- [Calamares](https://codeberg.org/calamares/calamares) — upstream installer framework
 - [antergos-packages](https://github.com/Antergos-NeXT/antergos-packages) — custom package repo
 - [Antergos wallpapers](https://github.com/Antergos/wallpapers) — original wallpapers
 
@@ -102,7 +110,7 @@ Server = https://antergos-next.github.io/antergos-packages
 
 ## A Note to the "Branding Police"
 
-If you came here to hate and you're about to type "why are you using Antergos's branding" — pack your bags and go to Pulsar Linux (formerly Antergos NeXT). We have Dustin's blessing. We are respectful. We are not them. Move on.
+If you came here to hate and you're about to type "why are you using Antergos's branding" — pack your bags and go to Manjaro. We have Dustin's blessing. We are respectful. We are not them. Move on.
 
 ---
 

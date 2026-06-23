@@ -177,19 +177,11 @@ rm -rf "/var/cache/pacman/pkg/"
 echo "---> Keep ranked mirrorlist for live session (removed revert to packaged default) --->"
 rm -f "/etc/pacman.d/mirrorlist-from-package"
 
-echo "---> Create cnchi memes directory --->"
-mkdir -p "/usr/share/cnchi-memes"
-
-echo "---> Fix cnchi desktop file to use sudo -E --->"
-sed -i 's|^Exec=.*cnchi.*|Exec=sudo -E cnchi|' "/usr/share/applications/cnchi.desktop"
-
 echo "---> Fix calamares desktop file to use launcher --->"
 sed -i 's|^Exec=.*calamares.*|Exec=sudo -E calamares-next|' "/usr/share/applications/calamares.desktop" 2>/dev/null || true
 
 echo "---> Symlink antergos icon for calamares branding --->"
 ln -sf "/usr/share/antergos/antergos-icon.png" "/usr/share/calamares/branding/antergos-next/squid.png" 2>/dev/null || true
-
-# cnchi 0.17.1+ already has the regain_privileges fix in source
 
 echo "---> Set Antergos NeXT os-release --->"
 cat > "/usr/lib/os-release" << 'OSEOF'
@@ -217,7 +209,7 @@ LSBEOF
 echo "---> Configure GNOME Shell theme for live user --->"
 su - antergos -c "dbus-launch --exit-with-session gsettings set org.gnome.shell.extensions.user-theme name 'Antergos-NeXT'" 2>/dev/null || true
 su - antergos -c "dbus-launch --exit-with-session gsettings set org.gnome.shell enabled-extensions \"['user-theme@gnome-shell-extensions.gcampax.github.com']\"" 2>/dev/null || true
-su - antergos -c "dbus-launch --exit-with-session gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'" 2>/dev/null || true
+su - antergos -c "dbus-launch --exit-with-session gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'" 2>/dev/null || true
 su - antergos -c "dbus-launch --exit-with-session gsettings set org.gnome.desktop.background picture-uri 'file:///usr/share/antergos/backgrounds/antergos-wallpaper.png'" 2>/dev/null || true
 su - antergos -c "dbus-launch --exit-with-session gsettings set org.gnome.desktop.background picture-uri-dark 'file:///usr/share/antergos/backgrounds/antergos-wallpaper.png'" 2>/dev/null || true
 su - antergos -c "dbus-launch --exit-with-session gsettings set org.gnome.desktop.screensaver picture-uri 'file:///usr/share/antergos/backgrounds/antergos-wallpaper.png'" 2>/dev/null || true

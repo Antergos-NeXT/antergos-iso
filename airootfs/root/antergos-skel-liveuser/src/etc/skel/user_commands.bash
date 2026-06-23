@@ -50,7 +50,7 @@
 
 _PostInstallCommands() {
     ## Add your "late-install" commands here.
-    ## This is executed as root near the end of cnchi execution.
+    ## This is executed as root near the end of installation.
 
     local -r username="$1"              # new user you created for the target
 
