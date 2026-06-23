@@ -64,8 +64,7 @@ Join us on Matrix: (uses pulsar's matrix) [#pulsar-linux:matrix.org](https://mat
 
 ## Download
 
-ISO images exceed GitHub's 2 GB release limit. They are uploaded to **SourceForge** (uses pulsar's SF Project since the old antergos-next project was deleted oopsie!)
-[![Download antergos-next](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/pulsar-linux/files/Antergos_NeXT/latest/download)
+ISO images exceed GitHub's 2 GB release limit. They are uploaded to **SourceForge** (waiting for project)
 
 **⚠️ Early releases may have incomplete DE package lists.**
 
@@ -110,7 +109,7 @@ Server = https://antergos-next.github.io/antergos-packages
 
 ## A Note to the "Branding Police"
 
-If you came here to hate and you're about to type "why are you using Antergos's branding" — pack your bags and go to Manjaro. We have Dustin's blessing. We are respectful. We are not them. Move on.
+If you came here to hate and you're about to type "why are you using Antergos's branding" — pack your bags and go to **Manjaro**. We have Dustin's blessing. We are respectful. We are not them. Move on.
 
 ---
 
