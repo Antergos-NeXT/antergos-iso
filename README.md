@@ -1,17 +1,5 @@
 # Antergos NeXT ISO
 
-> **⚠️ SYSTEMD MIGRATION NOTICE**
->
-> This branch (`before-systemd-change`) represents the last version of Antergos NeXT built on **systemd**.
->
-> The project is migrating away from systemd to an alternative init system. This means:
-> - **GNOME is being dropped** — GNOME 49+ requires systemd as a hard dependency (Artix Linux dropped GNOME for the same reason in 2025)
-> - The desktop will be replaced with KDE Plasma (or another non-systemd-dependent DE)
-> - The base distribution will switch from Arch Linux to **Artix Linux** (Arch without systemd)
-> - ISO build tools will switch from `archiso` to `artools`
->
-> This branch is preserved for reference. All future development will happen on `master` after the migration.
-
 [![Build ISO](https://github.com/Antergos-NeXT/antergos-iso/actions/workflows/build.yml/badge.svg)](https://github.com/Antergos-NeXT/antergos-iso/actions/workflows/build.yml)
 [![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg)](LICENSE)
 [![Maintenance](https://img.shields.io/maintenance/yes/2026.svg)]()
