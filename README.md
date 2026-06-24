@@ -1,5 +1,8 @@
 # Antergos NeXT ISO
 
+> **ℹ️ Antergos NeXT is migrating away from systemd to OpenRC (Artix-based).**
+> See the [`before-systemd-change` branch](https://github.com/Antergos-NeXT/antergos-iso/tree/before-systemd-change) for the old systemd-based version and a full explanation of why this change was necessary.
+
 [![Build ISO](https://github.com/Antergos-NeXT/antergos-iso/actions/workflows/build.yml/badge.svg)](https://github.com/Antergos-NeXT/antergos-iso/actions/workflows/build.yml)
 [![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg)](LICENSE)
 [![Maintenance](https://img.shields.io/maintenance/yes/2026.svg)]()
