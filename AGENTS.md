@@ -16,8 +16,16 @@ git config user.email "ash8820@proton.me"
 - To smite the ISO into existence: `./prepare.sh && sudo ./mkarchiso -v "."`
 
 ## Antergos NeXT Repos
-- **antergos-iso**: `https://github.com/Antergos-NeXT/antergos-iso` (branch: master)
+- **antergos-iso**: `https://github.com/Antergos-NeXT/antergos-iso` (origin) / `https://codeberg.org/v311/antergos-iso.git` (codeberg)
 - **calamares**: `https://codeberg.org/calamares/calamares` (upstream)
-- **antergos-packages**: `https://github.com/Antergos-NeXT/antergos-packages` (branch: master)
+- **antergos-packages**: `https://github.com/Antergos-NeXT/antergos-packages` (origin) / `https://codeberg.org/v311/antergos-packages.git` (codeberg)
+
+## Dual Remotes
+Push to both GitHub (press links) and Codeberg (CI credit):
+```bash
+git push origin master          # GitHub
+git push codeberg master        # Codeberg
+git push codeberg master origin master  # both
+```
 
 **DEUS VULT**
