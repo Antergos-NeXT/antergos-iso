@@ -18,7 +18,9 @@
 > - **Init system: OpenRC** — mature, well-maintained, parallel service startup, shell-based service files.
 > - **Calamares stays** — it's init-agnostic and works fine under OpenRC.
 > 
-> This branch is preserved for reference. All future development will happen on `master`.
+> > **💔 To the users who loved Antergos with systemd** — we know this isn't what you signed up for. The original Antergos ran on systemd, and we wanted to keep it that way. But the systemd project's direction (age verification fields, ever-expanding scope, GNOME becoming a systemd hostage) left us with no choice. This is not our fault. Blame upstream, not us.
+
+This branch is preserved for reference. All future development will happen on `master`.
 
 [![Build ISO](https://github.com/Antergos-NeXT/antergos-iso/actions/workflows/build.yml/badge.svg)](https://github.com/Antergos-NeXT/antergos-iso/actions/workflows/build.yml)
 [![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg)](LICENSE)
