@@ -1,16 +1,24 @@
 # Antergos NeXT ISO
 
 > **⚠️ SYSTEMD MIGRATION NOTICE**
->
+> 
 > This branch (`before-systemd-change`) represents the last version of Antergos NeXT built on **systemd**.
->
-> The project is migrating away from systemd to an alternative init system. This means:
-> - **GNOME is being dropped** — GNOME 49+ requires systemd as a hard dependency (Artix Linux dropped GNOME for the same reason in 2025)
-> - The desktop will be replaced with KDE Plasma (or another non-systemd-dependent DE)
-> - The base distribution will switch from Arch Linux to **Artix Linux** (Arch without systemd)
-> - ISO build tools will switch from `archiso` to `artools`
->
-> This branch is preserved for reference. All future development will happen on `master` after the migration.
+> 
+> The project is migrating away from systemd to **OpenRC**. Here's why:
+> 
+> - **systemd is an ever-growing monolith** — it started as an init system, now it controls logind, resolved, timedated, homed, journald, networkd, and is pushing age verification fields into the OS. It has abandoned the Unix philosophy of doing one thing well.
+> - **GNOME has become a systemd hostage** — GNOME 49+ dropped non-systemd code paths entirely, making it impossible to run GNOME without systemd. Artix Linux dropped GNOME for this reason in 2025.
+> - **We don't trust systemd's trajectory** — the project has grown beyond init into a full OS management suite with no accountability, no modularity, and an ever-expanding scope that belongs in userspace, not PID 1.
+> - **Systemd's age verification** — recent additions like birthDate fields in systemd-sysusers set a precedent for OS-level surveillance capabilities. This is not the future Antergos wants.
+> 
+> What this means for the project:
+> - **GNOME is dropped** — with it goes our default DE. The live ISO will move to KDE Plasma (which still works without systemd).
+> - **Base distribution switches from Arch Linux to Artix Linux** — Arch without systemd, using the same package manager (pacman) and repos.
+> - **ISO builder switches from `archiso` to `artools`** — Artix's ISO tooling, same workflow.
+> - **Init system: OpenRC** — mature, well-maintained, parallel service startup, shell-based service files.
+> - **Calamares stays** — it's init-agnostic and works fine under OpenRC.
+> 
+> This branch is preserved for reference. All future development will happen on `master`.
 
 [![Build ISO](https://github.com/Antergos-NeXT/antergos-iso/actions/workflows/build.yml/badge.svg)](https://github.com/Antergos-NeXT/antergos-iso/actions/workflows/build.yml)
 [![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg)](LICENSE)
