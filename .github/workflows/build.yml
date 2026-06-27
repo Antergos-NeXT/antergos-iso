@@ -77,7 +77,8 @@ jobs:
       run: |
         pip install --break-system-packages internetarchive
 
-        cat > ~/.config/internetarchive/ia.ini <<EOF
+        mkdir -p "$HOME/.config/internetarchive"
+        cat > "$HOME/.config/internetarchive/ia.ini" <<EOF
         [s3]
         access = $IA_ACCESS_KEY
         secret = $IA_SECRET_KEY
