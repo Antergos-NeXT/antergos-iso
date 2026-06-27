@@ -80,13 +80,9 @@ Overlays are self-contained (no symlinks to external directories) so the repo bu
 
 The launcher (`calamares-next`) presents a mode picker before launching Calamares.
 
-## Community
-
-[![Matrix](https://img.shields.io/matrix/pulsar-linux:matrix.org.svg?label=matrix&logo=matrix)](https://matrix.to/#/#pulsar-linux:matrix.org)
-
 ## Download
 
-ISO images are published on the [Releases](https://github.com/Antergos-NeXT/antergos-iso/releases) page (up to 2 GB per file via GitHub's API).
+ISO builds — coming soon. Build it yourself with `buildiso -p antergos`.
 
 ## Sources
 
