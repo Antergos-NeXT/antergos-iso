@@ -29,20 +29,33 @@ A community revival of Antergos — now built on **Artix Linux** with **OpenRC**
 
 The systemd migration in the Linux ecosystem has been controversial, and the original Antergos community had a strong preference for alternatives. Artix Linux provides a clean Arch-like experience without systemd, using OpenRC as the default init system. This keeps the familiar Pacman/Arch ecosystem while giving users the init freedom they want.
 
-## Quick build
+## Building
 
-You need an **Artix-based** system with `artools` installed:
+Requires an **Artix-based** system:
 
 ```bash
+# Install build deps
+pacman -S artools squashfs-tools
+modprobe loop
+
+# Clone and enter
 git clone https://github.com/Antergos-NeXT/antergos-iso.git
 cd antergos-iso
 
-# Requires: artools, squashfs-tools
+# Set workspace to repo root
 export WORKSPACE_DIR="$PWD"
+
+# Must use our pacman.conf (has antergos-pkgs repo)
+mkdir -p ~/.config/artools/pacman.conf.d
+cp pacman.conf.d/iso-x86_64.conf ~/.config/artools/pacman.conf.d/
+
+# Build
 sudo buildiso -p antergos
 ```
 
-The `.iso` appears in `/var/lib/artools/buildiso/iso/` or a configured output directory.
+The `.iso` appears in `/var/lib/artools/buildiso/iso/antergos/`.
+
+First build pulls ~5 GB from the internet. Subsequent builds use pacman cache.
 
 ### Custom packages
 
@@ -82,7 +95,7 @@ The launcher (`calamares-next`) presents a mode picker before launching Calamare
 
 ## Download
 
-ISO builds — coming soon. Build it yourself with `buildiso -p antergos`.
+No prebuilt ISOs yet. See [Building](#building) above.
 
 ## Sources
 
