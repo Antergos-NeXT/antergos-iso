@@ -31,10 +31,17 @@ jobs:
       run: |
         echo "WORKSPACE_DIR=${{ github.workspace }}" >> $GITHUB_ENV
 
+    - name: Debug workspace
+      run: |
+        echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"
+        echo "github.workspace=${{ github.workspace }}"
+        pwd
+        ls -la
+
     - name: Override pacman.conf with antergos-pkgs repo
       run: |
         mkdir -p ~/.config/artools/pacman.conf.d
-        cp "${{ github.workspace }}/pacman.conf.d/iso-x86_64.conf" \
+        cp "pacman.conf.d/iso-x86_64.conf" \
            ~/.config/artools/pacman.conf.d/iso-x86_64.conf
 
     - name: Build ISO
