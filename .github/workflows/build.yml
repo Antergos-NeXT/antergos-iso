@@ -47,12 +47,20 @@ jobs:
         cp "pacman.conf.d/iso-x86_64.conf" \
            /usr/share/artools/pacman.conf.d/iso-x86_64.conf
 
+    - name: Check available swap and block devices
+      run: |
+        swapon --show || echo "No swap"
+        lsblk
+        free -h
+
     - name: Create swap space
       run: |
         dd if=/dev/zero of=/swapfile bs=1M count=12288
         chmod 600 /swapfile
-        mkswap /swapfile
-        swapon /swapfile
+        LOOPDEV=$(losetup -f)
+        losetup "$LOOPDEV" /swapfile
+        mkswap "$LOOPDEV"
+        swapon "$LOOPDEV"
         swapon --show
 
     - name: Build ISO
