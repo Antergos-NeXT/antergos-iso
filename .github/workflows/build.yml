@@ -49,7 +49,7 @@ jobs:
 
     - name: Create swap space
       run: |
-        fallocate -l 12G /swapfile
+        dd if=/dev/zero of=/swapfile bs=1M count=12288
         chmod 600 /swapfile
         mkswap /swapfile
         swapon /swapfile
