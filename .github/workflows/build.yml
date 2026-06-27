@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: artixlinux/artixlinux:base
-      options: --privileged --tmpfs /var/lib/artools/buildiso:exec,suid,dev
+      options: --privileged --tmpfs /var/lib/artools/buildiso:exec,suid,dev,size=8G
 
     steps:
     - uses: actions/checkout@v4
@@ -55,7 +55,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Antergos-NeXT-ISO
-        path: /var/lib/artools/buildiso/iso/
+        path: ${{ github.workspace }}/iso/
 
     - name: Upload to Internet Archive
       if: github.ref == 'refs/heads/master'
@@ -71,7 +71,7 @@ jobs:
         secret = $IA_SECRET_KEY
         EOF
 
-        ISO_DIR="/var/lib/artools/buildiso/iso"
+        ISO_DIR="${{ github.workspace }}/iso"
         ISO=$(ls "$ISO_DIR"/antergos/*.iso 2>/dev/null | head -1)
         [[ -z "$ISO" || ! -f "$ISO" ]] && { echo "No ISO found"; exit 1; }
 
