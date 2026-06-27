@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: artixlinux/artixlinux:base
-      options: --privileged --tmpfs /var/lib/artools/buildiso:exec,suid,dev,size=12G
+      options: --privileged
 
     steps:
     - uses: actions/checkout@v4
@@ -53,15 +53,11 @@ jobs:
         lsblk
         free -h
 
-    - name: Create swap space
+    - name: Setup tmpfs for build directory
       run: |
-        dd if=/dev/zero of=/swapfile bs=1M count=12288
-        chmod 600 /swapfile
-        LOOPDEV=$(losetup -f)
-        losetup "$LOOPDEV" /swapfile
-        mkswap "$LOOPDEV"
-        swapon "$LOOPDEV"
-        swapon --show
+        mkdir -p /var/lib/artools/buildiso
+        mount -t tmpfs -o size=12G,exec,suid,dev tmpfs /var/lib/artools/buildiso
+        mount | grep buildiso
 
     - name: Build ISO
       run: |
