@@ -46,7 +46,7 @@ packages-base:
   - sysfsutils
   - texinfo
   - usbutils
-  - vi
+  - ex-vi-compat
   - which
   - xfsprogs
   - zsh

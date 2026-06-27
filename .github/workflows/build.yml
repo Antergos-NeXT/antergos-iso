@@ -40,13 +40,16 @@ jobs:
 
     - name: Override pacman.conf with antergos-pkgs repo
       run: |
-        mkdir -p ~/.config/artools/pacman.conf.d
+        mkdir -p /root/.config/artools/pacman.conf.d
         cp "pacman.conf.d/iso-x86_64.conf" \
-           ~/.config/artools/pacman.conf.d/iso-x86_64.conf
+           /root/.config/artools/pacman.conf.d/iso-x86_64.conf
+        # Also override the default in case USER_CONF_DIR differs
+        cp "pacman.conf.d/iso-x86_64.conf" \
+           /usr/share/artools/pacman.conf.d/iso-x86_64.conf
 
     - name: Build ISO
       run: |
-        sudo -E buildiso -p antergos
+        buildiso -p antergos
 
     - name: Upload ISO artifact
       uses: actions/upload-artifact@v4
