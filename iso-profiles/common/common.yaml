@@ -50,6 +50,8 @@ packages-base:
   - which
   - xfsprogs
   - zsh
+  - jack2
+  - noto-fonts-emoji
 packages-apps:
   - powertop
   - inxi
