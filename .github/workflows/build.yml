@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: artixlinux/artixlinux:base
-      options: --privileged --tmpfs /var/lib/artools/buildiso
+      options: --privileged --tmpfs /var/lib/artools/buildiso:exec,suid,dev
 
     steps:
     - uses: actions/checkout@v4
