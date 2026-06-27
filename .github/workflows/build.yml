@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: artixlinux/artixlinux:base
-      options: --privileged --tmpfs /var/lib/artools/buildiso:exec,suid,dev,size=8G
+      options: --privileged --tmpfs /var/lib/artools/buildiso:exec,suid,dev,size=12G
 
     steps:
     - uses: actions/checkout@v4
@@ -47,6 +47,14 @@ jobs:
         cp "pacman.conf.d/iso-x86_64.conf" \
            /usr/share/artools/pacman.conf.d/iso-x86_64.conf
 
+    - name: Create swap space
+      run: |
+        fallocate -l 12G /swapfile
+        chmod 600 /swapfile
+        mkswap /swapfile
+        swapon /swapfile
+        swapon --show
+
     - name: Build ISO
       run: |
         ./buildiso -p antergos
@@ -63,7 +71,7 @@ jobs:
         IA_ACCESS_KEY: ${{ secrets.IA_ACCESS_KEY }}
         IA_SECRET_KEY: ${{ secrets.IA_SECRET_KEY }}
       run: |
-        pip install internetarchive
+        pip install --break-system-packages internetarchive
 
         cat > ~/.config/internetarchive/ia.ini <<EOF
         [s3]
