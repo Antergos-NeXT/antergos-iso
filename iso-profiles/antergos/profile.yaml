@@ -92,6 +92,7 @@ rootfs:
     - calamares-branding-antergos-next
     - antergos-welcome
     - antergos-next-memes
+    - antergos-wallpapers
     - hiredis
     - libdbi
     - libesmtp

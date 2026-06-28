@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Install Artix
+GenericName=System Installer
+Keywords=calamares;system;installer;
+TryExec=calamares-config-switcher
+Exec=calamares-config-switcher
+Comment=Calamares — System Installer
+Icon=artixlinux-logo
+Terminal=false
+StartupNotify=true
+Categories=Qt;System;
+NoDisplay=true
