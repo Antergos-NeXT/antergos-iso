@@ -50,8 +50,10 @@ mkdir -p ~/.config/artools/pacman.conf.d
 cp pacman.conf.d/iso-x86_64.conf ~/.config/artools/pacman.conf.d/
 
 # Build
-sudo buildiso -p antergos
+sudo ./buildiso -p antergos
 ```
+
+> **⚠️ VERY IMPORTANT**: Use `./buildiso`, not `buildiso`. The Artix system `buildiso` at `/usr/bin/buildiso` lacks the `--overwrite='*'` flag passed to `basestrap`, causing file conflicts (e.g. `calamares` vs `calamares-branding-antergos-next` both claiming `/usr/share/calamares/branding/default/`). Our repo's `./buildiso` has it.
 
 The `.iso` appears in `/var/lib/artools/buildiso/iso/antergos/`.
 
