@@ -2,6 +2,32 @@
 
 
 ---
+# Artix Migration (June 2026)
+
+Migrated from EndeavourOS-ISO (archiso) to Artix Linux (artools/buildiso).
+
+* replaced archiso with artools `buildiso` — stripped airootfs, efiboot, syslinux, mkarchiso, prepare.sh, Dockerfile, profiledef.sh, packages.x86_64
+* new `iso-profiles/antergos/` with profile.yaml, root-overlay, live-overlay
+* new `iso-profiles/common/common.yaml` shared base packages
+* new `pacman.conf.d/iso-x86_64.conf` with `[antergos-pkgs]` repo first
+* new `buildiso` wrapper with `--overwrite='*'` for file conflict resolution
+* Calamares installer: offline (unpackfs) + online (packagechooser/netinstall) modes
+* init system selector: OpenRC, Runit, S6, Dinit via packagechooser (netinstall-add)
+* DE selector: Plasma, Xfce, Cinnamon, MATE, LXQt, i3, Sway, Hyprland via netinstall groups
+* branding: `calamares-branding-antergos-next` with antergos-next show.qml, settings, packagechooser
+* wallpapers: `antergos-wallpapers` with Adwaita Morning, KDE-compatible install path
+* one-shot wallpaper setter via autostart script (Plasma overwrites /etc/skel on first login)
+* Wayland default session via SDDM `Session=plasma.desktop`
+* `sudo -E calamares-next` launcher replacing `pkexec`
+* switched to Artix `initcpiocfg`/`initcpio` modules instead of dracut
+* removed GNOME, Budgie — not available in Artix repos
+* Arch Linux (systemd) → Artix Linux (OpenRC)
+* Gnome → KDE Plasma
+* Cnchi → Calamares
+* CI: artixlinux/artixlinux:base container, GitHub Actions, Internet Archive upload
+* custom package repo: `antergos-packages` with calamares (packagechooser enabled), branding, wallpapers
+
+---
 # Antergos NeXT (2026)
 
 Forked from EndeavourOS-ISO. Full rebrand to Antergos NeXT.
