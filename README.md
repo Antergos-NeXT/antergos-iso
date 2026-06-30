@@ -10,6 +10,7 @@
 [![Artix Linux](https://img.shields.io/badge/Artix%20Linux-rolling-1793d1.svg)](https://artixlinux.org)
 [![DE-KDE](https://img.shields.io/badge/DE-KDE%20Plasma-4A86CF.svg)]()
 [![Init](https://img.shields.io/badge/init-OpenRC-brightgreen.svg)]()
+[![Docs](https://img.shields.io/badge/docs-site-blue.svg)](https://antergos-next.github.io/antergos-iso/)
 [![Dla mojego narodu](https://img.shields.io/badge/README-Polski-crimson.svg)](README.pl.md)
 
 A community revival of Antergos — now built on **Artix Linux** with **OpenRC**, **KDE Plasma** desktop, and the **Calamares** installer (offline + online modes).
