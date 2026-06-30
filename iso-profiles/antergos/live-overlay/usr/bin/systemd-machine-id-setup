@@ -1,0 +1,29 @@
+#!/bin/bash
+
+ROOT=""
+
+for arg in "$@"; do
+    case "$arg" in
+        --root=*)
+            ROOT="${arg#*=}"
+            ;;
+    esac
+done
+
+MACHINE_ID_FILE="${ROOT}/etc/machine-id"
+
+if [ -f "$MACHINE_ID_FILE" ] && [ -s "$MACHINE_ID_FILE" ]; then
+    exit 0
+fi
+
+mkdir -p "$(dirname "$MACHINE_ID_FILE")"
+
+if command -v dbus-uuidgen &>/dev/null; then
+    dbus-uuidgen --ensure 2>/dev/null
+fi
+
+if [ ! -f "$MACHINE_ID_FILE" ] || [ ! -s "$MACHINE_ID_FILE" ]; then
+    od -An -N16 -tx1 /dev/urandom | tr -d ' \n' > "$MACHINE_ID_FILE"
+fi
+
+chmod 0644 "$MACHINE_ID_FILE"
