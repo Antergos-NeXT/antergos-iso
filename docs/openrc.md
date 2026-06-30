@@ -1,18 +1,13 @@
 ---
 title: OpenRC
 layout: default
-nav_order: 3
+parent: Init Systems
+nav_order: 1
 ---
 
 # OpenRC
 
-If you're here, you probably noticed Antergos NeXT doesn't use **systemd**. That's because we moved to **OpenRC** — a different init system. This page explains what that means for you.
-
-## What is an init system?
-
-When your computer boots, something has to start everything: mount filesystems, bring up networking, launch the display manager, start services. That "something" is the **init system** — it's the first process (PID 1) and the parent of everything else.
-
-**systemd** is the most common one (used by Arch, Fedora, Ubuntu, Debian). **OpenRC** is an alternative — lighter, simpler, and philosophically different.
+**OpenRC** is the default init system in Antergos NeXT. It's used by Gentoo, Artix Linux, Devuan, Alpine Linux, and other non-systemd distros. It's proven, well-maintained, and about as simple as an init system can get while still being feature-rich.
 
 ## systemd vs OpenRC at a glance
 

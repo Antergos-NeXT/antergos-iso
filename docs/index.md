@@ -28,7 +28,7 @@ A community revival of Antergos — built on **Artix Linux** with **OpenRC**, **
 
 ## Learn about Antergos NeXT
 
-- [OpenRC](openrc) — what is OpenRC, why we use it, and how to use it
+- [Init Systems](init-systems) — what init systems are, OpenRC, Dinit, S6, Runit
 - [Desktop Environments](desktop-environments) — available DEs in online mode
 - [Wallpapers](wallpapers) — where they go, how they work
 
