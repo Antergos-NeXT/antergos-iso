@@ -26,6 +26,12 @@ A community revival of Antergos — built on **Artix Linux** with **OpenRC**, **
 - [CI/CD](ci) — GitHub Actions pipeline
 - [Development](development) — contributing, gotchas, conventions
 
+## Learn about Antergos NeXT
+
+- [OpenRC](openrc) — what is OpenRC, why we use it, and how to use it
+- [Desktop Environments](desktop-environments) — available DEs in online mode
+- [Wallpapers](wallpapers) — where they go, how they work
+
 ## What changed
 
 | Area | Original Antergos | Antergos NeXT |

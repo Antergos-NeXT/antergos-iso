@@ -1,7 +1,7 @@
 ---
 title: CI/CD
 layout: default
-nav_order: 5
+nav_order: 6
 ---
 
 # CI/CD Pipeline
