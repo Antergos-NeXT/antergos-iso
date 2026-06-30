@@ -4,6 +4,8 @@
 ---
 # Artix Migration (June 2026)
 
+**Why:** The original Antergos used Arch Linux (systemd) with the custom Cnchi installer, both of which became unmaintained after the project ended in 2019. Artix Linux provides the same Arch-like Pacman ecosystem without systemd, using OpenRC as the default init — aligning with the original community's strong preference for init freedom. Calamares replaces Cnchi as a mature, upstream-supported installer framework. KDE Plasma replaces GNOME as the default desktop (GNOME dropped non-systemd support). The build system moved from archiso to artools (`buildiso`).
+
 Migrated from EndeavourOS-ISO (archiso) to Artix Linux (artools/buildiso).
 
 * replaced archiso with artools `buildiso` — stripped airootfs, efiboot, syslinux, mkarchiso, prepare.sh, Dockerfile, profiledef.sh, packages.x86_64
