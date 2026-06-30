@@ -26,6 +26,8 @@ When your computer boots, something has to start everything: mount filesystems, 
 | Size | ~80+ binaries, 500k+ lines | ~15 binaries, ~30k lines |
 | Scope | PID 1 + logind + resolved + timedated + networkd + ... | Just PID 1 |
 
+OpenRC is used by Gentoo, Artix Linux, Devuan, Alpine Linux, and other non-systemd distros. It's not as mainstream as systemd, but it's proven and well-maintained.
+
 ## What changes for you as a user?
 
 ### Service management
