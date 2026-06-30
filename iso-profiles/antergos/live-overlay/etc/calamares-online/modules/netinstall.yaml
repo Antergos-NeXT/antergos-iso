@@ -66,3 +66,76 @@
   packages:
     - artix-netinstall-presets
     - artix-grub-theme
+
+- name: "Desktop"
+  description: "Desktop Environment"
+  selected: true
+  critical: false
+  subgroups:
+    - name: "Plasma"
+      description: "KDE Plasma Desktop"
+      selected: true
+      packages:
+        - plasma
+        - ark
+        - dolphin
+        - ffmpegthumbs
+        - gwenview
+        - kate
+        - keditbookmarks
+        - kfind
+        - kgpg
+        - kio-admin
+        - konsole
+        - konversation
+        - kwalletmanager
+        - okular
+        - partitionmanager
+    - name: "Xfce"
+      description: "Xfce Desktop"
+      selected: false
+      packages:
+        - xfce4
+        - xfce4-goodies
+    - name: "Cinnamon"
+      description: "Cinnamon Desktop"
+      selected: false
+      packages:
+        - cinnamon
+        - cinnamon-control-center
+        - cinnamon-desktop
+        - cinnamon-menus
+        - cinnamon-screensaver
+        - cinnamon-session
+        - cinnamon-settings-daemon
+        - cinnamon-translations
+    - name: "MATE"
+      description: "MATE Desktop"
+      selected: false
+      packages:
+        - mate
+        - mate-extra
+    - name: "LXQt"
+      description: "LXQt Desktop"
+      selected: false
+      packages:
+        - lxqt
+    - name: "i3"
+      description: "i3 Tiling WM"
+      selected: false
+      packages:
+        - i3
+    - name: "Sway"
+      description: "Sway Wayland Compositor"
+      selected: false
+      packages:
+        - sway
+        - swaybg
+        - swayidle
+        - swaylock
+    - name: "Hyprland"
+      description: "Hyprland Wayland Compositor"
+      selected: false
+      packages:
+        - hyprland
+        - xdg-desktop-portal-hyprland
