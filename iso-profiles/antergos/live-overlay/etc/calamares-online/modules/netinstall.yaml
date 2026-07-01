@@ -50,22 +50,19 @@
     - vi
 
 - name: "Devel"
-  description: "Artix development"
+  description: "Development tools"
   selected: false
   packages:
     - base-devel
-    - artix-checkupdates
-    - artix-rebuild-order
     - artools-base
     - artools-iso
     - artools-pkg
 
 - name: "Style"
-  description: "Artix themes, icons, branding"
+  description: "Antergos themes, icons, branding"
   selected: false
   packages:
-    - artix-netinstall-presets
-    - artix-grub-theme
+    - antergos-grub-theme
 
 - name: "Desktop"
   description: "DE"
