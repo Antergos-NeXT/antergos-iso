@@ -68,7 +68,7 @@
     - artix-grub-theme
 
 - name: "Desktop"
-  description: "Desktop Environment"
+  description: "DE"
   selected: true
   critical: false
   subgroups:
