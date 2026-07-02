@@ -370,7 +370,11 @@ class PMPacman(PackageManager):
 
     def remove(self, pkgs):
         self.reset_progress()
-        self.run_pacman(["pacman", "-Rs", "--noconfirm"] + pkgs, True)
+        install_root = libcalamares.globalstorage.value("rootMountPoint")
+        command = ["pacman"]
+        command.extend(self.get_optargs(install_root))
+        command += ["-Rs", "--noconfirm"] + pkgs
+        self.run_pacman(command, True)
 
     def get_optargs(self, rootdir):
         cachedir = join(rootdir, "var/cache/pacman/pkg")
