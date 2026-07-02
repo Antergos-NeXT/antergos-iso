@@ -22,16 +22,33 @@ fi
 
 echo "[$(date)] Wallpaper found, applying..." >> "$LOG"
 
-# Retry a few times in case desktop isn't ready yet
-for i in 1 2 3; do
-  /usr/bin/plasma-apply-wallpaperimage "$WALLPAPER" >> "$LOG" 2>&1
-  RC=$?
-  echo "[$(date)] plasma-apply-wallpaperimage attempt $i exit code: $RC" >> "$LOG"
-  if [[ $RC -eq 0 ]]; then
+# Wait for Plasma shell to be ready
+for i in 1 2 3 4 5; do
+  if qdbus org.kde.plasmashell >/dev/null 2>&1; then
+    echo "[$(date)] Plasmashell ready on attempt $i" >> "$LOG"
     break
   fi
+  echo "[$(date)] Waiting for plasmashell... (attempt $i)" >> "$LOG"
   sleep 2
 done
+
+echo "[$(date)] Trying plasma-apply-wallpaperimage..." >> "$LOG"
+/usr/bin/plasma-apply-wallpaperimage "$WALLPAPER" >> "$LOG" 2>&1
+RC=$?
+echo "[$(date)] plasma-apply-wallpaperimage exit code: $RC" >> "$LOG"
+
+if [[ $RC -ne 0 ]]; then
+  echo "[$(date)] Falling back to qdbus script..." >> "$LOG"
+  qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "
+    desktops().forEach(function(d) {
+      d.currentConfigGroup = ['Wallpaper', 'org.kde.image', 'General'];
+      d.writeConfig('Image', 'file://${WALLPAPER}');
+      d.reloadConfig();
+    });
+  " >> "$LOG" 2>&1
+  FALLBACK_RC=$?
+  echo "[$(date)] qdbus fallback exit code: $FALLBACK_RC" >> "$LOG"
+fi
 
 touch "$MARKER"
 echo "[$(date)] Done" >> "$LOG"

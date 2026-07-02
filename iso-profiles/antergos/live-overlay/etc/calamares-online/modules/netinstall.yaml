@@ -10,6 +10,7 @@
     - grub
     - efibootmgr
     - sudo
+    - antergos-grub-theme
 
 - name: "Kernel"
   description: "Kernel and modules"
@@ -61,8 +62,7 @@
 - name: "Style"
   description: "Antergos themes, icons, branding"
   selected: false
-  packages:
-    - antergos-grub-theme
+  packages: []
 
 - name: "Desktop"
   description: "DE"

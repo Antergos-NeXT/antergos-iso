@@ -3,3 +3,5 @@ iso/
 out/
 install.log
 docs/_site/
+linux-next/
+winver/

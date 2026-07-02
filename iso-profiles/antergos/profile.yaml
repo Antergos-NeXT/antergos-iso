@@ -29,6 +29,7 @@ rootfs:
     - antergos-welcome
     - antergos-next-memes
     - antergos-wallpapers
+    - antergos-grub-theme
     - hiredis
     - libdbi
     - libesmtp
