@@ -181,9 +181,9 @@ make_grub(){
 
         # Copy Antergos GRUB theme to ISO boot (overrides Artix theme)
         if [[ -d "${work_dir}/livefs/usr/share/grub/themes/antergos" ]]; then
-            cp -r "${work_dir}/livefs/usr/share/grub/themes/antergos" "${work_dir}/iso/boot/grub/themes/"
+            cp -r "${work_dir}/livefs/usr/share/grub/themes/antergos" "${iso_root}/boot/grub/themes/"
         elif [[ -d "${work_dir}/rootfs/usr/share/grub/themes/antergos" ]]; then
-            cp -r "${work_dir}/rootfs/usr/share/grub/themes/antergos" "${work_dir}/iso/boot/grub/themes/"
+            cp -r "${work_dir}/rootfs/usr/share/grub/themes/antergos" "${iso_root}/boot/grub/themes/"
         fi
 
         if ${use_dracut}; then
