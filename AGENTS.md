@@ -13,7 +13,7 @@ git config user.email "ash8820@proton.me"
 ## The Crusade
 - **Artix Linux** ISO (OpenRC init), forked from EndeavourOS-ISO, then migrated to artools after 15 days in a vent shaft
 - **KDE Plasma** live environment with Calamares installer (offline + online modes)
-- **Build command**: `export WORKSPACE_DIR="$PWD" && sudo ./buildiso -p antergos` — **use `./buildiso`**, NOT `buildiso`; the system Artix `/usr/bin/buildiso` lacks `--overwrite='*'` and will fail with file conflicts
+- **Build command**: `export WORKSPACE_DIR="$PWD" && sudo -E ./buildiso -p antergos` — **use `./buildiso`**, NOT `buildiso`; the system Artix `/usr/bin/buildiso` lacks `--overwrite='*'` and will fail with file conflicts; `sudo -E` is required to preserve `WORKSPACE_DIR` environment variable
 - ISO appears in `/var/lib/artools/buildiso/iso/antergos/` (assuming the build gods are pleased)
 
 ## Antergos NeXT Repos
