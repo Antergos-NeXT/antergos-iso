@@ -10,6 +10,9 @@
     - grub
     - efibootmgr
     - sudo
+    - antergos-release
+    - antergos-next-keyring
+    - antergos-wallpapers
     - antergos-grub-theme
 
 - name: "Kernel"
