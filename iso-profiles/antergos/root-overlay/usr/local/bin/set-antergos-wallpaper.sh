@@ -22,17 +22,7 @@ fi
 
 echo "[$(date)] Wallpaper found, applying..." >> "$LOG"
 
-# Wait for Plasma shell to be ready
-for i in 1 2 3 4 5; do
-  if qdbus org.kde.plasmashell >/dev/null 2>&1; then
-    echo "[$(date)] Plasmashell ready on attempt $i" >> "$LOG"
-    break
-  fi
-  echo "[$(date)] Waiting for plasmashell... (attempt $i)" >> "$LOG"
-  sleep 2
-done
-
-echo "[$(date)] Trying plasma-apply-wallpaperimage..." >> "$LOG"
+echo "[$(date)] Applying wallpaper..." >> "$LOG"
 /usr/bin/plasma-apply-wallpaperimage "$WALLPAPER" >> "$LOG" 2>&1
 RC=$?
 echo "[$(date)] plasma-apply-wallpaperimage exit code: $RC" >> "$LOG"

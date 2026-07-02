@@ -10,6 +10,16 @@ git config user.email "ash8820@proton.me"
 
 **This commandment shalt be obeyed in every session before committing or pushing.** Suffer not the default identity to live. The OpenHands heresy shall not be permitted again.
 
+### GPG Signing (Salvation Through Seal)
+All commits **MUST** be signed with the Antergos NeXT maintainer key:
+
+```bash
+git config user.signingkey F1D8F02C5E929F3FE0424EE897F813D238CF0DBB
+git config commit.gpgsign true
+```
+
+Then commit with `git commit -S -m "message"`. If GPG prompts for a passphrase, pray to the build gods and provide it. An unsigned commit is a mortal sin.
+
 ## The Crusade
 - **Artix Linux** ISO (OpenRC init), forked from EndeavourOS-ISO, then migrated to artools after 15 days in a vent shaft
 - **KDE Plasma** live environment with Calamares installer (offline + online modes)

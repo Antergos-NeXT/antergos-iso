@@ -59,11 +59,6 @@
     - artools-iso
     - artools-pkg
 
-- name: "Style"
-  description: "Antergos themes, icons, branding"
-  selected: false
-  packages: []
-
 - name: "Desktop"
   description: "DE"
   selected: true
