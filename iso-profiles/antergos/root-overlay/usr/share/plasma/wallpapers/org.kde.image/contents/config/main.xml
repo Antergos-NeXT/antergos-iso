@@ -26,7 +26,7 @@
         - if no fragment is specified, plasma will switch between dark and light
           images depending on the currently used color scheme
       </tooltip>
-      <default>file:///usr/share/wallpapers/antergos-wallpaper/contents/images/adwaita-morning.webp</default>
+      <default>file:///usr/share/wallpapers/antergos-wallpaper/contents/images/antergos-wallpaper.png</default>
     </entry>
     <entry name="PreviewImage" type="String">
       <label>Wallpaper preview image path</label>
