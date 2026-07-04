@@ -27,7 +27,9 @@ rootfs:
     - calamares
     - calamares-branding-antergos-next
     - antergos-welcome
-    - antergos-next-memes
+    - antergos-next-desktop-settings
+    - antergos-plasma-theme
+    - antergos-sddm-theme
     - antergos-wallpapers
     - antergos-grub-theme
     - hiredis
