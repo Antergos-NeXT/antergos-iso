@@ -49,7 +49,7 @@
   description: "System Utilities"
   selected: true
   packages:
-    - lsb-release
+    - antergos-lsb-release
     - nano
     - vi
 
@@ -71,7 +71,7 @@
       description: "KDE Plasma Desktop"
       selected: true
       packages:
-        - plasma
+        - plasma-meta
         - ark
         - dolphin
         - ffmpegthumbs
@@ -90,8 +90,34 @@
       description: "Xfce Desktop"
       selected: false
       packages:
-        - xfce4
-        - xfce4-goodies
+        - exo
+        - garcon
+        - thunar
+        - thunar-volman
+        - tumbler
+        - xfce4-appfinder
+        - xfce4-panel
+        - xfce4-power-manager
+        - xfce4-session
+        - xfce4-settings
+        - xfce4-terminal
+        - xfconf
+        - xfdesktop
+        - xfwm4
+        - xfwm4-themes
+        - mousepad
+        - parole
+        - ristretto
+        - thunar-archive-plugin
+        - thunar-media-tags-plugin
+        - xfburn
+        - xfce4-clipman-plugin
+        - xfce4-notifyd
+        - xfce4-pulseaudio-plugin
+        - xfce4-screenshooter
+        - xfce4-screensaver
+        - xfce4-taskmanager
+        - xfce4-whiskermenu-plugin
     - name: "Cinnamon"
       description: "Cinnamon Desktop"
       selected: false
@@ -108,18 +134,67 @@
       description: "MATE Desktop"
       selected: false
       packages:
-        - mate
-        - mate-extra
+        - caja
+        - marco
+        - mate-backgrounds
+        - mate-control-center
+        - mate-desktop
+        - mate-icon-theme
+        - mate-menus
+        - mate-notification-daemon
+        - mate-panel
+        - mate-polkit
+        - mate-session-manager
+        - mate-settings-daemon
+        - mate-themes
+        - mate-user-guide
+        - atril
+        - eom
+        - mate-applets
+        - mate-calc
+        - mate-power-manager
+        - mate-screensaver
+        - mate-system-monitor
+        - mate-terminal
+        - mate-utils
+        - pluma
     - name: "LXQt"
       description: "LXQt Desktop"
       selected: false
       packages:
-        - lxqt
+        - lximage-qt
+        - lxqt-about
+        - lxqt-admin
+        - lxqt-archiver
+        - lxqt-config
+        - lxqt-globalkeys
+        - lxqt-menu-data
+        - lxqt-notificationd
+        - lxqt-openssh-askpass
+        - lxqt-panel
+        - lxqt-policykit
+        - lxqt-powermanagement
+        - lxqt-qtplugin
+        - lxqt-runner
+        - lxqt-session
+        - lxqt-sudo
+        - lxqt-themes
+        - obconf-qt
+        - openbox
+        - pavucontrol-qt
+        - pcmanfm-qt
+        - qps
+        - qterminal
+        - screengrab
+        - xdg-desktop-portal-lxqt
     - name: "i3"
       description: "i3 Tiling WM"
       selected: false
       packages:
-        - i3
+        - i3-wm
+        - i3blocks
+        - i3lock
+        - i3status
     - name: "Sway"
       description: "Sway Wayland Compositor"
       selected: false

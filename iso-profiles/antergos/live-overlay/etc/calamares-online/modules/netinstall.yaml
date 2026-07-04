@@ -49,7 +49,7 @@
   description: "System Utilities"
   selected: true
   packages:
-    - lsb-release
+    - antergos-lsb-release
     - nano
     - vi
 
