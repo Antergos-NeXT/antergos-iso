@@ -221,6 +221,18 @@ class PMPacman(PackageManager):
             command.append("--noprogressbar")
             command.append("--overwrite=*")
 
+            # Same --ignore logic as basestrap module to prevent pacman
+            # --noconfirm from picking the wrong init-logind provider.
+            if libcalamares.globalstorage.contains("initProvider"):
+                provider = libcalamares.globalstorage.value("initProvider")
+                base_init = libcalamares.globalstorage.value("baseInit")
+                if base_init and provider:
+                    sorted_inits = ["dinit", "openrc", "runit", "s6"]
+                    if provider in sorted_inits:
+                        idx = sorted_inits.index(provider)
+                        for p in sorted_inits[:idx]:
+                            command.append(f"--ignore={base_init}-{p}")
+
             if self.pacman_needed_only is True:
                 command.append("--needed")
             if self.pacman_disable_timeout is True:
