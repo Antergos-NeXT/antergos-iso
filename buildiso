@@ -96,6 +96,12 @@ make_rootfs() {
         if "${copy_pacconf}"; then
             args+=(-P)
         fi
+
+        # Install init-logind provider BEFORE base to avoid pacman picking
+        # the wrong one alphabetically (elogind-dinit < elogind-openrc),
+        # which pulls in dinit -> dinit-rc and conflicts with openrc.
+        basestrap "${basestrap_args[@]}" "${args[@]}" "${rootfs}" "elogind-${INITSYS}" --overwrite='*'
+
         basestrap "${basestrap_args[@]}" "${args[@]}" "${rootfs}" "${packages[@]}" --overwrite='*'
 
         copy_overlay "${root_overlay}" "${rootfs}"
