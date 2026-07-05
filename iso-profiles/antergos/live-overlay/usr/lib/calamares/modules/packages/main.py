@@ -219,8 +219,7 @@ class PMPacman(PackageManager):
 
             command.append("--noconfirm")
             command.append("--noprogressbar")
-            command.append("--overwrite")
-            command.append("*")
+            command.append("--overwrite=*")
 
             if self.pacman_needed_only is True:
                 command.append("--needed")
