@@ -542,7 +542,11 @@ def run():
             if provider in known_inits:
                 init_pkg = "-".join([base_init, provider])
                 libcalamares.utils.debug("Init provider package added: {!s}".format(init_pkg))
-                operations[0]["install"].append(init_pkg)
+                # Install init-logind provider BEFORE base so pacman doesn't
+                # pick the wrong one alphabetically (elogind-dinit comes before
+                # elogind-openrc), which would pull in dinit+dinit-rc and
+                # conflict with openrc via the init-rc virtual.
+                operations.insert(0, {"install": [init_pkg]})
                 libcalamares.globalstorage.insert("initProvider", provider)
                 break
 

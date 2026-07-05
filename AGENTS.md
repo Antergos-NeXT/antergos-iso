@@ -62,6 +62,11 @@ CI does this automatically. Forget this step and buildiso will try to fetch our 
 ### WORKSPACE_DIR
 `buildiso` looks for profiles at `$WORKSPACE_DIR/iso-profiles/<profile>/` if `WORKSPACE_DIR` is set. Always set it to the repo root when building locally.
 
+### dinit-rc / openrc init-rc conflict during basestrap
+`dinit-rc` and `openrc` both provide AND conflict with virtual `init-rc`. They cannot coexist. When `base` depends on `init-logind` (virtual), pacman with `--noconfirm` picks the first alphabetically — `elogind-dinit` (before `elogind-openrc`). `elogind-dinit` → `dbus-dinit` → `dinit` → `dinit-rc`, which conflicts with `openrc` (pulled by `elogind-openrc` via `dbus-openrc`).
+
+**Fix in `basestrap/main.py`**: Install `elogind-{init}` as a **separate pacman call BEFORE `base`**, using `operations.insert(0, ...)` instead of appending to the same operation. This way `init-logind` is already satisfied when `base` installs, and pacman won't try to resolve it alphabetically.
+
 ## Repo Structure
 
 ```
