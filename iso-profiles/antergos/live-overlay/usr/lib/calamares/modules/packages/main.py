@@ -221,17 +221,14 @@ class PMPacman(PackageManager):
             command.append("--noprogressbar")
             command.append("--overwrite=*")
 
-            # Same --ignore logic as basestrap module to prevent pacman
-            # --noconfirm from picking the wrong init-logind provider.
+            # Pre-tend init-logind is already provided so pacman's resolver
+            # skips provider selection entirely, preventing it from selecting
+            # elogind-dinit (alphabetically before elogind-openrc) which would
+            # pull in dinit -> dinit-rc and conflict with OpenRC.
             if libcalamares.globalstorage.contains("initProvider"):
                 provider = libcalamares.globalstorage.value("initProvider")
-                base_init = libcalamares.globalstorage.value("baseInit")
-                if base_init and provider:
-                    sorted_inits = ["dinit", "openrc", "runit", "s6"]
-                    if provider in sorted_inits:
-                        idx = sorted_inits.index(provider)
-                        for p in sorted_inits[:idx]:
-                            command.append(f"--ignore={base_init}-{p}")
+                if provider and provider != "dinit":
+                    command.append("--assume-installed=init-logind")
 
             # Safety net: auto-answer YES to conflict resolution
             command.append("--ask=4")

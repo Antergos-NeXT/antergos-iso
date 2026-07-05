@@ -97,19 +97,18 @@ make_rootfs() {
             args+=(-P)
         fi
 
-        # Ignore init-logind providers alphabetically before the selected
-        # init to prevent pacman --noconfirm from pulling in the wrong one
-        # (elogind-dinit < elogind-openrc) and its conflicting deps.
-        # --ask 4 auto-answers YES to the "remove <conflicting>?" question
-        # as a safety net if --ignore doesn't prevent the conflict entirely.
-        local ignore_args=()
+        # Pre-tend init-logind is already provided so pacman's resolver
+        # skips provider selection entirely. Without this, --noconfirm
+        # picks elogind-dinit (alphabetically before elogind-openrc),
+        # pulling in dinit -> dinit-rc which conflicts with openrc.
+        # --ask 4 auto-answers YES to any residual conflict questions.
+        local pacman_extra_args=()
         case "${INITSYS}" in
-            openrc) ignore_args=("--ignore=elogind-dinit" "--ask=4") ;;
-            runit)  ignore_args=("--ignore=elogind-dinit" "--ignore=elogind-openrc" "--ask=4") ;;
-            s6)     ignore_args=("--ignore=elogind-dinit" "--ignore=elogind-openrc" "--ignore=elogind-runit" "--ask=4") ;;
+            openrc|runit|s6) pacman_extra_args=("--assume-installed=init-logind") ;;
         esac
+        pacman_extra_args+=("--ask=4")
 
-        basestrap "${basestrap_args[@]}" "${args[@]}" "${rootfs}" "${packages[@]}" --overwrite='*' "${ignore_args[@]}"
+        basestrap "${basestrap_args[@]}" "${args[@]}" "${rootfs}" "${packages[@]}" --overwrite='*' "${pacman_extra_args[@]}"
 
         copy_overlay "${root_overlay}" "${rootfs}"
 
