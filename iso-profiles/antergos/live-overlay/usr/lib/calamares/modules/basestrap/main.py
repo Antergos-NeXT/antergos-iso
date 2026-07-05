@@ -531,24 +531,6 @@ def run():
         return None
 
     operations = libcalamares.job.configuration.get("operations", [])
-
-    if libcalamares.job.configuration.get("base_init"):
-        base_init = libcalamares.job.configuration.get("base_init", None)
-
-    init_provider = None
-    if libcalamares.globalstorage.contains("netinstallAdd"):
-        data = libcalamares.globalstorage.value("netinstallAdd")
-        init_provider = data[0]["name"]
-        libcalamares.utils.debug("Init provider: {!s}".format(init_provider))
-
-        if base_init is not None:
-            init_pkg = "-".join([base_init, init_provider])
-            libcalamares.utils.debug("Package added: {!s}".format(init_pkg))
-            operations[0]["install"].append(init_pkg)
-
-    if init_provider is not None:
-        libcalamares.globalstorage.insert("initProvider", init_provider)
-
     libcalamares.globalstorage.insert("packageOperationsBasestrap", operations)
 
     mode_packages = None
