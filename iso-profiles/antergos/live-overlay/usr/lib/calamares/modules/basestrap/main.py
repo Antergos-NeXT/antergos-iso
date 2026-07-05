@@ -357,6 +357,10 @@ class PMPacman(PackageManager):
                         ignore_pkg = f"{base_init}-{p}"
                         command.append(f"--ignore={ignore_pkg}")
 
+        # Safety net: auto-answer YES to conflict resolution (e.g.
+        # "remove dinit-rc?") if --ignore doesn't prevent the conflict.
+        command.append("--ask=4")
+
         if self.pacman_needed_only:
             command.append("--needed")
 

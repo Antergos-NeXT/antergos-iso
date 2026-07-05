@@ -233,6 +233,9 @@ class PMPacman(PackageManager):
                         for p in sorted_inits[:idx]:
                             command.append(f"--ignore={base_init}-{p}")
 
+            # Safety net: auto-answer YES to conflict resolution
+            command.append("--ask=4")
+
             if self.pacman_needed_only is True:
                 command.append("--needed")
             if self.pacman_disable_timeout is True:
