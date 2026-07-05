@@ -93,6 +93,7 @@ livefs:
     - kwalletmanager
     - okular
     - partitionmanager
+    - tesseract-data-eng
   packages-init:
     dinit:
       - artix-live-dinit
