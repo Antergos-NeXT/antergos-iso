@@ -353,8 +353,6 @@ class PMPacman(PackageManager):
             command.append("-U")
         else:
             command.append("-Sy")
-            command.append("--overwrite")
-            command.append("*")
 
         command += pkgs
 
