@@ -65,9 +65,9 @@ CI does this automatically. Forget this step and buildiso will try to fetch our 
 ### dinit-rc / openrc init-rc conflict during basestrap
 `dinit-rc` and `openrc` both provide AND conflict with virtual `init-rc`. They cannot coexist. When `base` depends on `init-logind` (virtual), pacman with `--noconfirm` picks the first alphabetically — `elogind-dinit` (before `elogind-openrc`). `elogind-dinit` → `dbus-dinit` → `dinit` → `dinit-rc`, which conflicts with `openrc` (pulled by `elogind-openrc` via `dbus-openrc`).
 
-**Fix in `basestrap/main.py` (Calamares module)**: Install `elogind-{init}` as a **separate pacman call BEFORE `base`**, using `operations.insert(0, ...)` instead of appending to the same operation. This way `init-logind` is already satisfied when `base` installs, and pacman won't try to resolve it alphabetically.
+**Fix in `basestrap/main.py` (Calamares module)**: Add `--ignore=elogind-dinit` (and alphabetically-before providers for other inits) to all pacman calls. This prevents pacman `--noconfirm` from resolving `init-logind` to the wrong provider. Installing the provider separately doesn't work because provider deps (e.g. `dbus`'s post-install creating the `dbus` user) need `shadow` from `base`.
 
-**Fix in `buildiso` (ISO build)**: Same pattern — call `basestrap` with `elogind-${INITSYS}` **before** the full package list, so the provider is installed before `base` triggers dependency resolution.
+**Fix in `buildiso` (ISO build)**: Same `--ignore` approach — add `--ignore=elogind-dinit` to the basestrap call for `INITSYS=openrc`, etc., depending on which init is selected.
 
 ## Repo Structure
 
