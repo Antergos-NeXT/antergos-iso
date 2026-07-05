@@ -531,6 +531,21 @@ def run():
         return None
 
     operations = libcalamares.job.configuration.get("operations", [])
+
+    base_init = libcalamares.job.configuration.get("base_init", None)
+    known_inits = ["openrc", "dinit", "runit", "s6"]
+
+    if base_init is not None and libcalamares.globalstorage.contains("netinstallAdd"):
+        data = libcalamares.globalstorage.value("netinstallAdd")
+        for entry in data:
+            provider = entry.get("name", "").lower()
+            if provider in known_inits:
+                init_pkg = "-".join([base_init, provider])
+                libcalamares.utils.debug("Init provider package added: {!s}".format(init_pkg))
+                operations[0]["install"].append(init_pkg)
+                libcalamares.globalstorage.insert("initProvider", provider)
+                break
+
     libcalamares.globalstorage.insert("packageOperationsBasestrap", operations)
 
     mode_packages = None
