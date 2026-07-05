@@ -97,12 +97,17 @@ make_rootfs() {
             args+=(-P)
         fi
 
-        # Install init-logind provider BEFORE base to avoid pacman picking
-        # the wrong one alphabetically (elogind-dinit < elogind-openrc),
-        # which pulls in dinit -> dinit-rc and conflicts with openrc.
-        basestrap "${basestrap_args[@]}" "${args[@]}" "${rootfs}" "elogind-${INITSYS}" --overwrite='*'
+        # Ignore init-logind providers alphabetically before the selected
+        # init to prevent pacman --noconfirm from pulling in the wrong one
+        # (elogind-dinit < elogind-openrc) and its conflicting deps.
+        local ignore_args=()
+        case "${INITSYS}" in
+            openrc) ignore_args=("--ignore=elogind-dinit") ;;
+            runit)  ignore_args=("--ignore=elogind-dinit" "--ignore=elogind-openrc") ;;
+            s6)     ignore_args=("--ignore=elogind-dinit" "--ignore=elogind-openrc" "--ignore=elogind-runit") ;;
+        esac
 
-        basestrap "${basestrap_args[@]}" "${args[@]}" "${rootfs}" "${packages[@]}" --overwrite='*'
+        basestrap "${basestrap_args[@]}" "${args[@]}" "${rootfs}" "${packages[@]}" --overwrite='*' "${ignore_args[@]}"
 
         copy_overlay "${root_overlay}" "${rootfs}"
 

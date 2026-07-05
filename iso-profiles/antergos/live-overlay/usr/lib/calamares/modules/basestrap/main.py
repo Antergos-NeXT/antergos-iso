@@ -343,6 +343,20 @@ class PMPacman(PackageManager):
         # Don't report download progress for each file
         command.append("--noprogressbar")
 
+        # Ignore init-logind providers that come alphabetically before
+        # the selected one, preventing pacman --noconfirm from picking
+        # the wrong one and pulling in a conflicting init system.
+        if libcalamares.globalstorage.contains("baseInit"):
+            base_init = libcalamares.globalstorage.value("baseInit")
+            provider = libcalamares.globalstorage.value("initProvider")
+            if base_init and provider:
+                sorted_inits = ["dinit", "openrc", "runit", "s6"]
+                if provider in sorted_inits:
+                    idx = sorted_inits.index(provider)
+                    for p in sorted_inits[:idx]:
+                        ignore_pkg = f"{base_init}-{p}"
+                        command.append(f"--ignore={ignore_pkg}")
+
         if self.pacman_needed_only:
             command.append("--needed")
 
@@ -542,12 +556,9 @@ def run():
             if provider in known_inits:
                 init_pkg = "-".join([base_init, provider])
                 libcalamares.utils.debug("Init provider package added: {!s}".format(init_pkg))
-                # Install init-logind provider BEFORE base so pacman doesn't
-                # pick the wrong one alphabetically (elogind-dinit comes before
-                # elogind-openrc), which would pull in dinit+dinit-rc and
-                # conflict with openrc via the init-rc virtual.
-                operations.insert(0, {"install": [init_pkg]})
+                operations[0]["install"].append(init_pkg)
                 libcalamares.globalstorage.insert("initProvider", provider)
+                libcalamares.globalstorage.insert("baseInit", base_init)
                 break
 
     libcalamares.globalstorage.insert("packageOperationsBasestrap", operations)
