@@ -14,6 +14,15 @@
     - antergos-next-keyring
     - antergos-wallpapers
     - antergos-grub-theme
+    - firefox
+    - mesa
+    - mesa-utils
+    - networkmanager
+    - network-manager-applet
+    - pipewire
+    - pipewire-alsa
+    - pipewire-pulse
+    - wireplumber
 
 - name: "Kernel"
   description: "Kernel and modules"
@@ -71,21 +80,51 @@
       description: "KDE Plasma Desktop"
       selected: true
       packages:
-        - plasma-meta
+        - antergos-plasma-theme
+        - antergos-next-desktop-settings
         - ark
+        - bluedevil
+        - breeze-gtk
         - dolphin
+        - dolphin-plugins
         - ffmpegthumbs
         - gwenview
         - kate
+        - kcalc
+        - kde-cli-tools
+        - kde-gtk-config
+        - kdeconnect
+        - kdegraphics-thumbnailers
+        - kdenetwork-filesharing
+        - kdeplasma-addons
         - keditbookmarks
         - kfind
         - kgpg
+        - kinfocenter
         - kio-admin
+        - kio-extras
+        - kio-fuse
         - konsole
         - konversation
+        - kscreen
+        - kwallet-pam
         - kwalletmanager
+        - kwayland-integration
         - okular
         - partitionmanager
+        - plasma-browser-integration
+        - plasma-desktop
+        - plasma-disks
+        - plasma-nm
+        - plasma-pa
+        - plasma-systemmonitor
+        - plasma-workspace
+        - powerdevil
+        - print-manager
+        - qt6-imageformats
+        - spectacle
+        - xdg-desktop-portal-kde
+        - xsettingsd
     - name: "Xfce"
       description: "Xfce Desktop"
       selected: false
