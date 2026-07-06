@@ -1,14 +1,14 @@
 # Antergos NeXT ISO
 
-> **✅ Migracja zakończona!** Antergos NeXT oficjalnie przeniósł się z systemd/Arch na OpenRC/Artix. Budowanie jest stabilne, instalator działa.
+> **✅ Migracja zakończona!** Antergos NeXT oficjalnie przeniósł się z systemd/Arch na Artix Linux z Dinit. Budowanie jest stabilne, instalator działa.
 
-Odrodzenie społeczności Antergos — zbudowane na **Artix Linux** z **OpenRC**, **KDE Plasma** i instalatorem **Calamares** (tryb offline + online).
+Odrodzenie społeczności Antergos — zbudowane na **Artix Linux** z **Dinit**, **KDE Plasma** i instalatorem **Calamares** (tryb offline + online).
 
 ## Co się zmieniło
 
 | Przed | Po |
 |-------|-----|
-| Arch Linux (systemd) | Artix Linux (OpenRC) |
+| Arch Linux (systemd) | Artix Linux (Dinit / OpenRC / Runit / S6) |
 | GNOME | KDE Plasma |
 | archiso | artools (`buildiso`) |
 | Cnchi | Calamares |
@@ -43,7 +43,7 @@ ISO pojawi się w `/var/lib/artools/buildiso/iso/antergos/`.
 | Tryb | Opis |
 |------|------|
 | **Offline** | Rozpakowuje squashfs z KDE Plasma — bez internetu |
-| **Online** | Wybór init (OpenRC, Dinit, Runit, S6) + wybór środowiska (Plasma, Xfce, Cinnamon, MATE, LXQt, i3, Sway, Hyprland) |
+| **Online** | Wybór init (Dinit, OpenRC, Runit, S6) + wybór środowiska (Plasma, Xfce, Cinnamon, MATE, LXQt, i3, Sway, Hyprland) |
 
 ## Pobieranie
 

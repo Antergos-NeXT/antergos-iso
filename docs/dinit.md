@@ -7,7 +7,7 @@ nav_order: 2
 
 # Dinit
 
-**Dinit** is a modern init system designed for speed and correctness. Written in C++, it focuses on parallel service startup and dependency management without the bloat of systemd or the complexity of S6.
+**Dinit** is a modern init system designed for speed and correctness. Written in C++, it focuses on parallel service startup and dependency management without the bloat of systemd or the complexity of S6. **Dinit is the default init system in Antergos NeXT.**
 
 ## Philosophy
 
@@ -17,7 +17,7 @@ Dinit aims to be a "better than OpenRC but simpler than S6" middle ground. It ha
 
 - Not widely adopted by major distros yet
 - Popular in DIY Linux builds (Linux From Scratch, custom embedded)
-- Available in Artix as an alternative init
+- Default init in Antergos NeXT; available in Artix as an alternative
 
 ## Key concepts
 
@@ -76,12 +76,9 @@ Pick Dinit if:
 - You want the fastest possible boot
 - You like declarative config (YAML-like)
 - You want automatic dependency resolution
-- You don't mind a less mature ecosystem
+- You're fine with a newer, actively developed init system
 
-Stick with OpenRC if:
-- You want maximum stability and community support
-- You prefer shell scripts you can read and debug
-- You don't care about shaving seconds off boot time
+OpenRC is also available if you prefer shell scripts and a longer track record.
 
 ## Learn more
 

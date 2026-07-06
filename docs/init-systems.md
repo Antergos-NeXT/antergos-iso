@@ -11,14 +11,14 @@ An **init system** is the first process that runs when your computer boots (PID 
 
 Antergos NeXT lets you choose between **four** init systems during installation. This page explains each one so you can pick what suits you.
 
-> Don't know what init to choose? **Stick with OpenRC** — it's the default, it's well-tested, and it's what most Artix users run.
+> Don't know what init to choose? **Stick with Dinit** — it's the default, it's fast, and it's what Antergos NeXT ships with. OpenRC is also available if you prefer a more traditional approach.
 
 ## The inits
 
 | Init | Philosophy | Complexity | Speed | Used by |
 |------|-----------|------------|-------|---------|
+| [Dinit](dinit) | Modern, dependency-based | Medium | Very fast | Antergos NeXT, Artix, new projects |
 | [OpenRC](openrc) | Simple, modular, Unix-like | Low | Fast | Gentoo, Artix, Devuan, Alpine |
-| [Dinit](dinit) | Modern, dependency-based | Medium | Very fast | New projects, minimal systems |
 | [Runit](runit) | Minimal, reliable, Unix-like | Low | Very fast | Void Linux, AntiX |
 | [S6](s6) | Supervision-based, secure | Medium-High | Very fast | New projects, embedded |
 
@@ -26,8 +26,8 @@ Antergos NeXT lets you choose between **four** init systems during installation.
 
 | If you want... | Pick... |
 |----------------|---------|
-| Something familiar and well-documented | OpenRC |
 | The fastest boot possible | Dinit or S6 |
+| Something familiar and well-documented | OpenRC |
 | The simplest, most Unix-like approach | Runit |
 | Advanced supervision and process management | S6 |
 
@@ -59,4 +59,4 @@ If you're new to Linux, learning about init systems is a great way to understand
 
 The best part? If you break something with services, you can always fix it — service management is much simpler than kernel config or package management.
 
-> **Pro tip**: If you're dual-booting or using a VM, try all four inits. Install a test system with OpenRC first, then reinstall with Dinit, then Runit, then S6. See which one feels right.
+> **Pro tip**: If you're dual-booting or using a VM, try all four inits. Install a test system with Dinit first, then reinstall with OpenRC, then Runit, then S6. See which one feels right.

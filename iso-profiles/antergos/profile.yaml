@@ -76,7 +76,6 @@ livefs:
     - antergos-grub-live
     - virtualbox-guest-utils
     - broadcom-wl
-    - antergos-live-openrc
     - antergos-grub-theme
     - plasma
     - ark
@@ -96,7 +95,7 @@ livefs:
     - tesseract-data-eng
   packages-init:
     dinit:
-      - artix-live-dinit
+      - antergos-live-dinit
     openrc:
       - antergos-live-openrc
     runit:

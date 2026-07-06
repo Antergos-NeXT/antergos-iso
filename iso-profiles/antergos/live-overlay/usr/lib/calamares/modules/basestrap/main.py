@@ -343,18 +343,6 @@ class PMPacman(PackageManager):
         # Don't report download progress for each file
         command.append("--noprogressbar")
 
-        # Pre-tend init-logind is already provided so pacman's resolver
-        # skips provider selection entirely, preventing it from selecting
-        # elogind-dinit (alphabetically before elogind-openrc) which would
-        # pull in dinit -> dinit-rc and conflict with OpenRC.
-        if libcalamares.globalstorage.contains("initProvider"):
-            provider = libcalamares.globalstorage.value("initProvider")
-            if provider and provider != "dinit":
-                command.append("--assume-installed=init-logind")
-
-        # Safety net: auto-answer YES to conflict resolution
-        command.append("--ask=4")
-
         if self.pacman_needed_only:
             command.append("--needed")
 

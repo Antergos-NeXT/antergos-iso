@@ -62,12 +62,8 @@ CI does this automatically. Forget this step and buildiso will try to fetch our 
 ### WORKSPACE_DIR
 `buildiso` looks for profiles at `$WORKSPACE_DIR/iso-profiles/<profile>/` if `WORKSPACE_DIR` is set. Always set it to the repo root when building locally.
 
-### dinit-rc / openrc init-rc conflict during basestrap
-`dinit-rc` and `openrc` both provide AND conflict with virtual `init-rc`. They cannot coexist. When `base` depends on `init-logind` (virtual), pacman with `--noconfirm` picks the first alphabetically — `elogind-dinit` (before `elogind-openrc`). `elogind-dinit` → `dbus-dinit` → `dinit` → `dinit-rc`, which conflicts with `openrc` (pulled by `elogind-openrc` via `dbus-openrc`).
-
-**Fix in `basestrap/main.py` (Calamares module)**: Add `--ignore=elogind-dinit` (and alphabetically-before providers for other inits) to all pacman calls. This prevents pacman `--noconfirm` from resolving `init-logind` to the wrong provider. Installing the provider separately doesn't work because provider deps (e.g. `dbus`'s post-install creating the `dbus` user) need `shadow` from `base`.
-
-**Fix in `buildiso` (ISO build)**: Same `--ignore` approach — add `--ignore=elogind-dinit` to the basestrap call for `INITSYS=openrc`, etc., depending on which init is selected.
+### Default init system
+Antergos NeXT uses **dinit** (via `INITSYS='dinit'` in `buildiso`). OpenRC, runit, and s6 are still available as user-selectable options in the online installer. See `common.yaml` and `profile.yaml` for per-init package lists.
 
 ## Repo Structure
 

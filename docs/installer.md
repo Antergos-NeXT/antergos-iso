@@ -26,7 +26,7 @@ The launcher (`calamares-next`) presents a mode picker before launching Calamare
 
 ## Init system selector (online)
 
-Users choose from: **OpenRC**, **Runit**, **S6**, **Dinit**.
+Users choose from: **Dinit**, **OpenRC**, **Runit**, **S6**.
 
 Implemented as a `packagechooser` instance with `method: netinstall-add` — the selected init pulls its associated packages.
 

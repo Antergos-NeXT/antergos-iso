@@ -97,18 +97,7 @@ make_rootfs() {
             args+=(-P)
         fi
 
-        # Pre-tend init-logind is already provided so pacman's resolver
-        # skips provider selection entirely. Without this, --noconfirm
-        # picks elogind-dinit (alphabetically before elogind-openrc),
-        # pulling in dinit -> dinit-rc which conflicts with openrc.
-        # --ask 4 auto-answers YES to any residual conflict questions.
-        local pacman_extra_args=()
-        case "${INITSYS}" in
-            openrc|runit|s6) pacman_extra_args=("--assume-installed=init-logind") ;;
-        esac
-        pacman_extra_args+=("--ask=4")
-
-        basestrap "${basestrap_args[@]}" "${args[@]}" "${rootfs}" "${packages[@]}" --overwrite='*' "${pacman_extra_args[@]}"
+        basestrap "${basestrap_args[@]}" "${args[@]}" "${rootfs}" "${packages[@]}" --overwrite='*'
 
         copy_overlay "${root_overlay}" "${rootfs}"
 
@@ -360,6 +349,7 @@ use_dracut=false
 squash_only=false
 boot_only=false
 copy_pacconf=false
+INITSYS='dinit'
 
 basestrap_args=(-GMc)
 cmd=${0##*/}

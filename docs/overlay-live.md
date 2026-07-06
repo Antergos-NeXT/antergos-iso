@@ -44,7 +44,7 @@ Symlink — points to either `../calamares-offline/settings.conf` or `../calamar
 ### `etc/calamares-online/settings.conf`
 
 Two `packagechooser` instances:
-- `packagechooser@init` — init system (OpenRC, Runit, S6, Dinit) via netinstall-add
+- `packagechooser@init` — init system (Dinit, OpenRC, Runit, S6) via netinstall-add
 - `packagechooser@desktop` — DE selection via legacy method
 
 ### `etc/calamares-online/modules/packagechooser_init.conf`
