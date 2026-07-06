@@ -96,6 +96,17 @@ livefs:
   packages-init:
     dinit:
       - antergos-live-dinit
+      - acpid-dinit
+      - bluez-dinit
+      - cronie-dinit
+      - cups-dinit
+      - networkmanager-dinit
+      - power-profiles-daemon-dinit
+      - sddm-dinit
+      - syslog-ng-dinit
+      - dbus-dinit
+      - pipewire-dinit
+      - wireplumber-dinit
     openrc:
       - antergos-live-openrc
     runit:
