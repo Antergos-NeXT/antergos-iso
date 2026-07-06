@@ -313,9 +313,7 @@ class PMPacman(PackageManager):
                 host_env_process_output(command)
                 return
             except subprocess.CalledProcessError:
-                if pacman_count <= self.pacman_num_retries:
-                    pass
-                else:
+                if pacman_count > self.pacman_num_retries:
                     raise
 
     def install(self, pkgs, from_local=False):
