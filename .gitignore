@@ -5,3 +5,4 @@ install.log
 docs/_site/
 linux-next/
 winver/
+__pycache__/
