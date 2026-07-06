@@ -21,7 +21,7 @@ from string import Template
 import subprocess
 
 import libcalamares
-from libcalamares.utils import check_target_env_call, target_env_call
+from libcalamares.utils import check_target_env_call
 from libcalamares.utils import gettext_path, gettext_languages
 
 import gettext
@@ -166,9 +166,6 @@ class PMPacman(PackageManager):
     backend = "pacman"
 
     def __init__(self):
-        import re
-        progress_match = re.compile("^\\((\\d+)/(\\d+)\\)")
-
         def line_cb(line):
             if line.startswith(":: "):
                 self.in_package_changes = "package" in line or "hooks" in line

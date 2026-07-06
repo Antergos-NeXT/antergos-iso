@@ -19,7 +19,7 @@
 
 import abc
 from string import Template
-import os, shutil, subprocess, sys
+import os, shutil, subprocess
 
 import libcalamares
 from libcalamares.utils import host_env_process_output, target_env_process_output
@@ -262,9 +262,6 @@ class PMPacman(PackageManager):
     backend = "pacman"
 
     def __init__(self):
-        import re
-        progress_match = re.compile("^\\((\\d+)/(\\d+)\\)")
-
         def line_cb(line):
             if line.startswith(":: "):
                 self.in_package_changes = "package" in line or "hooks" in line
@@ -313,11 +310,7 @@ class PMPacman(PackageManager):
         while pacman_count <= self.pacman_num_retries:
             pacman_count += 1
             try:
-                if False: # callback:
-                    host_env_process_output(command, self.line_cb)
-                else:
-                    host_env_process_output(command)
-
+                host_env_process_output(command)
                 return
             except subprocess.CalledProcessError:
                 if pacman_count <= self.pacman_num_retries:
