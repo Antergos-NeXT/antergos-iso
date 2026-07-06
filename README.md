@@ -1,8 +1,6 @@
 # Antergos NeXT ISO
 
-> **✅ Migration complete!** Antergos NeXT has officially migrated from systemd/Arch to Artix Linux with Dinit. The builds are stable, the installer works, and we can say officially that the migration was a success!
->
-> See the [`before-systemd-change` branch](https://github.com/Antergos-NeXT/antergos-iso/tree/before-systemd-change) for the old systemd-based version and the reasoning behind the change.
+> Looking for the old Arch/systemd version? See the [`before-systemd-change` branch](https://github.com/Antergos-NeXT/antergos-iso/tree/before-systemd-change).
 
 [![Build ISO](https://github.com/Antergos-NeXT/antergos-iso/actions/workflows/build.yml/badge.svg)](https://github.com/Antergos-NeXT/antergos-iso/actions/workflows/build.yml)
 [![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg)](LICENSE)
@@ -13,9 +11,7 @@
 [![Docs](https://img.shields.io/badge/docs-site-blue.svg)](https://antergos-next.github.io/antergos-iso/)
 [![Dla mojego narodu](https://img.shields.io/badge/README-Polski-crimson.svg)](README.pl.md)
 
-A community revival of Antergos — now built on **Artix Linux** with **Dinit**, **KDE Plasma** desktop, and the **Calamares** installer (offline + online modes).
-
-> *"We can say officially that the migration was a success!"*
+A community revival of Antergos — built on **Artix Linux** with **Dinit**, **KDE Plasma** desktop, and the **Calamares** installer (offline + online modes).
 
 ## What changed
 

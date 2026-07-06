@@ -14,9 +14,7 @@ nav_order: 1
                                                           
    Have a wonderful day, and happy computing! ✨
 
-> **Migration complete!** Antergos NeXT has migrated from systemd/Arch to OpenRC/Artix. Builds are stable, the installer works.
-
-A community revival of Antergos — built on **Artix Linux** with **OpenRC**, **KDE Plasma**, and the **Calamares** installer (offline + online modes).
+A community revival of Antergos — built on **Artix Linux** with **Dinit** (OpenRC / Runit / S6 available), **KDE Plasma**, and the **Calamares** installer (offline + online modes).
 
 ## Quick links
 
@@ -28,7 +26,7 @@ A community revival of Antergos — built on **Artix Linux** with **OpenRC**, **
 
 ## Learn about Antergos NeXT
 
-- [Init Systems](init-systems) — what init systems are, OpenRC, Dinit, S6, Runit
+- [Init Systems](init-systems) — what init systems are, Dinit, OpenRC, S6, Runit
 - [Desktop Environments](desktop-environments) — available DEs in online mode
 - [Wallpapers](wallpapers) — where they go, how they work
 
@@ -36,7 +34,7 @@ A community revival of Antergos — built on **Artix Linux** with **OpenRC**, **
 
 | Area | Original Antergos | Antergos NeXT |
 |------|-------------------|---------------|
-| Base | Arch Linux (systemd) | Artix Linux (OpenRC) |
+| Base | Arch Linux (systemd) | Artix Linux (Dinit / OpenRC / Runit / S6) |
 | Desktop | GNOME | KDE Plasma |
 | Installer | Custom Cnchi | Calamares |
 | Build | archiso | artools (`buildiso`) |

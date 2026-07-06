@@ -1,6 +1,6 @@
 # Antergos NeXT ISO
 
-> **✅ Migracja zakończona!** Antergos NeXT oficjalnie przeniósł się z systemd/Arch na Artix Linux z Dinit. Budowanie jest stabilne, instalator działa.
+> Szukasz starej wersji Arch/systemd? Zobacz gałąź [`before-systemd-change`](https://github.com/Antergos-NeXT/antergos-iso/tree/before-systemd-change).
 
 Odrodzenie społeczności Antergos — zbudowane na **Artix Linux** z **Dinit**, **KDE Plasma** i instalatorem **Calamares** (tryb offline + online).
 
@@ -13,7 +13,7 @@ Odrodzenie społeczności Antergos — zbudowane na **Artix Linux** z **Dinit**,
 | archiso | artools (`buildiso`) |
 | Cnchi | Calamares |
 
-## Dlaczego Artix + OpenRC?
+## Dlaczego Artix?
 
 Systemd wyrósł na monolit — przejął logind, resolved, timedated, homed, journald, networkd i zaczął wprowadzać pola daty urodzenia do systemu. GNOME 49+ wyrzuciło obsługę init innych niż systemd. Artix Linux usunął GNOME w 2025 z tego powodu.
 
