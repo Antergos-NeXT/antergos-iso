@@ -344,7 +344,8 @@ class PMPacman(PackageManager):
         if from_local:
             command.append("-U")
         else:
-            command.append("-S")
+            # -Sy is intentional: fresh chroot has no pacman DB, must sync first
+            command.append("-Sy")
             command.append("--overwrite=*")
 
         command += pkgs
@@ -379,7 +380,7 @@ class PMPacman(PackageManager):
         for target in self.pacman_requirements:
             dest = rootdir + target["dest"]
             if not os.path.exists(dest):
-                mod = int(target["mode"],8)
+                mod = int(target["mode"], 8)
                 os.mkdir(dest)
                 os.chmod(dest, mod)
                 libcalamares.utils.debug("Mode: {!s}".format(oct(mod)))
@@ -388,9 +389,9 @@ class PMPacman(PackageManager):
         path = join(rootdir, "run")
         os.chmod(path, 0o755)
 
-    def copy_file(self, rootdir, f):
-        if os.path.exists(join("/",f)):
-            shutil.copy2(join("/",f), join(rootdir, f))
+    def copy_file(self, rootdir, relative_path):
+        if os.path.exists(join("/", relative_path)):
+            shutil.copy2(join("/", relative_path), join(rootdir, relative_path))
 
     def init_keyring(self):
         target_env_process_output(["pacman-key", "--init"])
