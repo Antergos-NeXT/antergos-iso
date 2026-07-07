@@ -302,7 +302,7 @@ class PMPacman(PackageManager):
         """
         Call pacman in a loop until it is successful or the number of retries is exceeded
         :param command: The pacman command to run
-        :param callback: An optional boolean that indicates if this pacman run should use the callback
+        :param callback: If True, process output using self.line_cb
         :return:
         """
 
@@ -310,7 +310,10 @@ class PMPacman(PackageManager):
         while pacman_count <= self.pacman_num_retries:
             pacman_count += 1
             try:
-                host_env_process_output(command)
+                if callback:
+                    host_env_process_output(command, callback=self.line_cb)
+                else:
+                    host_env_process_output(command)
                 return
             except subprocess.CalledProcessError:
                 if pacman_count > self.pacman_num_retries:
@@ -343,7 +346,7 @@ class PMPacman(PackageManager):
         if from_local:
             command.append("-U")
         else:
-            command.append("-Sy")
+            command.append("-S")
             command.append("--overwrite=*")
 
         command += pkgs
@@ -376,17 +379,19 @@ class PMPacman(PackageManager):
 
     def setup_requirements(self, rootdir):
         cal_umask = os.umask(0)
-        for target in self.pacman_requirements:
-            dest = rootdir + target["dest"]
-            if not os.path.exists(dest):
-                mod = int(target["mode"],8)
-                os.mkdir(dest, mode=mod)
-                libcalamares.utils.debug("Mode: {!s}".format(oct(mod)))
-                libcalamares.utils.debug("Created: {!s}".format(dest))
+        try:
+            for target in self.pacman_requirements:
+                dest = rootdir + target["dest"]
+                if not os.path.exists(dest):
+                    mod = int(target["mode"],8)
+                    os.mkdir(dest, mode=mod)
+                    libcalamares.utils.debug("Mode: {!s}".format(oct(mod)))
+                    libcalamares.utils.debug("Created: {!s}".format(dest))
 
-        path = join(rootdir, "run")
-        os.chmod(path, 0o755)
-        os.umask(cal_umask)
+            path = join(rootdir, "run")
+            os.chmod(path, 0o755)
+        finally:
+            os.umask(cal_umask)
 
     def copy_file(self, rootdir, f):
         if os.path.exists(join("/",f)):
@@ -533,7 +538,11 @@ def run():
             if provider in known_inits:
                 init_pkg = "-".join([base_init, provider])
                 libcalamares.utils.debug("Init provider package added: {!s}".format(init_pkg))
-                operations[0]["install"].append(init_pkg)
+                if operations and isinstance(operations[0], dict) and isinstance(operations[0].get("install"), list):
+                    operations[0]["install"].append(init_pkg)
+                else:
+                    libcalamares.utils.warning(
+                        "Cannot add init provider package: missing operations[0]['install'] list")
                 libcalamares.globalstorage.insert("initProvider", provider)
                 libcalamares.globalstorage.insert("baseInit", base_init)
                 break
