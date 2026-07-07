@@ -547,16 +547,21 @@ def run():
     mode_packages = None
     total_packages = 0
     completed_packages = 0
+    resolved_operations = []
     for op in operations:
-        for packagelist in op.values():
-            if isinstance(packagelist, list):
-                total_packages += len(subst_locale(packagelist))
+        resolved_op = {}
+        for operation, packagelist in op.items():
+            resolved_list = subst_locale(packagelist) if isinstance(packagelist, list) else packagelist
+            resolved_op[operation] = resolved_list
+            if isinstance(resolved_list, list):
+                total_packages += len(resolved_list)
+        resolved_operations.append(resolved_op)
 
     if not total_packages:
         # Avoids potential divide-by-zero in progress reporting
         return None
 
-    for entry in operations:
+    for entry in resolved_operations:
         group_packages = 0
         libcalamares.utils.debug(pretty_name())
         try:
