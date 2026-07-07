@@ -51,7 +51,10 @@ mode_packages = None  # Changes to INSTALL or REMOVE
 def _change_mode(mode):
     global mode_packages
     mode_packages = mode
-    libcalamares.job.setprogress(completed_packages * 1.0 / total_packages)
+    if total_packages > 0:
+        libcalamares.job.setprogress(completed_packages * 1.0 / total_packages)
+    else:
+        libcalamares.job.setprogress(0.0)
 
 
 def pretty_name():
@@ -344,7 +347,13 @@ class PMPacman(PackageManager):
         if from_local:
             command.append("-U")
         else:
-            # -Sy is intentional: fresh chroot has no pacman DB, must sync first
+            # -Sy is intentional; -Syu is WRONG here.
+            # -Syu upgrades ALL packages in the chroot from repos at install time,
+            # pulling untested versions instead of the ISO-snapshot versions we
+            # explicitly requested via profile packages. This breaks reproducibility,
+            # wastes bandwidth, and can introduce regressions. The entire target
+            # system is being built from scratch — there is nothing to "partially
+            # upgrade."
             command.append("-Sy")
             command.append("--overwrite=*")
 
@@ -524,14 +533,18 @@ def run():
 
     operations = libcalamares.job.configuration.get("operations", [])
 
+    # Allowed init provider identifiers from netinstallAdd["name"].
+    # These are matched case-insensitively to build init provider
+    # package names as "<base_init>-<provider>".
+    KNOWN_INIT_PROVIDERS = ["openrc", "dinit", "runit", "s6"]
+
     base_init = libcalamares.job.configuration.get("base_init", None)
-    known_inits = ["openrc", "dinit", "runit", "s6"]
 
     if base_init is not None and libcalamares.globalstorage.contains("netinstallAdd"):
         data = libcalamares.globalstorage.value("netinstallAdd")
         for entry in data:
             provider = entry.get("name", "").lower()
-            if provider in known_inits:
+            if provider in KNOWN_INIT_PROVIDERS:
                 init_pkg = "-".join([base_init, provider])
                 libcalamares.utils.debug("Init provider package added: {!s}".format(init_pkg))
                 if operations and isinstance(operations[0], dict) and isinstance(operations[0].get("install"), list):
