@@ -23,19 +23,7 @@
     - pipewire-alsa
     - pipewire-pulse
     - wireplumber
-    - networkmanager-dinit
-    - pipewire-dinit
-    - pipewire-pulse-dinit
-    - wireplumber-dinit
-    - dbus-dinit
-    - sddm-dinit
-    - syslog-ng-dinit
-    - acpid-dinit
-    - bluez-dinit
-    - cronie-dinit
-    - cups-dinit
-    - dhcpcd-dinit
-    - power-profiles-daemon-dinit
+
 
 - name: "Kernel"
   description: "Kernel and modules"
@@ -261,3 +249,32 @@
       packages:
         - hyprland
         - xdg-desktop-portal-hyprland
+
+- name: "SDDM"
+  description: "SDDM display manager"
+  selected: false
+  packages:
+    - sddm
+    - sddm-dinit
+    - antergos-sddm-theme
+
+- name: "LightDM"
+  description: "LightDM display manager"
+  selected: false
+  packages:
+    - lightdm
+    - lightdm-dinit
+
+- name: "LXDM"
+  description: "LXDM display manager"
+  selected: false
+  packages:
+    - lxdm
+    - lxdm-dinit
+
+- name: "LY"
+  description: "LY display manager"
+  selected: false
+  packages:
+    - ly
+    - ly-dinit

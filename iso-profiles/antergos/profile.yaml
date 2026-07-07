@@ -20,6 +20,7 @@ live-session:
     - wireplumber
 rootfs:
   packages:
+    - antergos-release
     - qt6-multimedia-ffmpeg
     - firefox
     - vlc
@@ -54,6 +55,7 @@ rootfs:
       - bluez-dinit
       - cronie-dinit
       - dbus-dinit
+      - dbus-dinit-user
       - dhcpcd-dinit
       - power-profiles-daemon-dinit
     openrc:
@@ -99,6 +101,12 @@ livefs:
     - okular
     - partitionmanager
     - tesseract-data-eng
+    - pipewire
+    - pipewire-pulse
+    - wireplumber
+    - sof-firmware
+    - alsa-firmware
+    - alsa-utils
   packages-init:
     dinit:
       - antergos-live-dinit
