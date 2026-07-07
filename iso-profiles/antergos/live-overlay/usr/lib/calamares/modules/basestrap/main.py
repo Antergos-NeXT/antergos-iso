@@ -63,24 +63,22 @@ def pretty_status_message():
         return custom_status_message
     if not group_packages:
         if (total_packages > 0):
-            # Outside the context of an operation
-            s = _("Processing packages (%(count)d / %(total)d)")
-        else:
-            s = _("Install packages.")
-
-    elif mode_packages is INSTALL:
-        s = _n("Installing one package.",
-               "Installing %(num)d packages.", group_packages)
-    elif mode_packages is REMOVE:
-        s = _n("Removing one package.",
-               "Removing %(num)d packages.", group_packages)
-    else:
-        # No mode, generic description
-        s = _("Install packages.")
-
-    return s % {"num": group_packages,
+            return _("Processing packages (%(count)d / %(total)d)") % {
                 "count": completed_packages,
                 "total": total_packages}
+        else:
+            return _("Install packages.")
+
+    elif mode_packages is INSTALL:
+        return _n("Installing one package.",
+                  "Installing %(num)d packages.", group_packages) % {
+            "num": group_packages}
+    elif mode_packages is REMOVE:
+        return _n("Removing one package.",
+                  "Removing %(num)d packages.", group_packages) % {
+            "num": group_packages}
+    else:
+        return _("Install packages.")
 
 
 
@@ -378,20 +376,17 @@ class PMPacman(PackageManager):
         return args
 
     def setup_requirements(self, rootdir):
-        cal_umask = os.umask(0)
-        try:
-            for target in self.pacman_requirements:
-                dest = rootdir + target["dest"]
-                if not os.path.exists(dest):
-                    mod = int(target["mode"],8)
-                    os.mkdir(dest, mode=mod)
-                    libcalamares.utils.debug("Mode: {!s}".format(oct(mod)))
-                    libcalamares.utils.debug("Created: {!s}".format(dest))
+        for target in self.pacman_requirements:
+            dest = rootdir + target["dest"]
+            if not os.path.exists(dest):
+                mod = int(target["mode"],8)
+                os.mkdir(dest)
+                os.chmod(dest, mod)
+                libcalamares.utils.debug("Mode: {!s}".format(oct(mod)))
+                libcalamares.utils.debug("Created: {!s}".format(dest))
 
-            path = join(rootdir, "run")
-            os.chmod(path, 0o755)
-        finally:
-            os.umask(cal_umask)
+        path = join(rootdir, "run")
+        os.chmod(path, 0o755)
 
     def copy_file(self, rootdir, f):
         if os.path.exists(join("/",f)):
@@ -554,7 +549,8 @@ def run():
     completed_packages = 0
     for op in operations:
         for packagelist in op.values():
-            total_packages += len(subst_locale(packagelist))
+            if isinstance(packagelist, list):
+                total_packages += len(subst_locale(packagelist))
 
     if not total_packages:
         # Avoids potential divide-by-zero in progress reporting
