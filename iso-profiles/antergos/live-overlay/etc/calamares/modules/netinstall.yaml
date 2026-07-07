@@ -23,6 +23,19 @@
     - pipewire-alsa
     - pipewire-pulse
     - wireplumber
+    - networkmanager-dinit
+    - pipewire-dinit
+    - pipewire-pulse-dinit
+    - wireplumber-dinit
+    - dbus-dinit
+    - sddm-dinit
+    - syslog-ng-dinit
+    - acpid-dinit
+    - bluez-dinit
+    - cronie-dinit
+    - cups-dinit
+    - dhcpcd-dinit
+    - power-profiles-daemon-dinit
 
 - name: "Kernel"
   description: "Kernel and modules"

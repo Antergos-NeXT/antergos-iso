@@ -50,6 +50,12 @@ rootfs:
       - sddm-dinit
       - networkmanager-dinit
       - cups-dinit
+      - acpid-dinit
+      - bluez-dinit
+      - cronie-dinit
+      - dbus-dinit
+      - dhcpcd-dinit
+      - power-profiles-daemon-dinit
     openrc:
       - pipewire-openrc
       - pipewire-pulse-openrc
