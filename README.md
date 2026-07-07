@@ -7,7 +7,7 @@
 
 ---
 
-**Antergos NeXT** is not just a distribution — it's the final form of a journey that started with a 14-year-old's distro hobby and ended up covered by [9to5Linux](https://9to5linux.com), DistroWatch, Linuxiac, and more.
+**Antergos NeXT** is not just a distribution — it's the final form of a journey that started with a 14-year-old's distro hobby and ended up covered by [9to5Linux](https://9to5linux.com), [Tux Machines](https://news.tuxmachines.org/n/2026/06/12/First_Look_at_Antergos_NeXT_A_Modern_Revival_of_Antergos_Linux_.shtml), [OpenSourceFeed](https://www.opensourcefeed.org/antergos-next-revival/), [linux.org](https://www.linux.org/threads/9to5linux-first-look-at-antergos-next-a-modern-revival-of-antergos-linux-with-kde-plasma.67691/), and the [EndeavourOS forum](https://forum.endeavouros.com/t/attempt-to-revive-antergos-now-antergos-next/80152).
 
 From a janky custom `mkarchiso` called MoonlightOS NoVa, through the EndeavourOS-based Solara, to a fully-fledged Artix Linux-based ISO with KDE Plasma, Calamares installer (online + offline), Dinit as default init (OpenRC/Runit/S6 still selectable), and proper CI that uploads to the Internet Archive.
 
