@@ -14,7 +14,7 @@
     - antergos-next-keyring
     - antergos-wallpapers
     - antergos-grub-theme
-    - firefox
+    - falkon
     - mesa
     - mesa-utils
     - networkmanager
