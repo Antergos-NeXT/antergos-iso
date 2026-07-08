@@ -22,9 +22,8 @@ rootfs:
   packages:
     - antergos-release
     - qt6-multimedia-ffmpeg
-    - firefox
+    - falkon
     - vlc
-    - mpv
     - calamares
     - calamares-branding-antergos-next
     - antergos-welcome
@@ -85,7 +84,7 @@ livefs:
     - virtualbox-guest-utils
     - broadcom-wl
     - antergos-grub-theme
-    - plasma
+    - plasma-meta
     - ark
     - dolphin
     - ffmpegthumbs
