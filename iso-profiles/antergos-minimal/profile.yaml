@@ -28,6 +28,7 @@ rootfs:
     - antergos-next-keyring
     - antergos-wallpapers
     - antergos-sddm-theme
+    - antergos-grub-theme
     - falkon
     - antergos-xfce-theme
     - xfce4
