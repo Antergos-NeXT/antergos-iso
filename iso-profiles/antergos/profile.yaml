@@ -3,7 +3,7 @@ live-session:
   user: antergos
   password: antergos
   autologin: true
-  use-xlibre: false
+  use-xlibre: true
   services:
     - acpid
     - bluetoothd
