@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Set Antergos NeXT Wallpaper
+Comment=Apply Antergos NeXT default wallpaper on first login
+Exec=/usr/local/bin/set-antergos-wallpaper.sh
+Terminal=false
+X-KDE-autostart-phase=2
+NoDisplay=true

@@ -1,0 +1,281 @@
+- name: "Default"
+  description: "Default packages"
+  hidden: false
+  selected: true
+  critical: true
+  immutable: true
+  packages:
+    - linux
+    - linux-headers
+    - grub
+    - efibootmgr
+    - sudo
+    - antergos-release
+    - antergos-next-keyring
+    - antergos-wallpapers
+    - antergos-grub-theme
+    - falkon
+    - mesa
+    - mesa-utils
+    - networkmanager
+    - network-manager-applet
+    - pipewire
+    - pipewire-alsa
+    - pipewire-pulse
+    - wireplumber
+
+
+- name: "Kernel"
+  description: "Kernel and modules"
+  selected: false
+  packages:
+    - acpi_call
+    - bbswitch
+    - broadcom-wl
+    - tp_smapi
+    - linux-lts
+    - linux-lts-headers
+
+- name: "Firmware"
+  description: "Firmware"
+  selected: false
+  packages:
+    - b43-fwcutter
+    - linux-firmware
+    - linux-firmware-bnx2x
+    - linux-firmware-liquidio
+    - linux-firmware-marvell
+    - linux-firmware-mellanox
+    - linux-firmware-nfp
+    - linux-firmware-qcom
+    - linux-firmware-qlogic
+    - linux-firmware-whence
+    - sof-firmware
+    - alsa-firmware
+    - intel-ucode
+    - amd-ucode
+
+- name: "Utilities"
+  description: "System Utilities"
+  selected: true
+  packages:
+    - antergos-lsb-release
+    - nano
+    - vi
+
+- name: "Devel"
+  description: "Development tools"
+  selected: false
+  packages:
+    - base-devel
+    - artools-base
+    - artools-iso
+    - artools-pkg
+
+- name: "Desktop"
+  description: "DE"
+  selected: true
+  critical: false
+  subgroups:
+    - name: "Plasma"
+      description: "KDE Plasma Desktop"
+      selected: true
+      packages:
+        - antergos-plasma-theme
+        - antergos-next-desktop-settings
+        - ark
+        - bluedevil
+        - breeze-gtk
+        - dolphin
+        - dolphin-plugins
+        - ffmpegthumbs
+        - gwenview
+        - kate
+        - kcalc
+        - kde-cli-tools
+        - kde-gtk-config
+        - kdeconnect
+        - kdegraphics-thumbnailers
+        - kdenetwork-filesharing
+        - kdeplasma-addons
+        - keditbookmarks
+        - kfind
+        - kgpg
+        - kinfocenter
+        - kio-admin
+        - kio-extras
+        - kio-fuse
+        - konsole
+        - konversation
+        - kscreen
+        - kwallet-pam
+        - kwalletmanager
+        - kwayland-integration
+        - okular
+        - partitionmanager
+        - plasma-browser-integration
+        - plasma-desktop
+        - plasma-disks
+        - plasma-nm
+        - plasma-pa
+        - plasma-systemmonitor
+        - plasma-workspace
+        - powerdevil
+        - print-manager
+        - qt6-imageformats
+        - spectacle
+        - xdg-desktop-portal-kde
+        - xsettingsd
+    - name: "Xfce"
+      description: "Xfce Desktop"
+      selected: false
+      packages:
+        - antergos-xfce-theme
+        - exo
+        - garcon
+        - thunar
+        - thunar-volman
+        - tumbler
+        - xfce4-appfinder
+        - xfce4-panel
+        - xfce4-power-manager
+        - xfce4-session
+        - xfce4-settings
+        - xfce4-terminal
+        - xfconf
+        - xfdesktop
+        - xfwm4
+        - xfwm4-themes
+        - mousepad
+        - parole
+        - ristretto
+        - thunar-archive-plugin
+        - thunar-media-tags-plugin
+        - xfburn
+        - xfce4-clipman-plugin
+        - xfce4-notifyd
+        - xfce4-pulseaudio-plugin
+        - xfce4-screenshooter
+        - xfce4-screensaver
+        - xfce4-taskmanager
+        - xfce4-whiskermenu-plugin
+    - name: "Cinnamon"
+      description: "Cinnamon Desktop"
+      selected: false
+      packages:
+        - cinnamon
+        - cinnamon-control-center
+        - cinnamon-desktop
+        - cinnamon-menus
+        - cinnamon-screensaver
+        - cinnamon-session
+        - cinnamon-settings-daemon
+        - cinnamon-translations
+    - name: "MATE"
+      description: "MATE Desktop"
+      selected: false
+      packages:
+        - caja
+        - marco
+        - mate-backgrounds
+        - mate-control-center
+        - mate-desktop
+        - mate-icon-theme
+        - mate-menus
+        - mate-notification-daemon
+        - mate-panel
+        - mate-polkit
+        - mate-session-manager
+        - mate-settings-daemon
+        - mate-themes
+        - mate-user-guide
+        - atril
+        - eom
+        - mate-applets
+        - mate-calc
+        - mate-power-manager
+        - mate-screensaver
+        - mate-system-monitor
+        - mate-terminal
+        - mate-utils
+        - pluma
+    - name: "LXQt"
+      description: "LXQt Desktop"
+      selected: false
+      packages:
+        - lximage-qt
+        - lxqt-about
+        - lxqt-admin
+        - lxqt-archiver
+        - lxqt-config
+        - lxqt-globalkeys
+        - lxqt-menu-data
+        - lxqt-notificationd
+        - lxqt-openssh-askpass
+        - lxqt-panel
+        - lxqt-policykit
+        - lxqt-powermanagement
+        - lxqt-qtplugin
+        - lxqt-runner
+        - lxqt-session
+        - lxqt-sudo
+        - lxqt-themes
+        - obconf-qt
+        - openbox
+        - pavucontrol-qt
+        - pcmanfm-qt
+        - qps
+        - qterminal
+        - screengrab
+        - xdg-desktop-portal-lxqt
+    - name: "i3"
+      description: "i3 Tiling WM"
+      selected: false
+      packages:
+        - i3-wm
+        - i3blocks
+        - i3lock
+        - i3status
+    - name: "Sway"
+      description: "Sway Wayland Compositor"
+      selected: false
+      packages:
+        - sway
+        - swaybg
+        - swayidle
+        - swaylock
+    - name: "Hyprland"
+      description: "Hyprland Wayland Compositor"
+      selected: false
+      packages:
+        - hyprland
+        - xdg-desktop-portal-hyprland
+
+- name: "SDDM"
+  description: "SDDM display manager"
+  selected: false
+  packages:
+    - sddm
+    - sddm-dinit
+    - antergos-sddm-theme
+
+- name: "LightDM"
+  description: "LightDM display manager"
+  selected: false
+  packages:
+    - lightdm
+    - lightdm-dinit
+
+- name: "LXDM"
+  description: "LXDM display manager"
+  selected: false
+  packages:
+    - lxdm
+    - lxdm-dinit
+
+- name: "LY"
+  description: "LY display manager"
+  selected: false
+  packages:
+    - ly
+    - ly-dinit

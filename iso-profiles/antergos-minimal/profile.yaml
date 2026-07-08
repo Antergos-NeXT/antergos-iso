@@ -1,0 +1,86 @@
+---
+# Antergos NeXT Minimal (Xfce) profile
+# Based on artools xfce profile with Antergos branding
+
+live-session:
+  user: antergos
+  password: antergos
+  autologin: true
+  use-xlibre: false
+  services:
+    - acpid
+    - bluetoothd
+    - cronie
+    - cupsd
+    - NetworkManager
+    - sddm
+    - power-profiles-daemon
+  user-services:
+    - dbus
+    - pipewire
+    - pipewire-pulse
+    - wireplumber
+rootfs:
+  packages:
+    - antergos-release
+    - calamares
+    - calamares-branding-antergos-next-minimal
+    - antergos-next-keyring
+    - antergos-wallpapers
+    - antergos-sddm-theme
+    - falkon
+    - antergos-xfce-theme
+    - xfce4
+    - xfce4-goodies
+    - thunar
+    - thunar-volman
+    - tumbler
+    - xfce4-terminal
+    - mousepad
+    - pavucontrol
+    - gnome-keyring
+    - parole
+    - ristretto
+  packages-init:
+    dinit:
+      - pipewire-dinit
+      - pipewire-pulse-dinit
+      - wireplumber-dinit
+      - dinit-user-spawn
+      - sddm-dinit
+      - networkmanager-dinit
+      - cups-dinit
+      - acpid-dinit
+      - bluez-dinit
+      - cronie-dinit
+      - dbus-dinit
+      - dbus-dinit-user
+      - dhcpcd-dinit
+      - power-profiles-daemon-dinit
+livefs:
+  packages:
+    - squashfs-tools
+    - calamares-extensions
+    - antergos-grub-theme
+    - antergos-grub-live
+    - broadcom-wl
+    - virtualbox-guest-utils
+    - mkinitcpio-nfs-utils
+    - pipewire
+    - pipewire-pulse
+    - wireplumber
+    - sof-firmware
+    - alsa-firmware
+    - alsa-utils
+  packages-init:
+    dinit:
+      - antergos-live-dinit
+      - acpid-dinit
+      - bluez-dinit
+      - cronie-dinit
+      - cups-dinit
+      - networkmanager-dinit
+      - power-profiles-daemon-dinit
+      - sddm-dinit
+      - pipewire-dinit
+      - wireplumber-dinit

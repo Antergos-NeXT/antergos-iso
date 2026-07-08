@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Install Antergos NeXT
+Name[en]=Install Antergos NeXT
+Comment=Install Antergos NeXT on this computer
+Exec=sudo -E calamares-next
+Icon=calamares
+Terminal=false
+Categories=Qt;System;Settings;
+StartupNotify=true
