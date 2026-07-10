@@ -21,6 +21,7 @@ live-session:
 rootfs:
   packages:
     - antergos-release
+    - antergos-lsb-release
     - qt6-multimedia-ffmpeg
     - falkon
     - vlc
@@ -45,7 +46,7 @@ rootfs:
       - pipewire-dinit
       - pipewire-pulse-dinit
       - wireplumber-dinit
-      - dinit-user-spawn
+      - userspawn-dinit
       - syslog-ng-dinit
       - sddm-dinit
       - networkmanager-dinit
@@ -118,8 +119,12 @@ livefs:
       - sddm-dinit
       - syslog-ng-dinit
       - dbus-dinit
+      - dbus-dinit-user
       - pipewire-dinit
+      - pipewire-pulse-dinit
       - wireplumber-dinit
+      - userspawn-dinit
+      - elogind-dinit
     openrc:
       - antergos-live-openrc
     runit:

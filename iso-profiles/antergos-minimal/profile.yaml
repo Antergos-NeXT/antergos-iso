@@ -23,6 +23,7 @@ live-session:
 rootfs:
   packages:
     - antergos-release
+    - antergos-lsb-release
     - calamares
     - calamares-branding-antergos-next-minimal
     - antergos-next-keyring
@@ -47,7 +48,7 @@ rootfs:
       - pipewire-dinit
       - pipewire-pulse-dinit
       - wireplumber-dinit
-      - dinit-user-spawn
+      - userspawn-dinit
       - sddm-dinit
       - networkmanager-dinit
       - cups-dinit
@@ -83,5 +84,8 @@ livefs:
       - networkmanager-dinit
       - power-profiles-daemon-dinit
       - sddm-dinit
+      - dbus-dinit
+      - dbus-dinit-user
       - pipewire-dinit
+      - pipewire-pulse-dinit
       - wireplumber-dinit

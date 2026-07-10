@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Name=PipeWire Media System
+Comment=Start the PipeWire Media System
+Exec=/usr/bin/artix-pipewire-launcher restart
+Terminal=false
+Type=Application
+StartupNotify=false
