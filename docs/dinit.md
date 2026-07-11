@@ -9,24 +9,16 @@ nav_order: 2
 
 **Dinit** is a modern init system designed for speed and correctness. Written in C++, it focuses on parallel service startup and dependency management without the bloat of systemd or the complexity of S6. **Dinit is the default init system in Antergos NeXT.**
 
-## Philosophy
-
-Dinit aims to be a "better than OpenRC but simpler than S6" middle ground. It handles dependencies automatically (like systemd) but stays out of your way (like OpenRC). Services are defined in declarative config files, not shell scripts.
-
-## Who uses it?
-
-- Not widely adopted by major distros yet
-- Popular in DIY Linux builds (Linux From Scratch, custom embedded)
-- Default init in Antergos NeXT; available in Artix as an alternative
+Dinit's design philosophy is to be a "better than OpenRC but simpler than S6" middle ground. It handles dependencies automatically (like systemd) but stays out of your way (like OpenRC). Services are defined in declarative config files, not shell scripts.
 
 ## Key concepts
 
 | Concept | What it means |
 |---------|---------------|
 | Service files | Declarative `.conf` files in `/etc/dinit.d/` |
-| Dependencies | Automatic — Dinit figures out start order |
-| Parallel startup | Very fast — starts services concurrently |
-| Process supervision | Optional — can restart crashed services |
+| Dependencies | Automatic — Dinit figures out start order from `depends-on` directives |
+| Parallel startup | Very fast — starts services concurrently wherever possible |
+| Process supervision | Optional — can restart crashed services if `type = process` |
 
 ## Basic commands
 
@@ -60,6 +52,41 @@ depends-on = dbus
 depends-on = network
 ```
 
+## Where services live
+
+- **System services**: `/etc/dinit.d/` (config) — enabled via symlinks in `/etc/dinit.d/boot.d/`
+- **User services**: similar structure under user's config directory (for `dinit-user-serve`)
+- **Boot-enabling**: `dinitctl enable <service>` creates a symlink in `boot.d/`
+
+Service files use a simple key-value syntax. The `type` can be:
+- `process` — supervised (auto-restart on crash)
+- `scripted` — runs and completes (one-shot tasks)
+- `internal` — handled internally by dinit
+
+## Common tasks
+
+### Enable a service at boot
+
+```bash
+dinitctl enable sshd
+```
+
+Alternatively, create a symlink manually:
+
+```bash
+ln -s /etc/dinit.d/sshd /etc/dinit.d/boot.d/
+```
+
+### Check what's running
+
+```bash
+dinitctl list
+```
+
+### View logs
+
+Dinit itself doesn't handle logging. Services log to syslog or their own log files under `/var/log/`. Use `less /var/log/messages` or check per-service log directories.
+
 ## Comparison with OpenRC
 
 | | OpenRC | Dinit |
@@ -70,15 +97,37 @@ depends-on = network
 | Complexity | Low | Medium |
 | Supervision | No built-in | Optional |
 
+## Troubleshooting
+
+### Service fails to start
+
+Check the service file syntax first:
+
+```bash
+dinitctl start sshd
+# If it fails, check:
+cat /var/log/messages | grep dinit
+```
+
+Make sure all `depends-on` services are available (even if not enabled — dinit will start them as dependencies).
+
+### "boot" service file missing
+
+Dinit's `add_user_svc_dinit` in Calamares attempts to create `boot.d/` symlinks but does not create a `boot` service file. This is a known upstream limitation. Workaround: ensure services are enabled via `dinitctl enable` after install, or use the init-specific package handling in Calamares.
+
+### pipewire doesn't start
+
+On Antergos NeXT, `artix-pipewire-launcher` is patched to support dinit. If pipewire isn't starting, verify the launcher script at `/usr/bin/artix-pipewire-launcher` includes dinit in its supported init list. The XDG autostart entry at `/etc/xdg/autostart/pipewire.desktop` handles starting pipewire on login.
+
 ## Should you use it?
 
 Pick Dinit if:
 - You want the fastest possible boot
-- You like declarative config (YAML-like)
+- You like declarative config (INI-like syntax)
 - You want automatic dependency resolution
 - You're fine with a newer, actively developed init system
 
-OpenRC is also available if you prefer shell scripts and a longer track record.
+Stick with OpenRC if you prefer shell scripts and a longer track record.
 
 ## Learn more
 

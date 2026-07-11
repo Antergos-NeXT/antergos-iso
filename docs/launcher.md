@@ -6,17 +6,13 @@ nav_order: 10
 
 # Calamares Launcher
 
-The `calamares-next` script (`calamares-next.sh`) handles the installer boot flow.
+The `calamares-next` script (`calamares-next.sh`) handles the installer boot flow. It's installed by `calamares-branding-antergos-next` to `/usr/bin/calamares-next`.
 
-## Flow
+## Boot flow
 
-1. **Mode picker** — Dialog asking Offline or Online install
-2. **Configuration** — Copies the appropriate `settings.conf` (offline or online) to `/etc/calamares/settings.conf`
-3. **Launch** — Runs `calamares` with the selected config
-
-## Launcher location
-
-Installed by `calamares-branding-antergos-next` to `/usr/bin/calamares-next`.
+1. **Mode picker** — `kdialog` or `zenity` dialog asking Offline or Online install
+2. **Configuration** — copies the appropriate `settings.conf` (offline or online) to `/etc/calamares/settings.conf`
+3. **Launch** — runs `calamares` with the selected config
 
 ## Desktop entry
 
@@ -26,21 +22,42 @@ Installed by `calamares-branding-antergos-next` to `/usr/bin/calamares-next`.
 Exec=sudo -E calamares-next
 ```
 
-Note: `sudo -E` preserves environment variables (required for `WAYLAND_DISPLAY`, `XDG_CURRENT_DESKTOP`, etc. when launched from the SDDM session).
+`sudo -E` preserves environment variables (`WAYLAND_DISPLAY`, `XDG_CURRENT_DESKTOP`, etc.) when launched from the SDDM session. Without it, Calamares may not detect the display server correctly.
 
-## Mode picker (dialog)
+## Mode picker
 
-A simple `kdialog` or `zenity` dialog:
-- **Offline** — No internet required, installs KDE Plasma from squashfs
-- **Online** — Init system selector + DE selector via packagechooser, downloads packages from the internet
+A simple dialog with two options:
+
+- **Offline** — no internet required, installs KDE Plasma from a pre-built squashfs. Fast and deterministic.
+- **Online** — internet required, shows an init system selector (Dinit/OpenRC/Runit/S6) and a desktop selector. Downloads packages from the repos.
 
 ## Config switching
 
 `SetConfig()` in `calamares-next.sh`:
-1. Removes existing symlink at `/etc/calamares/settings.conf` (must `rm -f` first, not overwrite, or `cp` follows the symlink)
-2. Copies the selected settings file
+
+1. `rm -f` the existing symlink at `/etc/calamares/settings.conf` (must remove first — `cp` follows symlinks and would overwrite the wrong file)
+2. `cp` the selected settings file (offline or online) to `/etc/calamares/settings.conf`
 3. Calamares reads the config on launch
 
 ## Hiding "Install Artix"
 
-The live-overlay includes `calamares-config-switcher.desktop` with `NoDisplay=true` — this hides the upstream Artix launcher while keeping the binary available.
+The live-overlay includes `calamares-config-switcher.desktop` with `NoDisplay=true`. This hides the upstream Artix "Install Artix Linux" desktop entry while keeping the binary available for other uses.
+
+## Module configs
+
+### Online modules
+
+Configs live in `live-overlay/etc/calamares-online/modules/`:
+
+- `packagechooser_init.conf` — init system selector using `method: netinstall-add`
+- `packagechooser_desktop.conf` — DE selector using `method: legacy`
+- `initcpiocfg.conf` — mkinitcpio configuration
+- `services-openrc.conf` — service enablement (works across all inits via init-specific wrappers)
+
+### Offline modules
+
+Configs live in `live-overlay/etc/calamares-offline/modules/`:
+
+- `unpackfs.conf` — unpack the pre-built squashfs
+- `initcpiocfg.conf` — mkinitcpio configuration
+- `services-openrc.conf` — service enablement

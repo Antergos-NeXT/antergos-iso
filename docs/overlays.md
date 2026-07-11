@@ -7,22 +7,30 @@ has_children: true
 
 # Overlays
 
-Two directories under `iso-profiles/antergos/` control what goes into the ISO.
+Two directories under `iso-profiles/antergos/` control what goes into the ISO:
 
 ```
 iso-profiles/antergos/
-├── profile.yaml
-├── root-overlay/     # → rootfs (squashfs)
-└── live-overlay/     # → live environment (initramfs)
+├── profile.yaml          # Package lists, services, compression
+├── root-overlay/         # → rootfs (squashfs) — becomes part of installed system
+└── live-overlay/         # → live environment only — not present after installation
 ```
 
 ## How overlays work
 
-- `root-overlay/` files are merged into the root squashfs — they become part of the installed system
-- `live-overlay/` files are copied into the live environment only — they're not present after installation
-- Overlays are **self-contained** (no symlinks to external directories) so the repo builds standalone
-- Live-overlay files are **copied** via `cp -LR` in `make_livefs()`, not overlay-mounted. Deleting a file from live-overlay exposes the package version underneath
+- **root-overlay** files are merged into the root squashfs. Everything in here becomes part of the installed system — settings, wallpapers, autostart entries.
+- **live-overlay** files are copied into the live environment only. They exist in the live session but are **not** present after installation. Calamares configs, the launcher desktop entry, and init-related configs live here.
+- Overlays are **self-contained** (no symlinks to external directories) so the repo builds standalone.
 
-> **Disclaimer:** No symlinks were harmed in the making of this ISO. Well, maybe a few. We killed some.
+## Important: overlay behavior
 
-> Also: this ISO is 100% systemd-free. Not even a trace. We checked. Twice.
+Live-overlay files are **copied** via `cp -LR` in `make_livefs()`, not overlay-mounted. This means:
+
+- You **cannot** hide a file from a package by placing an empty file in live-overlay — the package version still exists underneath
+- To hide a desktop entry, use `NoDisplay=true` in the `.desktop` file
+- To replace a file, your live-overlay version wins during copy
+
+## Related pages
+
+- [Root Overlay](overlay-root) — persistent system config, wallpapers, skel
+- [Live Overlay](overlay-live) — installer configs, launcher, SDDM session

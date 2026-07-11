@@ -21,7 +21,7 @@ git config commit.gpgsign true
 Then commit with `git commit -S -m "message"`. If GPG prompts for a passphrase, pray to the build gods and provide it. An unsigned commit is a mortal sin.
 
 ## The Crusade
-- **Artix Linux** ISO (OpenRC init), forked from EndeavourOS-ISO, then migrated to artools after 15 days in a vent shaft
+- **Artix Linux** ISO (dinit default), forked from EndeavourOS-ISO, then migrated to artools after 15 days in a vent shaft
 - **KDE Plasma** live environment with Calamares installer (offline + online modes)
 - **Build command**: `export WORKSPACE_DIR="$PWD" && sudo -E ./buildiso -p antergos` — **use `./buildiso`**, NOT `buildiso`; the system Artix `/usr/bin/buildiso` lacks `--overwrite='*'` and will fail with file conflicts; `sudo -E` is required to preserve `WORKSPACE_DIR` environment variable
 - ISO appears in `/var/lib/artools/buildiso/iso/antergos/` (assuming the build gods are pleased)
@@ -63,7 +63,20 @@ CI does this automatically. Forget this step and buildiso will try to fetch our 
 `buildiso` looks for profiles at `$WORKSPACE_DIR/iso-profiles/<profile>/` if `WORKSPACE_DIR` is set. Always set it to the repo root when building locally.
 
 ### Default init system
-Antergos NeXT uses **dinit** (via `INITSYS='dinit'` in `buildiso`). OpenRC, runit, and s6 are still available as user-selectable options in the online installer. See `common.yaml` and `profile.yaml` for per-init package lists.
+Antergos NeXT uses **dinit** (via `INITSYS='dinit'` in `buildiso`). Runit and s6 are also available as user-selectable options in the online installer. **OpenRC is broken** (services don't enable correctly on installed systems). See `common.yaml` and `profile.yaml` for per-init package lists.
+
+### `antergos-release` in basestrap.conf operations
+The `filesystem` package owns `/usr/lib/os-release` with "Artix Linux". To get "Antergos NeXT" in os-release, `antergos-release` must be in the `operations` list in `basestrap.conf`. This ensures it's installed during bootstrapping with `--overwrite`. Missing it → installed system shows "Artix Linux".
+
+### SDDM theme ordering
+`kde_settings.conf` from KDE's SDDM KCM sets `Current=breeze`. The `antergos-sddm-theme` package ships `theme.conf` at `/etc/sddm.conf.d/theme.conf`. SDDM reads `conf.d` files alphabetically — `theme.conf` sorts after `kde_settings.conf`, so its `Current=antergos` wins.
+
+### pipewire launcher patching for dinit
+`artix-pipewire-launcher` detects the init system. Upstream sets `dinit|openrc) SUPPORT=''`. The forked package changes this to `dinit|runit|s6) SUPPORT='YES'`. The package also ships `pipewire.desktop` at `/etc/xdg/autostart/` so online installs get the XDG autostart entry.
+
+### CI: manual dispatch only, IA upload enabled
+`build.yml` only runs on `workflow_dispatch` (push trigger removed). Internet Archive upload is enabled with unique identifier format `antergos-next-YYYYMMDD-<run_number>`.
+
 
 ## Repo Structure
 
@@ -79,6 +92,8 @@ antergos-iso/
 │       └── common.yaml         # Shared base packages
 ├── pacman.conf.d/
 │   └── iso-x86_64.conf         # Pacman config for ISO build
+├── docs/                       # Jekyll site (Just the Docs), deployed to GitHub Pages
+│   └── *.md                    # All docs reworked to Artix Wiki quality
 ├── .github/workflows/build.yml # CI: builds ISO, uploads to Internet Archive
 └── AGENTS.md                   # You are here
 ```

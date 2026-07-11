@@ -15,7 +15,7 @@ Available desktops in online mode, sourced from Artix repos.
 | **Repo** | world |
 | **Group** | `plasma` |
 | **Session** | `plasma.desktop` (Wayland) / `plasmax11.desktop` (X11) |
-| **Notes** | Default DE. Wayland is the default session. `plasma-wayland-session` is NOT a separate package on Artix — it's bundled in `plasma-workspace` |
+| **Notes** | Default DE. Wayland is the default session. `plasma-wayland-session` is NOT a separate package on Artix — it's bundled in `plasma-workspace`. Includes `discover` (KDE's package manager GUI) |
 
 ## Xfce
 
@@ -73,22 +73,11 @@ Available desktops in online mode, sourced from Artix repos.
 | **Packages** | `hyprland` |
 | **Session** | `hyprland.desktop` |
 
-## GNOME
+## No Desktop
 
-| | |
-|---|---|
-| **Repo** | imaginary |
-| **Group** | `gnome-systemd-hub` |
-| **Session** | `does-not-exist.desktop` |
-| **Status** | ❌ |
-
-> You really think you can get GNOME here? GNOME deleted all other init support. Take a walk.
+Installs the base system only (TTY/login). Useful for servers or custom setups.
 
 ## Not available
 
 - **Budgie** — not in any Artix repo (system, world, galaxy, lib32). Slideshow entries removed.
-- **GNOME** — see above.
-
-## No Desktop
-
-Installs the base system only (TTY/login). Useful for servers or custom setups.
+- **GNOME** — dropped non-systemd support upstream. Not available.
