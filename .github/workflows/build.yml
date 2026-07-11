@@ -89,7 +89,7 @@ jobs:
         [[ -z "$ISO" || ! -f "$ISO" ]] && { echo "No ISO found"; exit 1; }
 
         DATE=$(date +%Y.%m.%d)
-        IDENTIFIER="antergos-next-$(date +%Y%m%d)"
+        IDENTIFIER="antergos-next-$(date +%Y%m%d)-${{ github.run_number }}"
 
         SIZE=$(stat -c%s "$ISO")
         if [[ $SIZE -lt 524288000 ]]; then
