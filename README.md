@@ -107,7 +107,7 @@ The launcher (`calamares-next`) presents a mode picker before launching Calamare
 
 ## Download
 
-No prebuilt ISOs yet. See [Building](#building) above.
+[GitHub Releases](https://github.com/Antergos-NeXT/antergos-iso/releases)
 
 ## Sources
 
