@@ -18,6 +18,7 @@ A community revival of Antergos — built on **Artix Linux** with **Dinit** (Ope
 
 ## Quick links
 
+- [Download](https://github.com/Antergos-NeXT/antergos-iso/releases) — prebuilt ISOs on GitHub Releases
 - [Building the ISO](building) — set up and build locally
 - [Installer](installer) — Calamares modes, init & DE selectors
 - [Custom packages](packages) — PKGBUILDs, repo setup
