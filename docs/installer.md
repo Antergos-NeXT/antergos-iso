@@ -54,7 +54,7 @@ Dinit is preselected by default.
 
 ## Desktop selector (online)
 
-Users choose from: **Plasma**, **Xfce**, **Cinnamon**, **MATE**, **LXQt**, **i3**, **Sway**, **Hyprland**, or **No Desktop**.
+Users choose from: **Plasma**, **Xfce**, **Cinnamon**, **MATE**, **LXQt**, **i3**, **Sway**, **Hyprland**, **COSMIC**, or **No Desktop**.
 
 Implemented as a separate `packagechooser` instance with `method: legacy`. "No Desktop" installs only the base system (TTY/login — no DE, no display manager).
 
@@ -70,6 +70,7 @@ Implemented as a separate `packagechooser` instance with `method: legacy`. "No D
 | i3 | world | `i3` group | Tiling WM |
 | Sway | world | `sway` + related | Wayland-native tiling |
 | Hyprland | world | `hyprland` | Wayland compositor |
+| COSMIC | galaxy | `cosmic` group | Rust/Wayland. Uses greetd. Alpha quality |
 
 ## Not available
 
