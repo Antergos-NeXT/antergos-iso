@@ -272,6 +272,13 @@
     - lxdm
     - lxdm-dinit
 
+- name: "greetd"
+  description: "greetd display manager"
+  selected: false
+  packages:
+    - greetd
+    - greetd-dinit
+
 - name: "LY"
   description: "LY display manager"
   selected: false
