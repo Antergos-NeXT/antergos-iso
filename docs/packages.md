@@ -39,7 +39,7 @@ Server = https://antergos-next.github.io/antergos-packages
 ### calamares-branding-antergos-next
 
 - Ships `calamares-next.sh` — the launcher script that presents the mode picker and manages config switching
-- `packagechooser.conf` provides a DE-only fallback for standalone use
+- `packagechooser.conf` provides a DM-only fallback for standalone use
 - `SetConfig()` must `rm -f` the symlink at `/etc/calamares/settings.conf` before copying, otherwise `cp` follows the symlink and overwrites the wrong file
 
 ### pipewire (forked)

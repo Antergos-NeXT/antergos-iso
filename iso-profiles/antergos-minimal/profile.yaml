@@ -25,6 +25,7 @@ rootfs:
     - antergos-release
     - antergos-lsb-release
     - calamares
+    - python-toml
     - calamares-branding-antergos-next-minimal
     - antergos-next-keyring
     - antergos-wallpapers

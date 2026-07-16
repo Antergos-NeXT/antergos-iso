@@ -9,16 +9,14 @@ has_children: true
 
 An **init system** is PID 1 — the first process that runs when your computer boots. It starts everything else: filesystems, networking, display manager, services. Think of it as a foreman: it doesn't do the work itself, but it makes sure everything happens in the right order.
 
-Antergos NeXT lets you choose between **four** init systems during online installation. (Offline mode uses Dinit, the default.)
-
-> **Don't know what to pick? Stick with Dinit** — it's the default, it's fast, and it's what Antergos NeXT ships with. OpenRC is also available but currently broken in Antergos NeXT (services don't enable correctly on installed systems).
+Antergos NeXT ships with **Dinit** as its default init system. The pages below describe the major init systems available on Artix Linux for educational purposes. If you want to switch init on an installed system, see [Changing init](changing-init).
 
 ## The inits
 
 | Init | Philosophy | Complexity | Speed | Used by |
 |------|-----------|------------|-------|---------|
-| [Dinit](dinit) | Modern, dependency-based, parallel | Medium | Very fast | Antergos NeXT (default), Chimera Linux, Artix, new projects |
-| [OpenRC](openrc) | Traditional, modular, shell-script-based | Low | Fast | Gentoo, Artix, Devuan, Alpine — **currently broken in Antergos NeXT** |
+| [Dinit](dinit) | Modern, dependency-based, parallel | Medium | Very fast | Antergos NeXT (default), Chimera Linux, Artix |
+| [OpenRC](openrc) | Traditional, modular, shell-script-based | Low | Fast | Gentoo, Artix, Devuan, Alpine |
 | [Runit](runit) | Minimal, supervision-based, Unix-like | Low | Very fast | Void Linux, AntiX |
 | [S6](s6) | Full supervision suite, modular | Medium-High | Very fast | Artix, embedded systems |
 

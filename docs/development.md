@@ -98,7 +98,7 @@ Artix bundles the Wayland session into `plasma-workspace` itself. Do not add it 
 
 ### `calamares-next.sh SetConfig()`
 
-Must `rm -f` the symlink at `/etc/calamares/settings.conf` before `cp`, otherwise `cp` follows the symlink and overwrites the offline config file instead of replacing it with the selected one.
+Must `rm -f` the existing file before `cp`, otherwise `cp` follows any existing symlink to the settings file.
 
 ### CI does not trigger on push
 
@@ -115,8 +115,7 @@ Boot the resulting ISO in a VM. Verify:
 - Wayland is the default display server (SDDM session is `plasma.desktop`)
 - No "Install Artix Linux" entry in the app menu
 - Wallpaper is set on first login
-- Offline mode installs without internet
-- Online mode: init selector + DE selector both work
+- DE selector works
 - Slideshow renders correctly
 - Audio works after installation (pipewire should auto-start)
 - After install, `/usr/lib/os-release` shows "Antergos NeXT"

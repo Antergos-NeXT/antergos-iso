@@ -6,7 +6,7 @@ nav_order: 1
 
 # Antergos NeXT
 
-A community revival of Antergos for the post-systemd era — **Artix Linux** base with **Dinit** (OpenRC / Runit / S6 available), **KDE Plasma**, and the **Calamares** installer (offline + online modes).
+A community revival of Antergos for the post-systemd era — **Artix Linux** base with **Dinit**, **KDE Plasma**, and the **Calamares** installer.
 
 ## Download
 
@@ -18,11 +18,10 @@ _Published to GitHub Releases. ISO also archived on the Internet Archive._
 This is the first stable ISO. What works:
 
 - KDE Plasma 6 on Wayland (with SDDM)
-- Full audio support on both offline and online installs
+- Full audio support on installed systems
 - Custom SDDM theme (Antergos brand, not Breeze)
 - Correct `/usr/lib/os-release` (shows "Antergos NeXT", not "Artix Linux")
-- Offline mode: unpack pre-built Plasma squashfs, no internet required
-- Online mode: choose your init (Dinit/OpenRC/Runit/S6) and desktop (Plasma/Xfce/Cinnamon/MATE/LXQt/i3/Sway/Hyprland)
+- Choose your desktop (Plasma/Xfce/Cinnamon/MATE/LXQt/i3/Sway/Hyprland/COSMIC)
 - GRUB with Antergos theme
 - Custom Calamares slideshow
 - Xlibre X server included

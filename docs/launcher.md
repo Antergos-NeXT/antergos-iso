@@ -10,9 +10,10 @@ The `calamares-next` script (`calamares-next.sh`) handles the installer boot flo
 
 ## Boot flow
 
-1. **Mode picker** — `kdialog` or `zenity` dialog asking Offline or Online install
-2. **Configuration** — copies the appropriate `settings.conf` (offline or online) to `/etc/calamares/settings.conf`
-3. **Launch** — runs `calamares` with the selected config
+1. **Notice** — explains why the so-called "Offline Install" was removed (it wasn't actually offline)
+2. **Welcome** — branded splash screen with an "Install" button
+3. **Configuration** — copies `calamares-online/settings.conf` to `/etc/calamares/settings.conf`
+4. **Launch** — runs `calamares` with the online config
 
 ## Desktop entry
 
@@ -24,19 +25,16 @@ Exec=sudo -E calamares-next
 
 `sudo -E` preserves environment variables (`WAYLAND_DISPLAY`, `XDG_CURRENT_DESKTOP`, etc.) when launched from the SDDM session. Without it, Calamares may not detect the display server correctly.
 
-## Mode picker
+## Installer flow
 
-A simple dialog with two options:
-
-- **Offline** — no internet required, installs KDE Plasma from a pre-built squashfs. Fast and deterministic.
-- **Online** — internet required, shows an init system selector (Dinit/OpenRC/Runit/S6) and a desktop selector. Downloads packages from the repos.
+The launcher shows a YAD info notice explaining the removal of the offline mode, then presents a branded splash with a single "Install" button. Calamares launches in online mode with the DE selector.
 
 ## Config switching
 
 `SetConfig()` in `calamares-next.sh`:
 
-1. `rm -f` the existing symlink at `/etc/calamares/settings.conf` (must remove first — `cp` follows symlinks and would overwrite the wrong file)
-2. `cp` the selected settings file (offline or online) to `/etc/calamares/settings.conf`
+1. `rm -f` the existing settings file at `/etc/calamares/settings.conf`
+2. `cp` the online settings file to `/etc/calamares/settings.conf`
 3. Calamares reads the config on launch
 
 ## Hiding "Install Artix"
@@ -45,19 +43,8 @@ The live-overlay includes `calamares-config-switcher.desktop` with `NoDisplay=tr
 
 ## Module configs
 
-### Online modules
-
 Configs live in `live-overlay/etc/calamares-online/modules/`:
 
-- `packagechooser_init.conf` — init system selector using `method: netinstall-add`
-- `packagechooser_desktop.conf` — DE selector using `method: legacy`
+- `packagechooser_dm.conf` — display manager selector using `method: netinstall-select`
 - `initcpiocfg.conf` — mkinitcpio configuration
-- `services-openrc.conf` — service enablement (works across all inits via init-specific wrappers)
-
-### Offline modules
-
-Configs live in `live-overlay/etc/calamares-offline/modules/`:
-
-- `unpackfs.conf` — unpack the pre-built squashfs
-- `initcpiocfg.conf` — mkinitcpio configuration
-- `services-openrc.conf` — service enablement
+- `services-artix.conf` — service enablement via `artix-service`

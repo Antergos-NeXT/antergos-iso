@@ -144,3 +144,60 @@
       selected: false
       packages:
         - cosmic
+
+- name: "Init Services"
+  description: "Essential dinit services"
+  selected: true
+  critical: true
+  immutable: true
+  packages:
+    - dinit
+    - dbus-dinit
+    - networkmanager-dinit
+    - elogind-dinit
+    - cups-dinit
+    - avahi-dinit
+    - bluez-dinit
+    - cronie-dinit
+    - openssh-dinit
+    - alsa-utils-dinit
+    - acpid-dinit
+    - dhcpcd-dinit
+    - syslog-ng-dinit
+    - power-profiles-daemon-dinit
+
+- name: "SDDM"
+  description: "SDDM display manager"
+  selected: false
+  packages:
+    - sddm
+    - sddm-dinit
+    - antergos-sddm-theme
+
+- name: "LightDM"
+  description: "LightDM display manager"
+  selected: false
+  packages:
+    - lightdm
+    - lightdm-dinit
+
+- name: "LXDM"
+  description: "LXDM display manager"
+  selected: false
+  packages:
+    - lxdm
+    - lxdm-dinit
+
+- name: "greetd"
+  description: "greetd display manager"
+  selected: false
+  packages:
+    - greetd
+    - greetd-dinit
+
+- name: "LY"
+  description: "LY display manager"
+  selected: false
+  packages:
+    - ly
+    - ly-dinit

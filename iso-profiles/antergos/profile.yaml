@@ -26,8 +26,10 @@ rootfs:
     - falkon
     - vlc
     - calamares
+    - python-toml
     - calamares-branding-antergos-next
     - antergos-welcome
+    - yay
     - antergos-next-desktop-settings
     - antergos-plasma-theme
     - antergos-sddm-theme
@@ -41,6 +43,8 @@ rootfs:
     - librdkafka
     - mongo-c-driver
     - net-snmp
+    - snapper
+    - btrfs-progs
   packages-init:
     dinit:
       - pipewire-dinit

@@ -80,7 +80,7 @@ Available desktops in online mode, sourced from Artix repos.
 | **Repo** | galaxy |
 | **Group** | `cosmic` |
 | **Session** | `cosmic.desktop` |
-| **Notes** | Rust-based, Wayland-native. Uses greetd + cosmic-greeter (not SDDM). Alpha quality, not for production. Works with dinit, s6, runit; OpenRC may have 100% CPU bugs |
+| **Notes** | Rust-based, Wayland-native. Uses greetd + cosmic-greeter (not SDDM). Alpha quality, not for production. |
 
 ## No Desktop
 

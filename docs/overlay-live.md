@@ -15,18 +15,11 @@ Files in `iso-profiles/antergos/live-overlay/` exist only in the live environmen
 live-overlay/
 ├── etc/
 │   ├── calamares/
-│   │   └── settings.conf           # Symlink → online or offline config
-│   ├── calamares-offline/
-│   │   ├── settings.conf           # Offline install config (unpackfs)
-│   │   └── modules/
-│   │       ├── unpackfs.conf
-│   │       ├── initcpiocfg.conf
-│   │       └── ...
+│   │   └── settings.conf           # Replaced at runtime by online config
 │   ├── calamares-online/
 │   │   ├── settings.conf           # Online install config (packagechooser)
 │   │   └── modules/
-│   │       ├── packagechooser_init.conf      # Init system selector
-│   │       ├── packagechooser_desktop.conf   # DE selector
+│   │       ├── packagechooser_dm.conf        # Display manager selector
 │   │       ├── initcpiocfg.conf
 │   │       └── ...
 │   └── sddm.conf.d/
@@ -42,19 +35,15 @@ live-overlay/
 
 ### `etc/calamares/settings.conf`
 
-Symlink — points to either `../calamares-offline/settings.conf` or `../calamares-online/settings.conf`, set by `calamares-next.sh` after the user selects a mode.
+Placeholder — replaced at runtime by `calamares-next.sh` which copies the online settings file.
 
 ### `etc/calamares-online/settings.conf`
 
-Two `packagechooser` instances:
-- `packagechooser@init` — init system (Dinit, OpenRC, Runit, S6) via netinstall-add
-- `packagechooser@desktop` — DE selection via legacy method
+One `packagechooser` instance for DM selection (`packagechooser@dm`) using `netinstall-select`.
 
-The init selector uses `netinstall-add` method, meaning the selected init group's packages are added to the install set. The DE selector uses `legacy` method, returning the selected DE as a global storage value.
+### Offline config (archived)
 
-### `etc/calamares-offline/settings.conf`
-
-No packagechooser. Uses `unpackfs` to deploy a pre-built KDE Plasma squashfs, then `initcpiocfg` + `initcpio` for mkinitcpio configuration.
+The offline install mode was removed in v2026.07.16 — it was never truly offline (all DE packages were still downloaded via basestrap). The configs are preserved at `iso-profiles/antergos/calamares-offline/` for reference.
 
 ### `etc/calamares/modules/basestrap.conf`
 

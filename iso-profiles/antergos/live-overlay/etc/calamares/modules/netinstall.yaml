@@ -55,6 +55,27 @@
     - intel-ucode
     - amd-ucode
 
+- name: "Init Services"
+  description: "Essential dinit services"
+  selected: true
+  critical: true
+  immutable: true
+  packages:
+    - dinit
+    - dbus-dinit
+    - networkmanager-dinit
+    - elogind-dinit
+    - cups-dinit
+    - avahi-dinit
+    - bluez-dinit
+    - cronie-dinit
+    - openssh-dinit
+    - alsa-utils-dinit
+    - acpid-dinit
+    - dhcpcd-dinit
+    - syslog-ng-dinit
+    - power-profiles-daemon-dinit
+
 - name: "Utilities"
   description: "System Utilities"
   selected: true
@@ -79,7 +100,7 @@
   subgroups:
     - name: "Plasma"
       description: "KDE Plasma Desktop"
-      selected: true
+      selected: false
       packages:
         - antergos-plasma-theme
         - antergos-next-desktop-settings
@@ -249,6 +270,11 @@
       packages:
         - hyprland
         - xdg-desktop-portal-hyprland
+    - name: "COSMIC"
+      description: "COSMIC Desktop (Rust/Wayland — select greetd as DM)"
+      selected: false
+      packages:
+        - cosmic
 
 - name: "SDDM"
   description: "SDDM display manager"

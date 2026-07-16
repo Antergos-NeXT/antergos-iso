@@ -8,3 +8,4 @@ Icon=calamares
 Terminal=false
 Categories=Qt;System;Settings;
 StartupNotify=true
+X-KDE-IsAdminApplication=true

@@ -6,22 +6,19 @@ nav_order: 4
 
 # Calamares Installer
 
-Antergos NeXT uses [Calamares](https://codeberg.org/calamares/calamares) as its installer, with a custom launcher (`calamares-next`) that presents a mode picker before launching Calamares.
+Antergos NeXT uses [Calamares](https://codeberg.org/calamares/calamares) as its installer, with a custom launcher (`calamares-next`) that launches Calamares directly in online mode.
 
-## Modes
+## Install mode
 
-| Mode | Description |
-|------|-------------|
-| **Offline** | Unpacks a pre-built KDE Plasma squashfs — no internet needed. Fast, deterministic, single option. |
-| **Online** | Netinstall with init system choice + desktop selection. Downloads packages from the internet. |
+Online-only (since v2026.07.16). The so-called "Offline Install" was removed — it was never truly offline: the rootfs only contained live session essentials, and all DE packages were still downloaded via basestrap. All installs now use the full netinstall flow with desktop selection.
 
-## Fixed issues (v2026.07.11)
+## Fixed issues
 
 ### Audio on installed systems
 
-The offline install works because `pipewire.desktop` is baked into the root squashfs via `root-overlay`. But in online mode, packages are installed fresh — and the upstream `artix-pipewire-launcher` doesn't support dinit. The XDG autostart entry was also missing.
+The upstream `artix-pipewire-launcher` doesn't support dinit. The XDG autostart entry was also missing from the upstream package.
 
-**Fix**: The `pipewire` package in `[antergos-pkgs]` now includes `pipewire.desktop` installed to `/etc/xdg/autostart/`, and the `artix-pipewire-launcher` script is patched to recognize dinit (`dinit|runit|s6) SUPPORT='YES'`). This way both offline and online installs get working audio.
+**Fix**: The `pipewire` package in `[antergos-pkgs]` now includes `pipewire.desktop` installed to `/etc/xdg/autostart/`, and the `artix-pipewire-launcher` script is patched to recognize dinit (`dinit|runit|s6) SUPPORT='YES'`).
 
 ### SDDM theme showing Breeze
 
@@ -38,19 +35,13 @@ The `filesystem` package from Artix owns `/usr/lib/os-release`. Our `antergos-re
 ## Key differences from upstream Calamares
 
 - `dracut`/`dracutlukscfg` replaced with `initcpiocfg`/`initcpio`/`luksopenswaphookcfg` (Artix uses mkinitcpio, not dracut)
-- `services-openrc` module instead of `services-systemd` (supports all four inits via init-specific variants)
+- `services-artix` module instead of `services-systemd` (uses `artix-service` which detects init and runs the right commands)
 - `removeuser` step removed, `postcfg` added
 - `packagechooser` module compiled in (upstream Calamares skips it by default)
 
-## Init system selector (online)
+## Init system
 
-Users choose from: **Dinit**, **OpenRC**, **Runit**, **S6**.
-
-> **Note:** OpenRC is currently broken in Antergos NeXT — services don't enable correctly on installed systems. Choose Dinit (default), Runit, or S6 instead.
-
-Implemented as a `packagechooser` instance with `method: netinstall-add`. The selected init pulls its associated packages (e.g. `elogind-dinit`, `connman-dinit`, `sddm-dinit`). The init packages are defined in `netinstall.yaml` as separate groups.
-
-Dinit is preselected by default.
+Antergos NeXT ships **Dinit** only. Other init systems (OpenRC, Runit, S6) are available in the Artix repos but are not offered as install-time options. See [Changing init on an installed system](changing-init) for instructions if you need a different init.
 
 ## Desktop selector (online)
 
@@ -77,10 +68,6 @@ Implemented as a separate `packagechooser` instance with `method: legacy`. "No D
 - **Budgie** — not in any Artix repo (system, world, galaxy, lib32). Slideshow entries removed.
 - **GNOME** — dropped non-systemd support upstream. "You really think you can get GNOME here?"
 
-## Offline mode
-
-No packagechooser. Uses `unpackfs` to deploy a pre-built KDE Plasma squashfs, then `initcpiocfg` + `initcpio` for mkinitcpio configuration.
-
 ## Branding
 
 Custom branding lives in the `calamares-branding-antergos-next` package, installed to `/etc/calamares/branding/default/`. The `componentName` in `branding.desc` must match its directory name — this is enforced by Calamares (see `Branding.cpp`).
@@ -89,8 +76,9 @@ Custom branding lives in the `calamares-branding-antergos-next` package, install
 
 The `calamares-next` script (`/usr/bin/calamares-next`) handles the installer boot flow:
 
-1. **Mode picker** — `kdialog`/`zenity` dialog asking Offline or Online install
-2. **Configuration** — copies the appropriate `settings.conf` (offline or online) to `/etc/calamares/settings.conf`
-3. **Launch** — runs `calamares` with the selected config
+1. **Notice** — explains why the offline mode was removed
+2. **Welcome** — branded splash with Install button
+3. **Configuration** — copies `calamares-online/settings.conf` to `/etc/calamares/settings.conf`
+4. **Launch** — runs `calamares` with the online config
 
 Launched via the desktop entry in the live session: `Exec=sudo -E calamares-next`.

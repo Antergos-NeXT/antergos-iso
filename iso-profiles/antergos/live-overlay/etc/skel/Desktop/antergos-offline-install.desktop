@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Install Antergos NeXT (Offline — NO DE)
+Name[en]=Install Antergos NeXT (Offline — NO DE)
+Comment=Bare minimum install from the live ISO. No desktop environment included. Internet recommended after boot.
+Exec=sudo -E antergos-offline-install
+Icon=calamares
+Terminal=false
+Categories=Qt;System;Settings;
+StartupNotify=true
+X-KDE-IsAdminApplication=true
