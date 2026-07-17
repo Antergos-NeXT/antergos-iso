@@ -46,6 +46,7 @@ rootfs:
     - snapper
     - btrfs-progs
     - antergos-layan-theme
+    - tela-circle-icon-theme-git
   packages-init:
     dinit:
       - pipewire-dinit
