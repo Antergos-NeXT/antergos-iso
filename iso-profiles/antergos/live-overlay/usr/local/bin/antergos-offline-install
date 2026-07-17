@@ -152,13 +152,18 @@ cmd mount --bind /proc "$TARGET/proc"
 cmd mount --bind /sys "$TARGET/sys"
 cmd mount --bind /run "$TARGET/run"
 
+# Generate initramfs
+estat "Generating initramfs..."
+cmd chroot "$TARGET" /bin/bash -c "mkinitcpio -P" 2>/dev/null || true
+
 # Install GRUB
 estat "Installing GRUB..."
 cmd chroot "$TARGET" /bin/bash -c "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=Antergos"
 cmd chroot "$TARGET" /bin/bash -c "grub-mkconfig -o /boot/grub/grub.cfg" 2>/dev/null || true
 
-# Set hostname
+# Set hostname and hosts
 cmd chroot "$TARGET" /bin/bash -c "echo antergos > /etc/hostname"
+cmd chroot "$TARGET" /bin/bash -c "echo '127.0.1.1 antergos.localdomain antergos' >> /etc/hosts"
 
 # Root password prompt
 PASSWD=$(zenity --password --title="Set root password" --text="Enter root password for the installed system" 2>/dev/null)
@@ -177,7 +182,7 @@ fi
 
 # ── Enable services via artix-service ──
 estat "Enabling services..."
-for sv in sddm NetworkManager dbus acpid bluetoothd cronie cupsd dhcpcd power-profiles-daemon syslog-ng userspawn; do
+for sv in NetworkManager dbus acpid bluetoothd cronie cupsd dhcpcd power-profiles-daemon syslog-ng userspawn; do
   cmd chroot "$TARGET" artix-service enable "$sv" 2>/dev/null || true
 done
 
@@ -216,6 +221,10 @@ for m in home var/log var/cache .snapshots boot; do
   umount "$TARGET/$m" 2>/dev/null || true
 done
 cmd umount "$TARGET"
+
+# ── Sync before reboot ──
+estat "Syncing filesystems..."
+cmd sync
 
 # ── Final warning ──
 prompt_msg "Installation complete" \
