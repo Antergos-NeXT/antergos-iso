@@ -11,13 +11,13 @@
 [![Docs](https://img.shields.io/badge/docs-site-blue.svg)](https://antergos-next.github.io/antergos-iso/)
 [![Dla mojego narodu](https://img.shields.io/badge/README-Polski-crimson.svg)](README.pl.md)
 
-A community revival of Antergos — built on **Artix Linux** with **Dinit**, **KDE Plasma** desktop, and the **Calamares** installer (offline + online modes).
+A community revival of Antergos — built on **Artix Linux** with **Dinit**, **KDE Plasma** desktop, the **Calamares** installer (online mode), and a BYODE script for offline installs.
 
 ## What changed
 
 | Before | After |
 |--------|-------|
-| Arch Linux (systemd) | Artix Linux (Dinit / OpenRC / Runit / S6) |
+| Arch Linux (systemd) | Artix Linux (Dinit) |
 | GNOME desktop | KDE Plasma desktop |
 | archiso build system | artools (`buildiso`) |
 | Custom Cnchi installer | Calamares (mature, upstream-supported) |
@@ -25,19 +25,9 @@ A community revival of Antergos — built on **Artix Linux** with **Dinit**, **K
 
 ## Why Artix?
 
-The systemd migration in the Linux ecosystem has been controversial, and the original Antergos community had a strong preference for alternatives. Artix Linux provides a clean Arch-like experience without systemd, with your choice of Dinit, OpenRC, Runit, or S6. This keeps the familiar Pacman/Arch ecosystem while giving users the init freedom they want.
+The systemd migration in the Linux ecosystem has been controversial, and the original Antergos community had a strong preference for alternatives. Artix Linux provides a clean Arch-like experience without systemd. We default to **Dinit** — see `changing-init.md` if you want something else.
 
-> **Why Dinit?** We originally shipped OpenRC. Then Calamares kidnapped our pacman resolver and forced us to switch. Every `--noconfirm` call picked `elogind-dinit` (alphabetically before `elogind-openrc`), pulling in `dinit-rc` which conflicts with `openrc`. We tried `--ignore`, `--assume-installed`, `--ask=12`, and even a dummy package. Pacman laughed at all of them. Dinit works great. Stop asking.
->
-> Proof (our descent into madness):
-> ```
-> fe4e862 fix: use --ignore instead of separate provider call   ← --ignore: pacman ignored it
-> 69da290 fix: add --ask=12 safety net                           ← --ask=12: infinite loop
-> 64b08a9 fix: replace with --assume-installed=init-logind       ← assume-installed: not checked for virtuals
-> 2c0d242 fix: add --ignore to packages module too               ← same failure, other file
-> 8a6fa3f docs: update AGENTS.md with --ignore approach          ← documented the failure
-> ```
-> The conflict was `dinit-rc` vs `openrc` both providing+conflicting with virtual `init-rc`. Pacman `--noconfirm` picks `elogind-dinit` first alphabetically → `dinit` → `dinit-rc` → conflict. No flag in pacman can pin a virtual provider on a fresh install. Dinit wins by alphabetical destiny.
+> **Why Dinit?** We shipped OpenRC. Then Calamares kidnapped pacman's resolver and every `--noconfirm` call picked `elogind-dinit` (alphabetically before `elogind-openrc`). Dinit works great and OpenRC's service enabling was broken on installed systems anyway. Dinit wins by alphabetical destiny.
 
 ## Building
 
@@ -96,14 +86,12 @@ iso-profiles/
 
 Overlays are self-contained (no symlinks to external directories) so the repo builds standalone.
 
-## Installer modes
+## Installer
 
 | Mode | Description |
 |------|-------------|
-| **Offline** | Unpacks a KDE Plasma squashfs — no internet needed |
-| **Online** | Netinstall with init system choice (Dinit, OpenRC, Runit, S6) + desktop selection |
-
-The launcher (`calamares-next`) presents a mode picker before launching Calamares.
+| **Online** | Full Calamares netinstall with desktop selection (KDE Plasma, Xfce, Cinnamon, MATE, LXQt, i3, Sway, Hyprland) |
+| **BYODE** | Bare system + btrfs + snapper — you `pacman -Sy` your own DE. Script available on the live desktop. |
 
 ## Download
 

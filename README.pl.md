@@ -2,22 +2,20 @@
 
 > Szukasz starej wersji Arch/systemd? Zobacz gałąź [`before-systemd-change`](https://github.com/Antergos-NeXT/antergos-iso/tree/before-systemd-change).
 
-Odrodzenie społeczności Antergos — zbudowane na **Artix Linux** z **Dinit**, **KDE Plasma** i instalatorem **Calamares** (tryb offline + online).
+Odrodzenie społeczności Antergos — zbudowane na **Artix Linux** z **Dinit**, **KDE Plasma** i instalatorem **Calamares** (tryb online) + skrypt BYODE do instalacji offline.
 
 ## Co się zmieniło
 
 | Przed | Po |
 |-------|-----|
-| Arch Linux (systemd) | Artix Linux (Dinit / OpenRC / Runit / S6) |
+| Arch Linux (systemd) | Artix Linux (Dinit) |
 | GNOME | KDE Plasma |
 | archiso | artools (`buildiso`) |
 | Cnchi | Calamares |
 
 ## Dlaczego Artix?
 
-Systemd wyrósł na monolit — przejął logind, resolved, timedated, homed, journald, networkd i zaczął wprowadzać pola daty urodzenia do systemu. GNOME 49+ wyrzuciło obsługę init innych niż systemd. Artix Linux usunął GNOME w 2025 z tego powodu.
-
-Antergos NeXT opuścił systemd zanim ten mógł zacząć inwigilować użytkowników.
+Systemd przestał być "tylko initem" gdy zaczął zbierać daty urodzenia. Zostaliśmy przy Artix i Dinit. Chcesz coś innego? Jest `changing-init.md`.
 
 ## Budowanie
 
@@ -38,16 +36,16 @@ sudo -E ./buildiso -p antergos
 
 ISO pojawi się w `/var/lib/artools/buildiso/iso/antergos/`.
 
-## Tryby instalatora
+## Instalator
 
 | Tryb | Opis |
 |------|------|
-| **Offline** | Rozpakowuje squashfs z KDE Plasma — bez internetu |
-| **Online** | Wybór init (Dinit, OpenRC, Runit, S6) + wybór środowiska (Plasma, Xfce, Cinnamon, MATE, LXQt, i3, Sway, Hyprland) |
+| **Online** | Calamares z wyborem środowiska (Plasma, Xfce, Cinnamon, MATE, LXQt, i3, Sway, Hyprland) |
+| **BYODE** | Goły system + btrfs + snapper — sam `pacman -Sy` swoje DE. Skrypt na pulpicie. |
 
 ## Pobieranie
 
-Wkrótce — budujemy stabilne ISO.
+[GitHub Releases](https://github.com/Antergos-NeXT/antergos-iso/releases)
 
 ## Źródła
 
