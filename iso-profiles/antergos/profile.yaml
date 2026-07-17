@@ -45,6 +45,7 @@ rootfs:
     - net-snmp
     - snapper
     - btrfs-progs
+    - antergos-layan-theme
   packages-init:
     dinit:
       - pipewire-dinit
