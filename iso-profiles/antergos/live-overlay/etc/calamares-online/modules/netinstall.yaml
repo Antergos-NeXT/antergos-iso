@@ -65,7 +65,24 @@
 - name: "Style"
   description: "Antergos themes, icons, branding"
   selected: false
-  packages: []
+  packages:
+    - antergos-layan-theme
+    - tela-circle-icon-theme-git
+    - cava
+    - python-websockets
+    - qt6-websockets
+    - btop
+    - imagemagick
+    - fastfetch
+    - noto-fonts-emoji
+    - adw-gtk-theme
+    - ttf-hack-nerd
+    - ttf-fira-code
+    - ttf-terminus-nerd
+    - ttf-meslo-nerd
+    - kwin-zones
+    - oh-my-posh-bin
+    - pacseek
 
 - name: "Desktop"
   description: "DE"
