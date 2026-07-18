@@ -10,6 +10,7 @@
 [![Init](https://img.shields.io/badge/init-Dinit-brightgreen.svg)]()
 [![Docs](https://img.shields.io/badge/docs-site-blue.svg)](https://antergos-next.github.io/antergos-iso/)
 [![Dla mojego narodu](https://img.shields.io/badge/README-Polski-crimson.svg)](README.pl.md)
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/antergosnext)
 
 A community revival of Antergos — built on **Artix Linux** with **Dinit**, **KDE Plasma** desktop, the **Calamares** installer (online mode), and a BYODE script for offline installs.
 
