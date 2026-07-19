@@ -29,7 +29,7 @@ rootfs:
     - calamares-branding-antergos-next-minimal
     - antergos-next-keyring
     - antergos-wallpapers
-    - antergos-sddm-theme
+    - pixie-sddm-git
     - antergos-grub-theme
     - falkon
     - antergos-xfce-theme

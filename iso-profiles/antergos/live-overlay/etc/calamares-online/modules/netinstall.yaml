@@ -189,7 +189,7 @@
   packages:
     - sddm
     - sddm-dinit
-    - antergos-sddm-theme
+    - pixie-sddm-git
 
 - name: "LightDM"
   description: "LightDM display manager"

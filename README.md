@@ -26,7 +26,7 @@ A community revival of Antergos — built on **Artix Linux** with **Dinit**, **K
 
 ## Why Artix?
 
-The systemd migration in the Linux ecosystem has been controversial, and the original Antergos community had a strong preference for alternatives. Artix Linux provides a clean Arch-like experience without systemd. We default to **Dinit** — see `changing-init.md` if you want something else.
+The Antergos NeXT project prefers init system flexibility over systemd lock-in. Artix Linux provides a clean Arch-like experience with your choice of **Dinit** (default), Runit, or S6 — see `changing-init.md` if you want something else.
 
 > **Why Dinit?** We shipped OpenRC. Then Calamares kidnapped pacman's resolver and every `--noconfirm` call picked `elogind-dinit` (alphabetically before `elogind-openrc`). Dinit works great and OpenRC's service enabling was broken on installed systems anyway. Dinit wins by alphabetical destiny.
 

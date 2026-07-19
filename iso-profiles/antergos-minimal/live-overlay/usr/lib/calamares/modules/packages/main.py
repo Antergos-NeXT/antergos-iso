@@ -13,8 +13,7 @@
 #
 #   Calamares is Free Software: see the License-Identifier above.
 #
-#   Antergos NeXT: Install one-at-a-time with error isolation,
-#   --overwrite='*' to avoid file conflicts, and per-package logging.
+#   Antergos NeXT: Batch install with --overwrite='*' to avoid file conflicts.
 
 import abc
 from string import Template
@@ -207,33 +206,32 @@ class PMPacman(PackageManager):
                     raise
 
     def install(self, pkgs, from_local=False):
-        for pkg in pkgs:
-            command = ["pacman"]
-            if from_local:
-                command.append("-U")
-            else:
-                command.append("-S")
+        command = ["pacman"]
+        if from_local:
+            command.append("-U")
+        else:
+            command.append("-S")
 
-            command.append("--noconfirm")
-            command.append("--noprogressbar")
-            command.append("--overwrite=*")
+        command.append("--noconfirm")
+        command.append("--noprogressbar")
+        command.append("--overwrite=*")
 
-            if self.pacman_needed_only is True:
-                command.append("--needed")
-            if self.pacman_disable_timeout is True:
-                command.append("--disable-download-timeout")
+        if self.pacman_needed_only is True:
+            command.append("--needed")
+        if self.pacman_disable_timeout is True:
+            command.append("--disable-download-timeout")
 
-            command.append(pkg)
+        command += pkgs
 
-            self.reset_progress()
-            try:
-                self.run_pacman(command, True)
-                libcalamares.utils.debug("package_ok: {!s}".format(pkg))
-            except subprocess.CalledProcessError as e:
-                libcalamares.utils.warning("package_fail: {!s}".format(pkg))
-                libcalamares.utils.debug("stdout:" + str(e.stdout))
-                libcalamares.utils.debug("stderr:" + str(e.stderr))
-                raise
+        self.reset_progress()
+        try:
+            self.run_pacman(command, True)
+            libcalamares.utils.debug("packages_ok: {!s}".format(pkgs))
+        except subprocess.CalledProcessError as e:
+            libcalamares.utils.warning("packages_fail: {!s}".format(pkgs))
+            libcalamares.utils.debug("stdout:" + str(e.stdout))
+            libcalamares.utils.debug("stderr:" + str(e.stderr))
+            raise
 
     def remove(self, pkgs):
         self.reset_progress()

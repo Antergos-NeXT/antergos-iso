@@ -32,7 +32,7 @@ rootfs:
     - yay
     - antergos-next-desktop-settings
     - antergos-plasma-theme
-    - antergos-sddm-theme
+    - pixie-sddm-git
     - antergos-wallpapers
     - antergos-grub-theme
     - hiredis
