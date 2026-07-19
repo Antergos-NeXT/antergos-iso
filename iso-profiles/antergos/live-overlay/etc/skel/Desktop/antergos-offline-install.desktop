@@ -3,6 +3,9 @@ Type=Application
 Name=Install Antergos NeXT (Offline — NO DE)
 Name[en]=Install Antergos NeXT (Offline — NO DE)
 Comment=Bare minimum install from the live ISO. No desktop environment included. Internet recommended after boot.
+# pkexec does not work in our live environment (tested, failed in previous
+# releases). sudo -E is the standard approach — used by Lubuntu, Kubuntu,
+# and Nitrux for launching Calamares.
 Exec=sudo -E antergos-offline-install
 Icon=calamares
 Terminal=false

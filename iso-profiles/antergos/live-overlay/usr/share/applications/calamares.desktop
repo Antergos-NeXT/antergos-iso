@@ -3,6 +3,9 @@ Type=Application
 Name=Install Antergos NeXT
 Name[en]=Install Antergos NeXT
 Comment=Install Antergos NeXT on this computer
+# pkexec does not work in our live environment (tested, failed in previous
+# releases). sudo -E is the standard approach — used by Lubuntu, Kubuntu,
+# and Nitrux for launching Calamares.
 Exec=sudo -E calamares-next
 Icon=calamares
 Terminal=false
