@@ -25,7 +25,7 @@ jobs:
   moderate:
     runs-on: ubuntu-latest
     steps:
-      - uses: benbalter/ai-community-moderator@v1
+      - uses: benbalter/ai-community-moderator@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           severity-threshold: 5
