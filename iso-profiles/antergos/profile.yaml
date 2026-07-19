@@ -31,7 +31,6 @@ rootfs:
     - antergos-welcome
     - yay
     - antergos-next-desktop-settings
-    - antergos-plasma-theme
     - pixie-sddm-git
     - antergos-wallpapers
     - antergos-grub-theme

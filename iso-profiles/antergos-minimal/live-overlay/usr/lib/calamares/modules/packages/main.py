@@ -188,6 +188,19 @@ class PMPacman(PackageManager):
         self.pacman_disable_timeout = pacman.get("disable_download_timeout", False)
         self.pacman_needed_only = pacman.get("needed_only", False)
 
+    def operation_try_install(self, package_list):
+        if all([isinstance(x, str) for x in package_list]):
+            try:
+                self.install(package_list)
+            except subprocess.CalledProcessError:
+                libcalamares.utils.warning("Could not install batch: %s" % package_list)
+        else:
+            for package in package_list:
+                try:
+                    self.install_package(package)
+                except subprocess.CalledProcessError:
+                    libcalamares.utils.warning("Could not install package %s" % package)
+
     def reset_progress(self):
         self.in_package_changes = False
         self.progress_fraction = (completed_packages * 1.0 / total_packages)

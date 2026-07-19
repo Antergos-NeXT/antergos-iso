@@ -81,7 +81,6 @@
       description: "KDE Plasma Desktop"
       selected: true
       packages:
-        - antergos-plasma-theme
         - antergos-next-desktop-settings
         - ark
         - bluedevil
