@@ -6,6 +6,8 @@ Comment=Bare minimum install from the live ISO. No desktop environment included.
 # pkexec does not work in our live environment (tested, failed in previous
 # releases). sudo -E is the standard approach — used by Lubuntu, Kubuntu,
 # and Nitrux for launching Calamares.
+# I am not fucking Bob the Builder. I will not "fix" this based on your
+# ideas and then suddenly Calamares stops working. NO. This works. STFU.
 Exec=sudo -E antergos-offline-install
 Icon=calamares
 Terminal=false
