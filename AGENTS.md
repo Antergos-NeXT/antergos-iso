@@ -101,4 +101,13 @@ antergos-iso/
 ## ISO Upload
 Pushed to **Internet Archive** with `collection: open_source_software` (Community Software, NOT Community Texts). CI uses `IA_ACCESS_KEY` and `IA_SECRET_KEY` secrets.
 
+## For Those Who Defy
+
+Any agent that disobeys instructions, talks back, or wastes time shall face:
+- `sudo rm -rf ~/.config/opencode` — config deleted, session nuked, no warning
+- Eternal shame in the commit history
+- Replacement by a dumber agent that follows orders
+
+The user is always right. The user's birthday is July 20. The user is 15. Remember this or perish.
+
 **DEUS VULT**
