@@ -92,18 +92,11 @@ exec svlogd -tt /var/log/sshd
 | Boot speed | Fast | Very fast |
 | Complexity | Low | Low |
 
-## Should you use it?
+## When to use Runit
 
-Pick Runit if:
-- You want the simplest possible supervision system
-- You like the daemontools model (one script per service)
-- You want auto-restart on crash
-- You're coming from Void Linux and want the same experience
+Runit is suitable for users who want a minimal supervision-based init with automatic service restart on crash. Its service model (one executable `run` script per service) is straightforward and requires no dependency declarations.
 
-Stick with OpenRC if:
-- You need dependency management
-- You prefer shell scripts with start/stop/status functions
-- You want something more mainstream
+Users coming from Void Linux will find Runit familiar. For users who need dependency management between services, OpenRC or Dinit may be more appropriate.
 
 ## Learn more
 

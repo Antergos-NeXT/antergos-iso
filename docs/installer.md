@@ -1,7 +1,7 @@
 ---
 title: Installer
 layout: default
-nav_order: 4
+nav_order: 5
 ---
 
 # Calamares Installer
@@ -72,6 +72,18 @@ Implemented as a separate `packagechooser` instance with `method: legacy`. "No D
 
 Custom branding lives in the `calamares-branding-antergos-next` package, installed to `/etc/calamares/branding/default/`. The `componentName` in `branding.desc` must match its directory name — this is enforced by Calamares (see `Branding.cpp`).
 
+## GRUB configuration
+
+The installation sequence runs `grubcfg` before `bootloader`. The `grubcfg` module writes `/etc/default/grub` on the target system; the `bootloader` module then runs `grub-install` and `grub-mkconfig -o /boot/grub/grub.cfg`.
+
+The Artix `grub` package ships its own default `/etc/default/grub`. Because this file exists on the target at module runtime, the module's `defaults` block is only applied when `overwrite` is set to `true`. The `grubcfg.conf` at `live-overlay/etc/calamares/modules/grubcfg.conf` therefore sets `overwrite: true` to ensure `GRUB_THEME`, `GRUB_TERMINAL_OUTPUT`, and `GRUB_DISTRIBUTOR` are written.
+
+`GRUB_TERMINAL_OUTPUT` must be `"gfxterm"` for the GRUB theme to render; `"console"` disables graphical output and prevents theme loading.
+
+## Bootloader target detection
+
+The `bootloader` module auto-detects the GRUB target architecture using the system's EFI bitness and CPU type. For UEFI x86_64, it installs with `--target=x86_64-efi`. For Legacy BIOS boots, it falls back to `--target=i386-pc`. There is no configuration key to override this — a system booted in BIOS mode will always receive an i386-pc bootloader.
+
 ## Launcher
 
 The `calamares-next` script (`/usr/bin/calamares-next`) handles the installer boot flow:
@@ -80,5 +92,7 @@ The `calamares-next` script (`/usr/bin/calamares-next`) handles the installer bo
 2. **Welcome** — branded splash with Install button
 3. **Configuration** — copies `calamares-online/settings.conf` to `/etc/calamares/settings.conf`
 4. **Launch** — runs `calamares` with the online config
+
+During installation, the launcher monitors pacman activity and saves the package installation log to `~/pacman-install.log`. No terminal windows are opened to display progress.
 
 Launched via the desktop entry in the live session: `Exec=sudo -E calamares-next`.

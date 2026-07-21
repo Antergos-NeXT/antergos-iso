@@ -1,7 +1,7 @@
 ---
 title: Changing init
 layout: default
-nav_order: 9
+nav_order: 10
 ---
 
 # Changing init on an installed system
@@ -13,6 +13,14 @@ installation.
 > **Warning:** Switching init is for advanced users. In general, a fresh
 > installation is safer. Keep a bootable Artix LiveUSB handy in case
 > something goes wrong.
+>
+> OpenRC has known conflicts with Dinit on Antergos NeXT. If switching to
+> OpenRC fails, the recommended course of action is to reinstall the ISO
+> and use Dinit. A fresh install with Dinit is simpler and more reliable
+> than troubleshooting a broken init migration. Tutorials on using Dinit
+> are available on the Artix Linux wiki and in the Dinit documentation.
+
+
 
 ## Overview
 

@@ -1,7 +1,7 @@
 ---
 title: CI/CD
 layout: default
-nav_order: 6
+nav_order: 7
 ---
 
 # CI/CD Pipeline
@@ -48,6 +48,6 @@ Separate workflow in the [antergos-packages](https://github.com/Antergos-NeXT/an
 
 ## Safety notes
 
-- CI does NOT run on push — only manual dispatch. This prevents accidental ISO floods.
+- CI does NOT run on push — only manual dispatch. This prevents unintended ISO builds.
 - Internet Archive upload uses a unique identifier per run, so re-running CI won't overwrite a previous release.
 - Both `IA_ACCESS_KEY` and `IA_SECRET_KEY` must be set as repo secrets for the upload step to succeed.

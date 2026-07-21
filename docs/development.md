@@ -1,7 +1,7 @@
 ---
 title: Development
 layout: default
-nav_order: 7
+nav_order: 8
 ---
 
 # Development
@@ -73,7 +73,17 @@ If `$COMPRESSION` is unset in `profile.yaml`, `mksquashfs` produces a sparse zer
 
 ### Calamares module precedence
 
-`/etc/calamares/modules/` overrides `/usr/share/calamares/modules/`. Live-overlay online/offline directories override both.
+`/etc/calamares/modules/` overrides `/usr/share/calamares/modules/`. The `calamares-next` launcher copies the online settings file to `/etc/calamares/settings.conf`, and the `modules-search: [ local ]` directive in that file resolves modules from `/etc/calamares/modules/`. Module configs placed in `calamares-online/modules/` are not used directly during installation — only `calamares/modules/` is consulted.
+
+### GRUB config overwrite must be enabled
+
+The Artix `grub` package ships a default `/etc/default/grub` file. When Calamares's `grubcfg` module runs during installation, this file already exists on the target system. With `overwrite: false`, the module reads the existing file and only modifies `GRUB_CMDLINE_LINUX_DEFAULT` and `GRUB_DISTRIBUTOR` — all other keys from the `defaults` block (including `GRUB_THEME` and `GRUB_TERMINAL_OUTPUT`) are silently ignored.
+
+The active configuration at `live-overlay/etc/calamares/modules/grubcfg.conf` **must** set `overwrite: true` to replace Artix's shipped defaults with the distribution's intended values. Without this, the installed system will use the bare Artix GRUB configuration with no theme.
+
+### `GRUB_TERMINAL_OUTPUT` must be "gfxterm" for themed GRUB
+
+Setting `GRUB_TERMINAL_OUTPUT: "console"` in `grubcfg.conf` forces GRUB into text mode and disables the graphical theme. The theme requires `GRUB_TERMINAL_OUTPUT: "gfxterm"` to render.
 
 ### Live-overlay is not overlay-mounted
 

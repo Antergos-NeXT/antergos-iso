@@ -7,23 +7,20 @@ nav_order: 1
 
 # OpenRC
 
-**OpenRC** is a traditional init system used by Gentoo, Artix Linux, Devuan, Alpine Linux, and other non-systemd distros. It's proven, well-maintained, and about as simple as an init system can get while still being feature-rich.
+**OpenRC** is a traditional init system used by Gentoo, Artix Linux, Devuan, Alpine Linux, and other non-systemd distributions. It is well-established, actively maintained, and provides a balance of simplicity and feature completeness.
 
 > **Note:** Earlier Antergos NeXT builds shipped OpenRC as an install-time option but it had issues with service enabling on installed systems. If you want to use OpenRC on Antergos NeXT, see [Changing init](changing-init) for manual setup instructions.
 
-## systemd vs OpenRC at a glance
+## Comparison with systemd
 
-| | systemd | OpenRC |
-|---|---|---|
-| Philosophy | "One tool to rule them all" | "Do one thing well (Unix way)" |
-| Logs | `journalctl` (binary logs) | Plain text files in `/var/log/` |
-| Service mgmt | `systemctl start/stop/enable` | `rc-service start/stop`, `rc-update add/del` |
-| Dependency | Parallel + automatic | Manual or explicit `need/use/before/after` |
-| Config files | `.service` units (INI-like) | Shell scripts in `/etc/init.d/` |
-| Size | ~80+ binaries, 500k+ lines | ~15 binaries, ~30k lines |
-| Scope | PID 1 + logind + resolved + timedated + networkd + ... | Just PID 1 |
-
-OpenRC is used by Gentoo, Artix Linux, Devuan, Alpine Linux, and other non-systemd distros. It's not as mainstream as systemd, but it's proven and well-maintained.
+| Feature | systemd | OpenRC |
+|---------|--------|--------|
+| Log storage | Binary journal (`journalctl`) | Plain text files (`/var/log/`) |
+| Service control | `systemctl start/stop/enable` | `rc-service start/stop`, `rc-update add/del` |
+| Dependency handling | Automatic, parallel | Manual (`need`/`use`/`before`/`after`) |
+| Configuration format | `.service` unit files (INI-like) | Shell scripts (`/etc/init.d/`) |
+| Binary footprint | ~80+ binaries | ~15 binaries |
+| Scope | Init + logind + resolved + timedated + networkd + more | Init only |
 
 ## What changes for you as a user?
 
@@ -70,28 +67,32 @@ Runlevels in OpenRC work like directories under `/etc/runlevels/`:
 └── shutdown   # Shutdown services
 ```
 
-## Why did Antergos NeXT switch?
+## Rationale for non-systemd
 
-Three reasons:
+Antergos NeXT uses Dinit as its init system. The switch away from systemd was motivated by three factors:
 
-1. **systemd grew beyond an init system** — it now owns logind, resolved, timedated, networkd, homed, and more. It's no longer just PID 1. It's a full OS management suite with a scope that keeps expanding.
+1. **Scope expansion** — systemd has grown beyond process supervision to include logind, resolved, timedated, networkd, homed, and other subsystems. This consolidates OS management into a single project with an expanding scope.
 
-2. **systemd dropped SysV compatibility** — version 260 (March 2026) removed `systemd-sysv-generator`, `rc-local.service`, and all legacy compatibility code. If your distro isn't 100% systemd-native, it breaks.
+2. **SysV compatibility removal** — systemd 260 (March 2026) removed `systemd-sysv-generator`, `rc-local.service`, and related legacy compatibility code, breaking distributions that were not fully systemd-native.
 
-3. **systemd's age verification PR** — [#40954](https://github.com/systemd/systemd/pull/40954) (merged Mar 2026) added `birthDate` fields to userdb JSON for age verification compliance. Optional today, precedent tomorrow. We don't want our OS to ask for your age.
+3. **Age verification (PR [#40954](https://github.com/systemd/systemd/pull/40954))** — merged March 2026, this added `birthDate` fields to userdb JSON for age verification compliance. While optional at the time of writing, the precedent raises concerns about future requirements.
 
-OpenRC doesn't do any of that. It starts services and gets out of the way.
+## When to use OpenRC
 
-## Will things break?
+OpenRC is suitable for users who want a well-documented, traditional init system with explicit dependency management. Its shell-script-based service files are straightforward to write and debug. Users migrating from Gentoo, Alpine, or Devuan will find OpenRC familiar.
 
-Probably not. Most desktop software doesn't care about the init system. Browsers, editors, games, media players — they all work the same.
+OpenRC does not include built-in process supervision. Users who want automatic service restart on crash should consider Runit or S6 instead.
 
-Things that **do** care about systemd and won't work:
-- `systemctl`, `journalctl`, `loginctl`, `timedatectl` — obviously
-- GNOME (it dropped non-systemd support)
-- Any `.service` file you try to run directly (they're systemd-native)
+## Compatibility
 
-But everything you actually use day-to-day? Works fine. And if you need to check logs, they're in `/var/log/messages` — plain text, no `journalctl` required.
+Most desktop software is agnostic to the init system. Browsers, editors, games, and media players function identically regardless of what manages PID 1.
+
+Software that does depend on systemd and will not function:
+- `systemctl`, `journalctl`, `loginctl`, `timedatectl`
+- GNOME (dropped non-systemd support upstream)
+- Native `.service` unit files (systemd-only format)
+
+Logs are written to plain text files under `/var/log/messages` and can be read with any text viewer.
 
 ## Learning more
 

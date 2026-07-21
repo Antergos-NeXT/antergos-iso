@@ -7,9 +7,9 @@ nav_order: 2
 
 # Dinit
 
-**Dinit** is a modern init system designed for speed and correctness. Written in C++, it focuses on parallel service startup and dependency management without the bloat of systemd or the complexity of S6. **Dinit is the default init system in Antergos NeXT.**
+**Dinit** is a modern init system designed for speed and correctness. Written in C++, it focuses on parallel service startup and dependency management. **Dinit is the default init system in Antergos NeXT.**
 
-Dinit's design philosophy is to be a "better than OpenRC but simpler than S6" middle ground. It handles dependencies automatically (like systemd) but stays out of your way (like OpenRC). Services are defined in declarative config files, not shell scripts.
+Dinit handles dependencies automatically through declarative configuration files, avoiding the complexity of shell-script-based service definitions.
 
 ## Key concepts
 
@@ -55,7 +55,7 @@ depends-on = network
 ## Where services live
 
 - **System services**: `/etc/dinit.d/` (config) — enabled via symlinks in `/etc/dinit.d/boot.d/`
-- **User services**: similar structure under user's config directory (for `dinit-user-serve`)
+- **User services**: similar structure under the user's config directory (for `dinit-user-spawn`)
 - **Boot-enabling**: `dinitctl enable <service>` creates a symlink in `boot.d/`
 
 Service files use a simple key-value syntax. The `type` can be:
@@ -119,15 +119,11 @@ Dinit's `add_user_svc_dinit` in Calamares attempts to create `boot.d/` symlinks 
 
 On Antergos NeXT, `artix-pipewire-launcher` is patched to support dinit. If pipewire isn't starting, verify the launcher script at `/usr/bin/artix-pipewire-launcher` includes dinit in its supported init list. The XDG autostart entry at `/etc/xdg/autostart/pipewire.desktop` handles starting pipewire on login.
 
-## Should you use it?
+## When to use Dinit
 
-Pick Dinit if:
-- You want the fastest possible boot
-- You like declarative config (INI-like syntax)
-- You want automatic dependency resolution
-- You're fine with a newer, actively developed init system
+Dinit is suitable for users who want fast boot times and automatic dependency resolution without managing shell-script-based service files. It is the default init in Antergos NeXT and requires no additional configuration.
 
-Stick with OpenRC if you prefer shell scripts and a longer track record.
+Users migrating from systemd will find Dinit's declarative service files familiar. Users accustomed to OpenRC or Runit may prefer to switch — see [Changing init](changing-init) for instructions.
 
 ## Learn more
 
