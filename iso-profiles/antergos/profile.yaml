@@ -127,6 +127,7 @@ livefs:
     - sof-firmware
     - alsa-firmware
     - alsa-utils
+    - spice-vdagent
   packages-init:
     dinit:
       - antergos-live-dinit
