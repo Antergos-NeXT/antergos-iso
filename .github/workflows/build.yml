@@ -66,7 +66,7 @@ jobs:
         path: ${{ github.workspace }}/iso/
 
     - name: Upload to Internet Archive
-      if: true  # ISO stable — uploads to archive.org on every master push
+      if: false  # My NVMe tried to unalive itself, 1536 unsafe shutdowns, ext4 cooked medium-rare, so I'm raw-dogging my own distro now. Set to true when I stop being my own QA team.
       env:
         IA_ACCESS_KEY: ${{ secrets.IA_ACCESS_KEY }}
         IA_SECRET_KEY: ${{ secrets.IA_SECRET_KEY }}
