@@ -29,13 +29,29 @@ Exec=sudo -E calamares-next
 
 The online settings file specifies `modules-search: [ local ]`, which resolves to the directory containing the settings file itself. After `SetConfig()` copies the file to `/etc/calamares/settings.conf`, modules are loaded from `/etc/calamares/modules/`. The `calamares-online/modules/` directory in the live-overlay is not used as a module source during installation — its contents exist only as a reference; the active module configs are those under `calamares/modules/`.
 
+## Calamares sequence
+
+The installer runs two `packagechooser` instances in sequence, followed by the `netinstall` module:
+
+| Step | Instance | Module Config | Method | Purpose |
+|------|----------|---------------|--------|---------|
+| 4 | `packagechooser@de` | `packagechooser_de.conf` | `netinstall-add` | Desktop environment picker (required, default Plasma) |
+| 5 | `packagechooser@dm` | `packagechooser_dm.conf` | `netinstall-select` | Display manager picker (required, default SDDM) |
+| 6 | `netinstall` | `netinstall.yaml` | — | Refine packages, add optional groups |
+
+### How `netinstall-add` works
+
+When the user selects a DE, `packagechooser@de` writes a group definition to the `netinstallAdd` global storage key. When the `netinstall` module loads, it reads this key and appends the DE's package group to the tree. This allows users to see and refine the packages for their chosen DE — for example, deselecting specific applications.
+
+The DM selector uses `netinstall-select`, which marks the chosen DM group (e.g. SDDM) as checked in the netinstall tree. Both keys are read by the netinstall module's `onActivate()` method at runtime. See `NetInstallPage.cpp` in the Calamares source for details.
+
+### Available DE groups
+
+Each DE item in `packagechooser_de.conf` includes a `netinstall:` field with its full package list. The groups are mutually exclusive — selecting a new DE replaces the previously selected one in the netinstall tree. Once added, the group behaves identically to a group defined in `netinstall.yaml`: users can expand it, toggle subgroups, or remove individual packages.
+
 ## Pacman log capture
 
 During installation, the launcher polls for the existence of a pacman log file within the chroot (at `/tmp/calamares-root-*/var/log/pacman.log`). When detected, a copy is written to `~/pacman-install.log`. No terminal windows are opened to display installation progress.
-
-## Installer flow
-
-The launcher shows a YAD info notice explaining the removal of the offline mode, then presents a branded splash with a single "Install" button. Calamares launches in online mode with the desktop environment selector.
 
 ## Config switching
 
@@ -53,6 +69,7 @@ The live-overlay includes `calamares-config-switcher.desktop` with `NoDisplay=tr
 
 Configs live in `live-overlay/etc/calamares/modules/`:
 
+- `packagechooser_de.conf` — desktop environment selector using `method: netinstall-add`
 - `packagechooser_dm.conf` — display manager selector using `method: netinstall-select`
 - `initcpiocfg.conf` — mkinitcpio configuration
 - `services-artix.conf` — service enablement via `artix-service`

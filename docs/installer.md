@@ -12,6 +12,8 @@ Antergos NeXT uses [Calamares](https://codeberg.org/calamares/calamares) as its 
 
 Online-only (since v2026.07.16). The so-called "Offline Install" was removed — it was never truly offline: the rootfs only contained live session essentials, and all DE packages were still downloaded via basestrap. All installs now use the full netinstall flow with desktop selection.
 
+A BYODE (Bring Your Own Desktop Environment) offline installer is still available for users who want a bare system installed from the ISO. See [BYODE](../byode).
+
 ## Fixed issues
 
 ### Audio on installed systems
@@ -43,30 +45,54 @@ The `filesystem` package from Artix owns `/usr/lib/os-release`. Our `antergos-re
 
 Antergos NeXT ships **Dinit** only. Other init systems (OpenRC, Runit, S6) are available in the Artix repos but are not offered as install-time options. See [Changing init on an installed system](changing-init) for instructions if you need a different init.
 
-## Desktop selector (online)
+## Desktop selector
 
-Users choose from: **Plasma**, **Xfce**, **Cinnamon**, **MATE**, **LXQt**, **i3**, **Sway**, **Hyprland**, **COSMIC**, or **No Desktop**.
+The install flow begins with a dedicated desktop environment picker (`packagechooser@de`) before the package selection tree. This replaces the old netinstall-based "Desktop" group that installed all DEs when the parent checkbox was clicked.
 
-Implemented as a separate `packagechooser` instance with `method: legacy`. "No Desktop" installs only the base system (TTY/login — no DE, no display manager).
+The selector uses `method: netinstall-add` — the chosen DE's package group is dynamically added to the netinstall tree. This means users can still refine their DE packages in the subsequent netinstall step, seeing only their selected DE rather than all available options.
 
-## Available desktops
+| Step | Module | Description |
+|------|--------|-------------|
+| 1 | `packagechooser@de` | Pick one DE (required, default: Plasma) |
+| 2 | `packagechooser@dm` | Pick a display manager (required, default: SDDM) |
+| 3 | `netinstall` | Refine package selection, add optional groups |
 
-| Desktop | Artix Repo | Group/Packages | Notes |
-|---------|------------|----------------|-------|
-| Plasma | world | `plasma` group | Default. Wayland + X11. Includes Discover |
-| Xfce | galaxy | `xfce4` group | |
-| Cinnamon | galaxy | Individual packages | |
-| MATE | galaxy | `mate` + `mate-extra` | |
-| LXQt | galaxy | `lxqt` group | |
-| i3 | world | `i3` group | Tiling WM |
-| Sway | world | `sway` + related | Wayland-native tiling |
-| Hyprland | world | `hyprland` | Wayland compositor |
-| COSMIC | galaxy | `cosmic` group | Rust/Wayland. Uses greetd. Alpha quality |
+### Available desktops
 
-## Not available
+| Desktop | Repo | Type | Notes |
+|---------|------|------|-------|
+| **KDE Plasma** | world | Full DE | Default. Wayland + X11. Uses the `plasma` group with antergos-next-desktop-settings |
+| **Xfce** | galaxy | Full DE | Lightweight. GTK-based. Uses `xfce4` group |
+| **Cinnamon** | galaxy | Full DE | Traditional layout. GNOME-based |
+| **MATE** | galaxy | Full DE | GNOME 2 continuation. Uses `mate` + `mate-extra` |
+| **LXQt** | galaxy | Full DE | Lightweight Qt desktop. Uses `lxqt` group |
+| **i3** | world | Tiling WM | Keyboard-driven. Ships `i3` group (i3-wm, i3blocks, i3lock, i3status). Requires `antergos-i3-config` for a usable experience |
+| **Sway** | world | Tiling WM | i3-compatible Wayland compositor. Requires `antergos-sway-config` |
+| **Hyprland** | world | Tiling WM | Dynamic Wayland compositor with eye candy. Requires `antergos-hyprland-config` |
+| **COSMIC** | galaxy | Full DE | Rust-based desktop from System76. Alpha quality. Select **greetd** as display manager |
+
+### Not available
 
 - **Budgie** — not in any Artix repo (system, world, galaxy, lib32). Slideshow entries removed.
 - **GNOME** — dropped non-systemd support upstream. "You really think you can get GNOME here?"
+
+### Tiling WMs and default configs
+
+i3, Sway, and Hyprland are offered as install options but will present a black screen on first boot without a configuration file. Config packages (`antergos-i3-config`, `antergos-sway-config`, `antergos-hyprland-config`) are available from the `[antergos-pkgs]` repository and are automatically included when the corresponding DE is selected.
+
+If you prefer to supply your own config, you can deselect the config package in the netinstall refinement step.
+
+## Display manager selector
+
+The DM selector (`packagechooser@dm`) uses `method: netinstall-select`. Available options:
+
+- **SDDM** — KDE's QML-based display manager (default). Ships with `pixie-sddm-git` theme.
+- **LightDM** — GTK-based, cross-desktop
+- **LXDM** — Lightweight (LXDE)
+- **greetd** — Minimal, recommended for COSMIC
+- **LY** — TUI-based, minimal
+
+The selected DM's group is marked as checked in the netinstall tree automatically.
 
 ## Branding
 
@@ -83,6 +109,48 @@ The Artix `grub` package ships its own default `/etc/default/grub`. Because this
 ## Bootloader target detection
 
 The `bootloader` module auto-detects the GRUB target architecture using the system's EFI bitness and CPU type. For UEFI x86_64, it installs with `--target=x86_64-efi`. For Legacy BIOS boots, it falls back to `--target=i386-pc`. There is no configuration key to override this — a system booted in BIOS mode will always receive an i386-pc bootloader.
+
+## Installation flow
+
+The full Calamares sequence is defined in `live-overlay/etc/calamares-online/settings.conf`:
+
+**Show phase:**
+1. `welcome` — branding and language
+2. `locale` — timezone, locale
+3. `keyboard` — keyboard layout
+4. `packagechooser@de` — desktop environment selection
+5. `packagechooser@dm` — display manager selection
+6. `netinstall` — package refinement, optional groups
+7. `partition` — disk partitioning
+8. `users` — user account creation
+9. `summary` — confirmation
+
+**Exec phase:**
+10. `partition` — write partitions
+11. `mount` — mount target
+12. `basestrap` — bootstrap base system
+13. `machineid` — generate machine ID
+14. `packages` — install all selected packages (DE, DM, optional groups)
+15. `fstab` — generate fstab
+16. `locale` — apply locale
+17. `keyboard` — apply keyboard config
+18. `localecfg` — locale configuration
+19. `luksopenswaphookcfg` — LUKS config
+20. `luksbootkeyfile` — LUKS boot key
+21. `initcpiocfg` — mkinitcpio config
+22. `initcpio` — generate initramfs
+23. `users` — create user
+24. `displaymanager` — configure SDDM/greetd/etc.
+25. `networkcfg` — network configuration
+26. `hwclock` — hardware clock
+27. `services-artix` — enable dinit services
+28. `grubcfg` — write GRUB defaults
+29. `bootloader` — install GRUB
+30. `postcfg` — post-install configuration
+31. `umount` — unmount and finish
+
+**Show phase:**
+32. `finished` — reboot prompt
 
 ## Launcher
 
