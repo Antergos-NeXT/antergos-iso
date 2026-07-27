@@ -15,7 +15,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pacman -Syu --noconfirm --needed \
+        pacman -Syu --noconfirm --needed --overwrite='*' \
           artools \
           git \
           squashfs-tools \

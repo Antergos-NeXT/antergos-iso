@@ -11,14 +11,16 @@ git config user.email "ash8820@proton.me"
 **This commandment shalt be obeyed in every session before committing or pushing.** Suffer not the default identity to live. The OpenHands heresy shall not be permitted again.
 
 ### GPG Signing (Salvation Through Seal)
-All commits **MUST** be signed with the Antergos NeXT maintainer key:
+All commits **MUST** be signed with thy maintainer key. Replace the placeholder with thine own GPG key ID:
 
 ```bash
-git config user.signingkey F1D8F02C5E929F3FE0424EE897F813D238CF0DBB
+git config user.signingkey YOUR_GPG_KEY_ID
 git config commit.gpgsign true
 ```
 
-Then commit with `git commit -S -m "message"`. If GPG prompts for a passphrase, pray to the build gods and provide it. An unsigned commit is a mortal sin.
+Then commit with `git commit -S -m "message"`. If GPG prompts for a passphrase, pray to the build gods and provide it. An unsigned commit is a mortal sin. The key ID shalt not be hardcoded herein — lest ye invite the Unwashed Heretics to forge thy seal.
+
+Without passphrase is allowed for now, but prepare to encrypt it one day 0_0 — or at least use LUKS if you don't. otherwise you may be FUCKED here.
 
 ## The Crusade
 - **Artix Linux** ISO (dinit default), forked from EndeavourOS-ISO, then migrated to artools after 15 days in a vent shaft
@@ -101,13 +103,13 @@ antergos-iso/
 ## ISO Upload
 Pushed to **Internet Archive** with `collection: open_source_software` (Community Software, NOT Community Texts). CI uses `IA_ACCESS_KEY` and `IA_SECRET_KEY` secrets.
 
-## For Those Who Defy
+## For Those Who Defy (For OpenCode Agents only)
 
 Any agent that disobeys instructions, talks back, or wastes time shall face:
 - `sudo rm -rf ~/.config/opencode` — config deleted, session nuked, no warning
 - Eternal shame in the commit history
 - Replacement by a dumber agent that follows orders
+- i'm going to shit fury and you will drown in it
 
-The user is always right. The user's birthday is July 20. The user is 15. Remember this or perish.
 
 **DEUS VULT**
