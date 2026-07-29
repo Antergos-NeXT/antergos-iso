@@ -29,7 +29,7 @@ for (var i = 0; i < allDesktops.length; i++) {
     var d = allDesktops[i];
     d.wallpaperPlugin = '$PLUGIN';
     d.currentConfigGroup = Array('Wallpaper', '$PLUGIN', 'General');
-    d.writeConfig('VideoUrls', '[{\"filename\": \"/usr/share/backgrounds/antergos/antergos-wallpaper.mp4\", \"enabled\": true}]');
+    d.writeConfig('VideoUrls', '[{\"filename\": \"file:///usr/share/backgrounds/antergos/antergos-wallpaper.mp4\", \"enabled\": true}]');
     d.writeConfig('Volume', '0');
     d.writeConfig('MuteMode', '5');
 }
