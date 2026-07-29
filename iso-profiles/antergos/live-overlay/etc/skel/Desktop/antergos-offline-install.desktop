@@ -2,6 +2,20 @@
 Type=Application
 Name=Install Antergos NeXT (Offline — NO DE)
 Name[en]=Install Antergos NeXT (Offline — NO DE)
+Name[de]=Antergos NeXT installieren (Offline — Kein DE)
+Name[es]=Instalar Antergos NeXT (Offline — Sin DE)
+Name[fr]=Installer Antergos NeXT (Hors ligne — Sans DE)
+Name[it]=Installa Antergos NeXT (Offline — Nessun DE)
+Name[pl]=Zainstaluj Antergos NeXT (Offline — Bez DE)
+Name[pt_BR]=Instalar Antergos NeXT (Offline — Sem DE)
+Name[ru]=Установить Antergos NeXT (Офлайн — Без DE)
+Name[nl]=Antergos NeXT installeren (Offline — Geen DE)
+Name[sv]=Installera Antergos NeXT (Offline — Ingen DE)
+Name[da]=Installer Antergos NeXT (Offline — Ingen DE)
+Name[cs]=Nainstalovat Antergos NeXT (Offline — Bez DE)
+Name[hu]=Antergos NeXT telepítése (Offline — DE nélkül)
+Name[ro]=Instalează Antergos NeXT (Offline — Fără DE)
+Name[tr]=Antergos NeXT'yi yükle (Çevrimdışı — DE Yok)
 Comment=Bare minimum install from the live ISO. No desktop environment included. Internet recommended after boot.
 # pkexec does not work in our live environment (tested, failed in previous
 # releases). sudo -E is the standard approach — used by Lubuntu, Kubuntu,

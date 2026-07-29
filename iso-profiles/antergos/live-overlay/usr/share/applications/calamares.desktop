@@ -2,6 +2,20 @@
 Type=Application
 Name=Install Antergos NeXT
 Name[en]=Install Antergos NeXT
+Name[de]=Antergos NeXT installieren
+Name[es]=Instalar Antergos NeXT
+Name[fr]=Installer Antergos NeXT
+Name[it]=Installa Antergos NeXT
+Name[pl]=Zainstaluj Antergos NeXT
+Name[pt_BR]=Instalar Antergos NeXT
+Name[ru]=Установить Antergos NeXT
+Name[nl]=Antergos NeXT installeren
+Name[sv]=Installera Antergos NeXT
+Name[da]=Installer Antergos NeXT
+Name[cs]=Nainstalovat Antergos NeXT
+Name[hu]=Antergos NeXT telepítése
+Name[ro]=Instalează Antergos NeXT
+Name[tr]=Antergos NeXT'yi yükle
 Comment=Install Antergos NeXT on this computer
 # pkexec does not work in our live environment (tested, failed in previous
 # releases). sudo -E is the standard approach — used by Lubuntu, Kubuntu,
