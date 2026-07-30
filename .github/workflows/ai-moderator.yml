@@ -35,22 +35,20 @@ jobs:
 
             const coc = fs.readFileSync('.github/CODE_OF_CONDUCT.md', 'utf8');
 
-            const prompt = `You are a community moderator for the Antergos NeXT project.
-
-    Code of Conduct:
-    ${coc}
-
-    Analyze the following content for violations of this Code of Conduct.
-    Respond with ONLY valid JSON — no markdown, no backticks, no explanation.
-
-    {
-      "violation": true/false,
-      "reason": "short reason if violation else empty",
-      "severity": 1-10
-    }
-
-    Content:
-    ${content}`;
+            const prompt = [
+              'You are a community moderator for the Antergos NeXT project.',
+              '',
+              'Code of Conduct:',
+              coc,
+              '',
+              'Analyze the following content for violations of this Code of Conduct.',
+              'Respond with ONLY valid JSON - no markdown, no backticks, no explanation.',
+              '',
+              '{"violation": true/false, "reason": "short reason or empty", "severity": 1-10}',
+              '',
+              'Content:',
+              content
+            ].join('\n');
 
             const model = 'llama-3.1-8b-instant';
 
@@ -94,13 +92,16 @@ jobs:
               return;
             }
 
-            const warning = `**AI Moderator Notice**
-
-Your comment appears to violate the project's [Code of Conduct](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/blob/master/.github/CODE_OF_CONDUCT.md).
-
-Reason: ${decision.reason}
-
-Please keep discussions respectful and constructive. Repeated violations may result in moderation actions.`;
+            const warning = [
+              '**AI Moderator Notice**',
+              '',
+              'Your comment appears to violate the project\'s ' +
+                '[Code of Conduct](' + context.serverUrl + '/' + context.repo.owner + '/' + context.repo.repo + '/blob/master/.github/CODE_OF_CONDUCT.md).',
+              '',
+              'Reason: ' + decision.reason,
+              '',
+              'Please keep discussions respectful and constructive. Repeated violations may result in moderation actions.'
+            ].join('\n');
 
             try {
               await github.rest.issues.createComment({
