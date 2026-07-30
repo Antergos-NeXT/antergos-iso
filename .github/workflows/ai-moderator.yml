@@ -124,9 +124,6 @@ jobs:
 
             try {
               if (isDiscussion) {
-                await github.request('POST /repos/{owner}/{repo}/discussions/{discussion_number}/labels', {
-                  owner, repo, discussion_number: number, labels: ['ai-moderated']
-                });
                 await github.request('POST /repos/{owner}/{repo}/discussions/{discussion_number}/comments', {
                   owner, repo, discussion_number: number, body: decision.message
                 });
