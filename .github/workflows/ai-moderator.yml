@@ -124,9 +124,17 @@ jobs:
 
             try {
               if (isDiscussion) {
-                await github.request('POST /repos/{owner}/{repo}/discussions/{discussion_number}/comments', {
-                  owner, repo, discussion_number: number, body: decision.message
-                });
+                const discId = context.payload.discussion.node_id;
+                if (discId) {
+                  const msg = decision.message.replace(/"/g, '\\"');
+                  await github.graphql(`
+                    mutation {
+                      addDiscussionComment(input: {discussionId: "${discId}", body: "${msg}"}) {
+                        comment { id }
+                      }
+                    }
+                  `);
+                }
               } else {
                 await github.rest.issues.addLabels({
                   owner, repo, issue_number: number, labels: ['ai-moderated']
@@ -152,9 +160,16 @@ jobs:
 
               if (decision.action === 'lock') {
                 if (isDiscussion) {
-                  await github.request('PUT /repos/{owner}/{repo}/discussions/{discussion_number}/lock', {
-                    owner, repo, discussion_number: number
-                  });
+                  const discId = context.payload.discussion.node_id;
+                  if (discId) {
+                    await github.graphql(`
+                      mutation {
+                        lockLockable(input: {lockableId: "${discId}", lockReason: TOO_HEATED}) {
+                          lockedRecord { activeLockReason }
+                        }
+                      }
+                    `);
+                  }
                 } else {
                   await github.rest.issues.lock({ owner, repo, issue_number: number, lock_reason: 'too_heated' });
                 }
