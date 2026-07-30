@@ -164,7 +164,7 @@ jobs:
                   if (discId) {
                     await github.graphql(`
                       mutation {
-                        lockLockable(input: {lockableId: "${discId}", lockReason: TOO_HEATED}) {
+                        lockLockable(input: {lockableId: "${discId}"}) {
                           lockedRecord { activeLockReason }
                         }
                       }
