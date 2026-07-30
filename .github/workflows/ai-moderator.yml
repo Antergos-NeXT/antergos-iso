@@ -38,9 +38,12 @@ jobs:
             try { coc = fs.readFileSync('.github/CODE_OF_CONDUCT.md', 'utf8'); } catch (e) {}
             try { contributing = fs.readFileSync('CONTRIBUTING.md', 'utf8'); } catch (e) {}
 
+            const isComment = !!context.payload.comment;
+
             const prompt = [
               'You are a community moderator for the Antergos NeXT project.',
-              'Be concise and professional. When you warn someone, be direct but not rude.',
+              'Write a clear explanation of why the content violates the rules.',
+              'Be educational, not just accusatory.',
               '',
               'Code of Conduct:',
               coc,
@@ -48,12 +51,20 @@ jobs:
               'Contributing Guidelines:',
               contributing,
               '',
-              'Analyze the following content for violations.',
-              'Respond with ONLY valid JSON - no markdown, no backticks, no explanation.',
+              'Analyze the content below for violations.',
+              'Respond with ONLY valid JSON - no markdown, no backticks.',
               '',
-              '{"violation": true/false, "message": "warning message if violation else empty", "severity": 1-10}',
+              '{',
+              '  "violation": true/false,',
+              '  "message": "educational explanation of why this violates the rules",',
+              '  "action": "warn",',
+              '  "severity": 1-10',
+              '}',
               '',
-              'Content to analyze:',
+              '"action" options: "warn" (post warning), "hide" (minimize comment), "lock" (lock issue)',
+              'For issues use "warn" or "lock". For comments you may use "hide".',
+              '',
+              'Content:',
               content
             ].join('\n');
 
@@ -100,13 +111,6 @@ jobs:
             }
 
             try {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: issueNumber,
-                body: decision.message
-              });
-
               await github.rest.issues.addLabels({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
@@ -114,7 +118,38 @@ jobs:
                 labels: ['ai-moderated']
               });
 
-              console.log('Warning posted and label added');
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                body: decision.message
+              });
+
+              if (decision.action === 'hide' && isComment) {
+                const commentId = context.payload.comment.node_id;
+                if (commentId) {
+                  await github.graphql(`
+                    mutation {
+                      minimizeComment(input: {subjectId: "${commentId}", classifier: OFF_TOPIC}) {
+                        minimizedComment { isMinimized }
+                      }
+                    }
+                  `);
+                  console.log('Comment minimized');
+                }
+              }
+
+              if (decision.action === 'lock') {
+                await github.rest.issues.lock({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issueNumber,
+                  lock_reason: 'too_heated'
+                });
+                console.log('Issue locked');
+              }
+
+              console.log('Action completed: ' + decision.action);
             } catch (err) {
               console.log(`GitHub API error: ${err}`);
             }
