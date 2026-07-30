@@ -33,13 +33,19 @@ jobs:
               return;
             }
 
-            const coc = fs.readFileSync('.github/CODE_OF_CONDUCT.md', 'utf8');
+            let coc = '';
+            let contributing = '';
+            try { coc = fs.readFileSync('.github/CODE_OF_CONDUCT.md', 'utf8'); } catch (e) {}
+            try { contributing = fs.readFileSync('CONTRIBUTING.md', 'utf8'); } catch (e) {}
 
             const prompt = [
               'You are a community moderator for the Antergos NeXT project.',
               '',
               'Code of Conduct:',
               coc,
+              '',
+              'Contributing Guidelines:',
+              contributing,
               '',
               'Analyze the following content for violations of this Code of Conduct.',
               'Respond with ONLY valid JSON - no markdown, no backticks, no explanation.',
