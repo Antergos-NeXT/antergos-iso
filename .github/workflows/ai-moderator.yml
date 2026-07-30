@@ -124,10 +124,10 @@ jobs:
 
             try {
               if (isDiscussion) {
-                await github.rest.discussions.addLabels({
+                await github.request('POST /repos/{owner}/{repo}/discussions/{discussion_number}/labels', {
                   owner, repo, discussion_number: number, labels: ['ai-moderated']
                 });
-                await github.rest.discussions.createComment({
+                await github.request('POST /repos/{owner}/{repo}/discussions/{discussion_number}/comments', {
                   owner, repo, discussion_number: number, body: decision.message
                 });
               } else {
@@ -155,7 +155,9 @@ jobs:
 
               if (decision.action === 'lock') {
                 if (isDiscussion) {
-                  await github.rest.discussions.lock({ owner, repo, discussion_number: number });
+                  await github.request('PUT /repos/{owner}/{repo}/discussions/{discussion_number}/lock', {
+                    owner, repo, discussion_number: number
+                  });
                 } else {
                   await github.rest.issues.lock({ owner, repo, issue_number: number, lock_reason: 'too_heated' });
                 }
