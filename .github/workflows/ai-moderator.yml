@@ -7,10 +7,15 @@ on:
     types: [created]
   pull_request_review_comment:
     types: [created]
+  discussion:
+    types: [created]
+  discussion_comment:
+    types: [created]
 
 permissions:
   issues: write
   pull-requests: write
+  discussions: write
   contents: read
 
 jobs:
@@ -25,7 +30,11 @@ jobs:
           script: |
             const fs = require('fs');
 
+            const coc = (() => { try { return fs.readFileSync('.github/CODE_OF_CONDUCT.md', 'utf8'); } catch (e) { return ''; } })();
+            const contributing = (() => { try { return fs.readFileSync('CONTRIBUTING.md', 'utf8'); } catch (e) { return ''; } })();
+
             const content = context.payload.issue?.body
+              || context.payload.discussion?.body
               || context.payload.comment?.body
               || '';
             if (!content.trim()) {
@@ -33,12 +42,8 @@ jobs:
               return;
             }
 
-            let coc = '';
-            let contributing = '';
-            try { coc = fs.readFileSync('.github/CODE_OF_CONDUCT.md', 'utf8'); } catch (e) {}
-            try { contributing = fs.readFileSync('CONTRIBUTING.md', 'utf8'); } catch (e) {}
-
-            const isComment = !!context.payload.comment;
+            const isComment = context.payload.comment !== undefined;
+            const isDiscussion = context.payload.discussion !== undefined;
 
             const prompt = [
               'You are an AI moderator for the Antergos NeXT project.',
@@ -64,7 +69,7 @@ jobs:
               '  "severity": 1-10',
               '}',
               '',
-              '"action" options: "warn" (post warning), "hide" (minimize comment), "lock" (lock issue)',
+              '"action" options: "warn" (post warning), "hide" (minimize comment), "lock" (lock issue/discussion)',
               'For issues use "warn" or "lock". For comments you may use "hide".',
               '',
               'Content:',
@@ -106,27 +111,33 @@ jobs:
               return;
             }
 
-            const issueNumber = context.payload.issue?.number
-              || context.payload.pull_request?.number;
-            if (!issueNumber) {
-              console.log('No issue/PR number found');
+            const number = context.payload.issue?.number
+              || context.payload.pull_request?.number
+              || context.payload.discussion?.number;
+            if (!number) {
+              console.log('No issue/PR/discussion number found');
               return;
             }
 
-            try {
-              await github.rest.issues.addLabels({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: issueNumber,
-                labels: ['ai-moderated']
-              });
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
 
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: issueNumber,
-                body: decision.message
-              });
+            try {
+              if (isDiscussion) {
+                await github.rest.discussions.addLabels({
+                  owner, repo, discussion_number: number, labels: ['ai-moderated']
+                });
+                await github.rest.discussions.createComment({
+                  owner, repo, discussion_number: number, body: decision.message
+                });
+              } else {
+                await github.rest.issues.addLabels({
+                  owner, repo, issue_number: number, labels: ['ai-moderated']
+                });
+                await github.rest.issues.createComment({
+                  owner, repo, issue_number: number, body: decision.message
+                });
+              }
 
               if (decision.action === 'hide' && isComment) {
                 const commentId = context.payload.comment.node_id;
@@ -143,13 +154,12 @@ jobs:
               }
 
               if (decision.action === 'lock') {
-                await github.rest.issues.lock({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: issueNumber,
-                  lock_reason: 'too_heated'
-                });
-                console.log('Issue locked');
+                if (isDiscussion) {
+                  await github.rest.discussions.lock({ owner, repo, discussion_number: number });
+                } else {
+                  await github.rest.issues.lock({ owner, repo, issue_number: number, lock_reason: 'too_heated' });
+                }
+                console.log('Locked');
               }
 
               console.log('Action completed: ' + decision.action);
