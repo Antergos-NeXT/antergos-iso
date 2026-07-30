@@ -40,6 +40,7 @@ jobs:
 
             const prompt = [
               'You are a community moderator for the Antergos NeXT project.',
+              'Be concise and professional. When you warn someone, be direct but not rude.',
               '',
               'Code of Conduct:',
               coc,
@@ -47,12 +48,12 @@ jobs:
               'Contributing Guidelines:',
               contributing,
               '',
-              'Analyze the following content for violations of this Code of Conduct.',
+              'Analyze the following content for violations.',
               'Respond with ONLY valid JSON - no markdown, no backticks, no explanation.',
               '',
-              '{"violation": true/false, "reason": "short reason or empty", "severity": 1-10}',
+              '{"violation": true/false, "message": "warning message if violation else empty", "severity": 1-10}',
               '',
-              'Content:',
+              'Content to analyze:',
               content
             ].join('\n');
 
@@ -73,7 +74,7 @@ jobs:
                     { role: 'user', content: prompt }
                   ],
                   temperature: 0.1,
-                  max_tokens: 150
+                  max_tokens: 250
                 })
               });
 
@@ -98,23 +99,12 @@ jobs:
               return;
             }
 
-            const warning = [
-              '**AI Moderator Notice**',
-              '',
-              'Your comment appears to violate the project\'s ' +
-                '[Code of Conduct](' + context.serverUrl + '/' + context.repo.owner + '/' + context.repo.repo + '/blob/master/.github/CODE_OF_CONDUCT.md).',
-              '',
-              'Reason: ' + decision.reason,
-              '',
-              'Please keep discussions respectful and constructive. Repeated violations may result in moderation actions.'
-            ].join('\n');
-
             try {
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: issueNumber,
-                body: warning
+                body: decision.message
               });
 
               await github.rest.issues.addLabels({
