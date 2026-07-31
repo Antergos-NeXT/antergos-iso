@@ -15,15 +15,14 @@ The `calamares-next` script (`calamares-next.sh`) handles the installer boot flo
 3. **Configuration** — copies `calamares-online/settings.conf` to `/etc/calamares/settings.conf` after removing any existing file (the removal is necessary to prevent `cp` from following symlinks)
 4. **Launch** — runs `calamares -D8` with the online config; debug output is redirected to a log file at `~/antergos-install.log`
 
-## Desktop entry
+## Desktop entries
 
-`/usr/share/applications/calamares.desktop` in the live-overlay launches with:
+The live session ships two entries in `/usr/share/applications/`:
 
-```
-Exec=sudo -E calamares-next
-```
+- `calamares.desktop` — the branded "Install Antergos NeXT" entry, launching `Exec=sudo -E calamares-next`
+- `antergos-offline-install.desktop` — "Install Antergos NeXT (Offline — NO DE)", launching the experimental `Exec=sudo -E antergos-offline-install` script
 
-`sudo -E` preserves environment variables (`WAYLAND_DISPLAY`, `XDG_CURRENT_DESKTOP`, etc.) when launched from the SDDM session. Without it, Calamares may not detect the display server correctly.
+Both use `sudo -E`, which preserves environment variables (`WAYLAND_DISPLAY`, `XDG_CURRENT_DESKTOP`, etc.) when launched from the SDDM session. Without it, Calamares may not detect the display server correctly. **Do not switch to `pkexec`** — it does not work in the live environment (tested and failed in previous releases).
 
 ## Module config resolution
 
@@ -63,15 +62,17 @@ During installation, the launcher polls for the existence of a pacman log file w
 
 ## Hiding "Install Artix"
 
-The live-overlay includes `calamares-config-switcher.desktop` with `NoDisplay=true`. This hides the upstream Artix "Install Artix Linux" desktop entry while keeping the binary available for other uses.
+The `calamares-extensions` package ships an "Install Artix Linux" desktop entry (`calamares-config-switcher.desktop`). It is excluded from the ISO via `NoExtract = usr/share/applications/calamares-config-switcher.desktop` in `pacman.conf.d/iso-x86_64.conf`, so pacman never extracts it during the build. Our branded `calamares.desktop` in the live-overlay is the only installer entry.
 
 ## Module configs
 
-Configs live in `live-overlay/etc/calamares/modules/`:
+Configs live in `live-overlay/etc/calamares/modules/` (overriding the copies installed by `calamares-branding-antergos-next`):
 
 - `packagechooser_de.conf` — desktop environment selector using `method: netinstall-add`
 - `packagechooser_dm.conf` — display manager selector using `method: netinstall-select`
-- `initcpiocfg.conf` — mkinitcpio configuration
+- `netinstall.yaml` / `netinstall.conf` — the netinstall package tree
 - `services-artix.conf` — service enablement via `artix-service`
 - `grubcfg.conf` — GRUB default configuration (`/etc/default/grub`)
 - `bootloader.conf` — bootloader installation parameters
+
+The remaining module configs (`initcpiocfg.conf`, `initcpio.conf`, `welcome.conf`, `basestrap.conf`, etc.) ship in the `calamares-branding-antergos-next` package under `/etc/calamares/modules/`.

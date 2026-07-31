@@ -7,42 +7,55 @@ nav_order: 1
 
 # Root Overlay
 
-Files in `iso-profiles/antergos/root-overlay/` are merged into the root squashfs and become part of the installed system.
+Files in `iso-profiles/antergos/root-overlay/` are merged into the live rootfs — the filesystem the ISO boots. root-overlay settings (os-release, issue, SDDM config, wallpapers) therefore apply to the live session too.
+
+> **Important:** The Calamares online install does **not** copy root-overlay files to the installed system. The installed system is built fresh from packages via `basestrap`. Anything you want on installed systems must ship as a package (e.g. `antergos-release` for os-release, `antergos-layan-theme` for the SDDM theme), not live in root-overlay.
 
 ## Contents
 
 ```
 root-overlay/
 ├── etc/
-│   ├── pacman.conf               # Includes [antergos-pkgs] repo
+│   ├── default/
+│   │   └── grub                       # GRUB default options
+│   ├── issue / issue.live             # Login banners
+│   ├── lsb-release                    # LSB metadata
+│   ├── os-release                     # "Antergos NeXT" in the live session
+│   ├── pacman.conf                    # Includes [antergos-pkgs] repo
+│   ├── sddm.conf                      # SDDM general config (Wayland compositor, theme dirs)
 │   ├── sddm.conf.d/
-│   │   └── kde_settings.conf     # SDDM theme + Wayland session
-│   └── skel/
-│       └── .config/
-│           └── autostart/
-│               └── antergos-wallpaper.desktop  # One-shot wallpaper setter
+│   │   └── kde_settings.conf          # SDDM autologin + theme (live only)
+│   ├── skel/.config/autostart/
+│   │   ├── antergos-wallpaper.desktop # First-login wallpaper setter
+│   │   └── pipewire.desktop           # PipeWire autostart
+│   └── xdg/autostart/
+│       └── antergos-wallpaper.desktop # System-wide wallpaper autostart
 ├── usr/
-│   └── local/
-│       └── bin/
-│           └── set-antergos-wallpaper.sh       # Wallpaper script
+│   ├── bin/systemd-machine-id-setup   # Keeps live machine-id stable
+│   ├── lib/os-release                 # Mirrors etc/os-release
+│   ├── local/bin/set-antergos-wallpaper.sh
+│   └── share/
+│       ├── icons/hicolor/{128x128,256x256}/apps/antergos-logo.png
+│       ├── pixmaps/antergos-logo.png
+│       └── plasma/wallpapers/org.kde.image/contents/config/main.xml
 ```
 
 ## Key files
 
 ### `etc/pacman.conf`
 
-Adds the `[antergos-pkgs]` custom repo so installed systems can receive updates from our package repository. The `SigLevel = Optional TrustAll` is needed because our packages are not signed with official Artix keys.
+Adds the `[antergos-pkgs]` custom repo so the live session can install our packages during the Calamares online install. `SigLevel = Optional TrustAll` is needed because our packages are not signed with official Artix keys.
 
 ### `etc/sddm.conf.d/kde_settings.conf`
 
-Sets the SDDM session to `plasma.desktop` (Wayland) by default. Also controls the SDDM theme — see the note below.
+Sets the live session to **autologin as user `antergos`** with `Session=plasma.desktop` (Wayland). Also sets `HaltCommand`/`RebootCommand` to loginctl (dinit-compatible) and the theme to `Current=antergos` (the bundled Antergos theme).
 
-> **Note:** The SDDM theme is set to `Current=antergos` in this file. However, KDE's SDDM KCM may overwrite this file on first login to `Current=breeze`. To ensure the Antergos theme persists, the `antergos-sddm-theme` package ships a `theme.conf` that sorts after `kde_settings.conf` alphabetically, so its `Current=antergos` always wins.
+> This file only affects the **live session**. On installed systems the `antergos-layan-theme` package owns `kde_settings.conf` with `Current=pixie` — see [Installer — SDDM theme](installer).
 
 ### `etc/skel/.config/autostart/antergos-wallpaper.desktop`
 
-Runs the wallpaper setter on first login. Uses `X-KDE-autostart-phase=2` to run after Plasma has initialized. This is necessary because Plasma overwrites the wallpaper config from `/etc/skel/` on first login.
+Runs the wallpaper setter on first login. Uses `X-KDE-autostart-phase=2` so it runs after Plasma has initialized — necessary because Plasma overwrites the wallpaper config from `/etc/skel/` on first login. A matching copy lives at `etc/xdg/autostart/` for system-wide autostart.
 
 ### `usr/local/bin/set-antergos-wallpaper.sh`
 
-Applies the wallpaper via `plasma-apply-wallpaperimage` and creates `~/.config/antergos-wallpaper-set` marker to prevent re-running on subsequent logins.
+Configures the **Smart Video Wallpaper Reborn** Plasma plugin (`luisbocanegra.smart.video.wallpaper.reborn`) via `qdbus6` to play `/usr/share/backgrounds/antergos/antergos-wallpaper.mp4` muted, then writes `~/.config/antergos-wallpaper-set` as a marker so it only runs once. See [Wallpapers](wallpapers).

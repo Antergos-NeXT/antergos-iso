@@ -122,7 +122,9 @@ Then rebuild.
 
 ## CI builds
 
-The CI pipeline (`.github/workflows/build.yml`) handles all of the above automatically. It runs in an Artix container, sets `WORKSPACE_DIR`, overrides pacman config, mounts a 12 GB tmpfs, and uploads the resulting ISO to the Internet Archive.
+The CI pipeline (`.github/workflows/build.yml`) handles all of the above automatically. It runs in an Artix container, sets `WORKSPACE_DIR`, overrides pacman config, mounts a 12 GB tmpfs, and builds the ISO. It also runs the AI community moderator on issues/PRs (`.github/workflows/ai-moderator.yml`).
+
+An Internet Archive upload step exists in the workflow but is **currently disabled** (`if: false`) — builds are manually verified first. When enabled it uploads with identifier `antergos-next-YYYYMMDD-<run_number>`.
 
 Trigger CI manually from the GitHub Actions tab (push trigger is disabled).
 

@@ -14,14 +14,16 @@ antergos-iso/
 ├── iso-profiles/
 │   ├── antergos/
 │   │   ├── profile.yaml        # Packages, services (rootfs + livefs), compression
-│   │   ├── root-overlay/       # Merged into squashfs rootfs → installed system
+│   │   ├── root-overlay/       # Merged into rootfs → live session + offline install
 │   │   └── live-overlay/       # Merged into live environment only
+│   ├── antergos-minimal/       # Minimal profile (unmaintained)
 │   └── common/
 │       └── common.yaml         # Shared base packages (kernel, firmware, filesystem)
 ├── pacman.conf.d/
 │   └── iso-x86_64.conf         # Pacman config for ISO build with [antergos-pkgs]
 └── .github/workflows/
-    ├── build.yml               # ISO build + Internet Archive upload
+    ├── build.yml               # ISO build (IA upload step disabled)
+    ├── ai-moderator.yml        # Groq-powered community moderator
     └── pages.yml               # Docs deployment to GitHub Pages
 ```
 
@@ -93,13 +95,15 @@ Live-overlay files are copied via `cp -LR` in `make_livefs()`. Deleting a file f
 
 Artix bundles the Wayland session into `plasma-workspace` itself. Do not add it to package lists.
 
-### SDDM theme override
+### SDDM theme
 
-`kde_settings.conf` from KDE's SDDM KCM sets `Current=breeze`. To override this, the `antergos-sddm-theme` package ships a `theme.conf` at `/etc/sddm.conf.d/theme.conf`. SDDM reads config files in alphabetical order — since `theme.conf` sorts after `kde_settings.conf`, its `Current=antergos` wins. If you're adding a new override file, make sure it sorts after `kde_settings.conf`.
+The installed system uses the **pixie** theme (`pixie-sddm-git`). The `antergos-layan-theme` package vendors its own `kde_settings.conf` at `/etc/sddm.conf.d/kde_settings.conf` with `Current=pixie` plus dinit halt/reboot commands — this overrides KDE's SDDM KCM setting. The live session deliberately uses `breeze` for autologin.
+
+> The `antergos-sddm-theme` PKGBUILD still exists in `antergos-packages` but is **not built** (not in `packages.yaml`) and not used.
 
 ### Pipewire launcher on dinit
 
-`artix-pipewire-launcher` detects the init system and only proceeds on supported ones. For dinit, the upstream script returns `SUPPORT=''` (unsupported). The forked version in `[antergos-pkgs]` patches this to `SUPPORT='YES'` for dinit. The XDG autostart entry (`pipewire.desktop` at `/etc/xdg/autostart/`) then starts pipewire on login.
+`artix-pipewire-launcher` detects the init system and only proceeds on supported ones. For dinit, the upstream script returns `SUPPORT=''` (unsupported). The forked version in `[antergos-pkgs]` patches this to `dinit|runit|s6) SUPPORT='YES'`. The XDG autostart entry (`pipewire.desktop` at `/etc/xdg/autostart/`) then starts pipewire on login.
 
 ### File conflicts
 

@@ -9,7 +9,7 @@ nav_order: 1
 
 **OpenRC** is a traditional init system used by Gentoo, Artix Linux, Devuan, Alpine Linux, and other non-systemd distributions. It is well-established, actively maintained, and provides a balance of simplicity and feature completeness.
 
-> **Note:** Earlier Antergos NeXT builds shipped OpenRC as an install-time option but it had issues with service enabling on installed systems. If you want to use OpenRC on Antergos NeXT, see [Changing init](changing-init) for manual setup instructions.
+> **Note:** Earlier Antergos NeXT builds shipped OpenRC as an install-time option, but it conflicted with dinit during the installer flow (services didn't enable correctly). OpenRC is no longer an install-time option. On an already-installed system, manual switching via `rc-update add` works fine — see [Changing init](changing-init).
 
 ## Comparison with systemd
 

@@ -65,7 +65,7 @@ CI does this automatically. Forget this step and buildiso will try to fetch our 
 `buildiso` looks for profiles at `$WORKSPACE_DIR/iso-profiles/<profile>/` if `WORKSPACE_DIR` is set. Always set it to the repo root when building locally.
 
 ### Default init system
-Antergos NeXT uses **dinit** (via `INITSYS='dinit'` in `buildiso`). Runit and s6 are also available as user-selectable options in the online installer. **OpenRC is broken** (services don't enable correctly on installed systems). See `common.yaml` and `profile.yaml` for per-init package lists.
+Antergos NeXT uses **dinit** (via `INITSYS='dinit'` in `buildiso`). Runit and s6 are also available as user-selectable options in the online installer. **OpenRC is not an install-time option** — in earlier builds it conflicted with dinit during the installer flow (services didn't enable correctly). On an already-installed system, manual switching to OpenRC via `rc-update add` works fine (see `changing-init.md`). See `common.yaml` and `profile.yaml` for per-init package lists.
 
 ### `antergos-release` in basestrap.conf operations
 The `filesystem` package owns `/usr/lib/os-release` with "Artix Linux". To get "Antergos NeXT" in os-release, `antergos-release` must be in the `operations` list in `basestrap.conf`. This ensures it's installed during bootstrapping with `--overwrite`. Missing it → installed system shows "Artix Linux".

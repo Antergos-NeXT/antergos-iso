@@ -12,14 +12,15 @@ Two directories under `iso-profiles/antergos/` control what goes into the ISO:
 ```
 iso-profiles/antergos/
 ├── profile.yaml          # Package lists, services, compression
-├── root-overlay/         # → rootfs (squashfs) — becomes part of installed system
-└── live-overlay/         # → live environment only — not present after installation
+├── root-overlay/         # → live rootfs — config for the live session
+└── live-overlay/         # → live environment — installer configs and tools
 ```
 
 ## How overlays work
 
-- **root-overlay** files are merged into the root squashfs. Everything in here becomes part of the installed system — settings, wallpapers, autostart entries.
-- **live-overlay** files are copied into the live environment only. They exist in the live session but are **not** present after installation. Calamares configs, the launcher desktop entry, and init-related configs live here.
+- **root-overlay** files are merged into the live rootfs — the filesystem the ISO boots. Settings here (os-release, SDDM, wallpapers) affect the live session.
+- **live-overlay** files are merged into the live environment on top. Calamares configs, the launcher desktop entries, and live-only tools live here.
+- **Neither is copied to the installed system.** The Calamares online install builds the target system fresh from packages via `basestrap`. Persistent configuration must ship as a package (`antergos-release`, `antergos-layan-theme`, etc.).
 - Overlays are **self-contained** (no symlinks to external directories) so the repo builds standalone.
 
 ## Important: overlay behavior
@@ -27,10 +28,10 @@ iso-profiles/antergos/
 Live-overlay files are **copied** via `cp -LR` in `make_livefs()`, not overlay-mounted. This means:
 
 - You **cannot** hide a file from a package by placing an empty file in live-overlay — the package version still exists underneath
-- To hide a desktop entry, use `NoDisplay=true` in the `.desktop` file
-- To replace a file, your live-overlay version wins during copy
+- To hide a desktop entry shipped by a package, use `NoExtract` in `pacman.conf.d/iso-x86_64.conf` (this is how the Artix "Install Artix Linux" entry is suppressed)
+- To replace a file, your overlay version wins during copy
 
 ## Related pages
 
-- [Root Overlay](overlay-root) — persistent system config, wallpapers, skel
-- [Live Overlay](overlay-live) — installer configs, launcher, SDDM session
+- [Root Overlay](overlay-root) — live rootfs config, SDDM, wallpapers
+- [Live Overlay](overlay-live) — installer configs, launcher, offline installer

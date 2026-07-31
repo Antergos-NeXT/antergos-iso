@@ -80,13 +80,10 @@ Available desktops in online mode, sourced from Artix repos.
 | **Repo** | galaxy |
 | **Group** | `cosmic` |
 | **Session** | `cosmic.desktop` |
-| **Notes** | Rust-based, Wayland-native. Uses greetd + cosmic-greeter (not SDDM). Alpha quality, not for production. |
-
-## No Desktop
-
-Installs the base system only (TTY/login). Useful for servers or custom setups.
+| **Notes** | Rust-based, Wayland-native. Uses greetd + cosmic-greeter (not SDDM). Alpha quality, not for production. Select `greetd` in the display-manager chooser — `cosmic-greeter` requires the `greetd` daemon. |
 
 ## Not available
 
 - **Budgie** — not in any Artix repo (system, world, galaxy, lib32). Slideshow entries removed.
 - **GNOME** — dropped non-systemd support upstream. Not available.
+- **No Desktop** — a "no desktop / base only" option does not exist in the installer. Pick a DE from the list above.

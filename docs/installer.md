@@ -10,9 +10,9 @@ Antergos NeXT uses [Calamares](https://codeberg.org/calamares/calamares) as its 
 
 ## Install mode
 
-Online-only (since v2026.07.16). The so-called "Offline Install" was removed — it was never truly offline: the rootfs only contained live session essentials, and all DE packages were still downloaded via basestrap. All installs now use the full netinstall flow with desktop selection.
+Online-only (since v2026.07.16). The so-called "Offline Install" was removed from Calamares — it was never truly offline: the rootfs only contained live session essentials, and all DE packages were still downloaded via basestrap. All Calamares installs now use the full netinstall flow with desktop selection.
 
-A BYODE (Bring Your Own Desktop Environment) offline installer is still available for users who want a bare system installed from the ISO. See [BYODE](../byode).
+A BYODE (Bring Your Own Desktop Environment) offline installer script is available on the live desktop for users who want a bare system installed from the ISO. See [BYODE](byode). It is experimental.
 
 ## Fixed issues
 
@@ -24,9 +24,9 @@ The upstream `artix-pipewire-launcher` doesn't support dinit. The XDG autostart 
 
 ### SDDM theme showing Breeze
 
-KDE's SDDM KCM writes a `kde_settings.conf` with `Current=breeze`. The Antergos theme never took effect in the live session.
+KDE's SDDM KCM writes a `kde_settings.conf` with `Current=breeze`, and the old `antergos` theme entry didn't win.
 
-**Fix**: The `antergos-sddm-theme` package now ships `theme.conf` at `/etc/sddm.conf.d/theme.conf` with `Current=antergos`. SDDM reads `conf.d` files alphabetically, so `theme.conf` (reads after `kde_settings.conf`) wins.
+**Fix**: The installed system uses the **pixie** SDDM theme (`pixie-sddm-git`, Material Design 3). The `antergos-layan-theme` package vendors its own `kde_settings.conf` at `/etc/sddm.conf.d/kde_settings.conf` with `Current=pixie` (plus dinit halt/reboot commands). The live session uses the `breeze` theme for autologin — the pixie theme applies to the installed system after login.
 
 ### `/usr/lib/os-release` showing "Artix Linux"
 
@@ -43,7 +43,7 @@ The `filesystem` package from Artix owns `/usr/lib/os-release`. Our `antergos-re
 
 ## Init system
 
-Antergos NeXT ships **Dinit** only. Other init systems (OpenRC, Runit, S6) are available in the Artix repos but are not offered as install-time options. See [Changing init on an installed system](changing-init) for instructions if you need a different init.
+Antergos NeXT ships **Dinit** as the default and only install-time init. OpenRC, Runit, and S6 are available in the Artix repos and are supported — but they are not offered as install-time options; you switch after installation. See [Changing init on an installed system](changing-init) for instructions. Note that **OpenRC** is known to have issues with service enabling on installed systems; Runit and S6 switch cleanly.
 
 ## Desktop selector
 
@@ -61,12 +61,12 @@ The selector uses `method: netinstall-add` — the chosen DE's package group is 
 
 | Desktop | Repo | Type | Notes |
 |---------|------|------|-------|
-| **KDE Plasma** | world | Full DE | Default. Wayland + X11. Uses the `plasma` group with antergos-next-desktop-settings |
-| **Xfce** | galaxy | Full DE | Lightweight. GTK-based. Uses `xfce4` group |
+| **KDE Plasma** | world | Full DE | Default. Wayland + X11. Listed as individual packages in the active config; the reference copy in `calamares-online/modules/` uses the `plasma` meta-group + `antergos-next-desktop-settings` |
+| **Xfce** | galaxy | Full DE | Lightweight. GTK-based. Individual packages; reference copy uses `xfce4` group |
 | **Cinnamon** | galaxy | Full DE | Traditional layout. GNOME-based |
-| **MATE** | galaxy | Full DE | GNOME 2 continuation. Uses `mate` + `mate-extra` |
-| **LXQt** | galaxy | Full DE | Lightweight Qt desktop. Uses `lxqt` group |
-| **i3** | world | Tiling WM | Keyboard-driven. Ships `i3` group (i3-wm, i3blocks, i3lock, i3status). Requires `antergos-i3-config` for a usable experience |
+| **MATE** | galaxy | Full DE | GNOME 2 continuation. Individual packages; reference copy uses `mate` + `mate-extra` |
+| **LXQt** | galaxy | Full DE | Lightweight Qt desktop. Individual packages; reference copy uses `lxqt` group |
+| **i3** | world | Tiling WM | Keyboard-driven. Individual packages (i3-wm, i3blocks, i3lock, i3status). Requires `antergos-i3-config` for a usable experience |
 | **Sway** | world | Tiling WM | i3-compatible Wayland compositor. Requires `antergos-sway-config` |
 | **Hyprland** | world | Tiling WM | Dynamic Wayland compositor with eye candy. Requires `antergos-hyprland-config` |
 | **COSMIC** | galaxy | Full DE | Rust-based desktop from System76. Alpha quality. Select **greetd** as display manager |

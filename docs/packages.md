@@ -18,16 +18,36 @@ Server = https://antergos-next.github.io/antergos-packages
 
 ## Package list
 
+Built and published in this order (from `packages.yaml` in `antergos-packages`):
+
 | Package | Purpose |
 |---------|---------|
-| `calamares` | Built with `packagechooser` module enabled; `dracut`/`initramfs` modules skipped |
-| `calamares-branding-antergos-next` | Branding: slideshow, `branding.desc`, launcher script (`calamares-next.sh`), packagechooser configs, initcpio configs |
-| `antergos-wallpapers` | Default wallpapers for KDE and other DEs |
-| `linux-next` | Custom kernel based on `linux-artix` |
-| `winver` | "About Antergos NeXT" dialog (KF6 + Qt6) |
-| `pipewire` (forked) | Patched `artix-pipewire-launcher` for dinit support + XDG autostart entry |
-| `antergos-sddm-theme` | SDDM theme files + `theme.conf` override for `kde_settings.conf` |
+| `antergos-lsb-release` | LSB release identification |
+| `antergos-next-desktop-settings` | Default desktop settings for the live session |
+| `antergos-next-keyring` | GPG keyring for the `[antergos-pkgs]` repo |
+| `antergos-next-mirrorlist` | Mirror list for `[antergos-pkgs]` |
 | `antergos-release` | `/usr/lib/os-release` with "Antergos NeXT" identification |
+| `pixie-sddm-git` | Material Design 3 SDDM theme (from AUR) |
+| `antergos-wallpapers` | Default wallpapers for KDE and other DEs |
+| `antergos-plasma-theme` | Plasma theme / start-here icons |
+| `antergos-welcome` | "About Antergos NeXT" welcome app (KF6 + Qt6) |
+| `antergos-grub-theme` | GRUB boot theme |
+| `antergos-live` | Live session meta package (per-init: `antergos-live-dinit`, `antergos-live-openrc`) |
+| `pipewire` (forked) | Patched `artix-pipewire-launcher` for dinit support + XDG autostart entry |
+| `calamares` | Built with `packagechooser` module enabled |
+| `calamares-branding-antergos-next` | Branding: slideshow, `branding.desc`, launcher script, packagechooser configs |
+| `calamares-branding-antergos-next-minimal` | Minimal branding variant |
+| `antergos-xfce-theme` | Xfce theme |
+| `downgrade` | AUR package (downgrade helper) |
+| `yay` | AUR helper |
+| `antergos-layan-theme` | Layan theme suite: KDE configs, Kvantum, SDDM theme, plasmoids, video wallpaper |
+| `tela-circle-icon-theme-git` | Icon theme (from AUR) |
+| `kwin-zones` | KWin window tiling zones |
+| `oh-my-posh-bin` | Shell prompt (from AUR) |
+| `pacseek` | Package search GUI (from AUR) |
+| `antergos-i3-config` | i3 configuration |
+| `antergos-sway-config` | Sway configuration |
+| `antergos-hyprland-config` | Hyprland configuration |
 
 ## PKGBUILD notes
 
@@ -38,21 +58,16 @@ Server = https://antergos-next.github.io/antergos-packages
 
 ### calamares-branding-antergos-next
 
-- Ships `calamares-next.sh` — the launcher script that presents the mode picker and manages config switching
-- `packagechooser.conf` provides a DM-only fallback for standalone use
+- Ships `calamares-next.sh` — installed as `/usr/bin/calamares-next`, the online installer launcher
+- Ships both settings files: `/etc/calamares-offline/settings.conf` and `/etc/calamares-online/settings.conf`. `/etc/calamares/settings.conf` is a symlink to the offline one by default; the launcher's `SetConfig()` replaces it with the online config at runtime
+- Ships module configs to `/etc/calamares/modules/`: `unpackfs.conf`, `initcpiocfg.conf`, `initcpio.conf`, `netinstall.conf`, `netinstall.yaml`, `packagechooser_de.conf`, `packagechooser_dm.conf`, `welcome.conf`
+- Also overwrites `/usr/share/calamares/branding/default/` so the Artix default branding can't sneak in
 - `SetConfig()` must `rm -f` the symlink at `/etc/calamares/settings.conf` before copying, otherwise `cp` follows the symlink and overwrites the wrong file
 
 ### pipewire (forked)
 
-- Ships `pipewire.desktop` at `/etc/xdg/autostart/` so both offline and online installs get the XDG autostart entry
-- Patches `artix-pipewire-launcher`: changes `dinit|openrc) SUPPORT=''` to `dinit|runit|s6) SUPPORT='YES'`. Without this, the launcher silently exits on dinit systems and pipewire never starts.
-- Also modifies `dinit|runit|s6) SUPPORT='YES'` line handling to include dinit in the regex
-
-### antergos-sddm-theme
-
-- Ships `theme.conf` at `/etc/sddm.conf.d/theme.conf` with `[Theme]\nCurrent=antergos`
-- SDDM reads `conf.d` files in alphabetical order. Since `theme.conf` sorts after `kde_settings.conf` (from KDE's SDDM KCM), its `Current=antergos` wins
-- The theme directory must be named to match `componentName` in the theme descriptor (`antergos`)
+- Ships `pipewire.desktop` at `/etc/xdg/autostart/` so installed systems get the XDG autostart entry
+- Patches `artix-pipewire-launcher`: sets `dinit|runit|s6) SUPPORT='YES'` (upstream only supported `openrc`/`systemd`). Without this, the launcher silently exits on dinit systems and pipewire never starts.
 
 ### antergos-wallpapers
 
@@ -69,4 +84,4 @@ Server = https://antergos-next.github.io/antergos-packages
 
 ## Build system
 
-Packages are built and published via CI in the `antergos-packages` repo. Build order is defined in `packages.yaml`. AUR packages (`yay`, `downgrade`) are included with retry logic for transient clone failures. The package index (`index.db`, `index.files`) is generated with timestamps in Europe/Berlin timezone.
+Packages are built and published via CI in the `antergos-packages` repo. Build order is defined in `packages.yaml`. AUR packages (`yay`, `downgrade`, `pixie-sddm-git`, etc.) are included with retry logic for transient clone failures. The repo index is generated as `antergos-pkgs.db` / `antergos-pkgs.files` under `antergos-pkgs/os/x86_64/` and published to GitHub Pages, served by `repo-add`.
