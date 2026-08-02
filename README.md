@@ -10,7 +10,6 @@
 [![Init](https://img.shields.io/badge/init-Dinit-brightgreen.svg)]()
 [![Docs](https://img.shields.io/badge/docs-site-blue.svg)](https://antergos-next.github.io/antergos-iso/)
 [![Dla mojego narodu](https://img.shields.io/badge/README-Polski-crimson.svg)](README.pl.md)
-> why did i had a ko-fi no one will support me :(
 
 A community revival of Antergos — built on **Artix Linux** with **Dinit**, **KDE Plasma** desktop, the **Calamares** installer (online mode), and a BYODE script for offline installs.
 
@@ -109,12 +108,6 @@ Overlays are self-contained (no symlinks to external directories) so the repo bu
 ## License
 
 [GPL-3.0](LICENSE)
-
----
-
-## A Note to the "Branding Police"
-
-If you came here to hate and you're about to type "why are you using Antergos's branding" — pack your bags and go to **Manjaro**. We have Dustin's blessing. We are respectful. We are not them. Move on.
 
 ---
 
