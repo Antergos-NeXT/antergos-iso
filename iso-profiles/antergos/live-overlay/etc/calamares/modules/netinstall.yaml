@@ -17,6 +17,7 @@
     - falkon
     - mesa
     - mesa-utils
+    - vulkan-nouveau
     - networkmanager
     - network-manager-applet
     - pipewire

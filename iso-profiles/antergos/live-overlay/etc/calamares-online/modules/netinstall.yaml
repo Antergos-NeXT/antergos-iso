@@ -14,6 +14,9 @@
     - antergos-next-keyring
     - antergos-wallpapers
     - antergos-grub-theme
+    - mesa
+    - mesa-utils
+    - vulkan-nouveau
 
 - name: "Kernel"
   description: "Kernel and modules"
