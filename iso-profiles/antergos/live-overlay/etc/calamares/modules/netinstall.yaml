@@ -96,38 +96,4 @@
 
 
 
-- name: "SDDM"
-  description: "SDDM display manager"
-  selected: false
-  packages:
-    - sddm
-    - sddm-dinit
-    - pixie-sddm-git
 
-- name: "LightDM"
-  description: "LightDM display manager"
-  selected: false
-  packages:
-    - lightdm
-    - lightdm-dinit
-
-- name: "LXDM"
-  description: "LXDM display manager"
-  selected: false
-  packages:
-    - lxdm
-    - lxdm-dinit
-
-- name: "greetd"
-  description: "greetd display manager"
-  selected: false
-  packages:
-    - greetd
-    - greetd-dinit
-
-- name: "LY"
-  description: "LY display manager"
-  selected: false
-  packages:
-    - ly
-    - ly-dinit
