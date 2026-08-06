@@ -35,6 +35,20 @@ Without passphrase is allowed for now, but prepare to encrypt it one day 0_0 —
 
 ## Critical Gotchas (Read Before Editing)
 
+### ALWAYS VERIFY AGAINST THE SOURCE, NEVER GUESS
+> Note: this section is written for OpenCode agents. If you're a different
+> agent whose tools have other names, adapt accordingly — the principle
+> stands: fetch/read the authoritative source, never guess.
+
+Before asserting how any Calamares module config (or any format this repo
+relies on) works, **check the authoritative source** — the Calamares repo
+(`https://codeberg.org/calamares/calamares/raw/branch/calamares/src/modules/<module>/`)
+or the project's docs, using whatever web-fetch tool is available first.
+Cloning is a LAST RESORT — only if web lookup fails 3 times. Do not rely on
+memory or "it looks right" for config schemas, keys, or formats. The 2026
+lesson: packagechooser/netinstall config was eyeballed instead of verified
+against the `packagechooser.conf` / `netinstall.conf` source files.
+
 ### CMAKE_DISTRIBUTION_NAME is a no-op
 Calamares completely ignores `-DCMAKE_DISTRIBUTION_NAME`. The "for <distro>" text in the about dialog comes from `versionedName` in the **active branding component** at runtime. Do NOT add this flag to the calamares PKGBUILD.
 
