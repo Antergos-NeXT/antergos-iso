@@ -80,6 +80,7 @@
     - dhcpcd-dinit
     - syslog-ng-dinit
     - power-profiles-daemon-dinit
+    - ntp-dinit
 
 - name: "Utilities"
   description: "System Utilities"
