@@ -31,12 +31,56 @@ The Antergos NeXT project prefers init system flexibility over systemd lock-in. 
 
 ## Building
 
-Requires an **Artix-based** system:
+### Option A: Build in a container (non-pacman distros — recommended)
+
+No Artix/Arch needed. Works on Gentoo, Fedora, Debian — anything **without
+pacman** that has podman. This is the same path GitHub Actions CI uses.
 
 ```bash
-# Install build deps
+# Build the image (installs artools + deps inside an Artix container)
+podman build -t antergos-build .
+
+# Build the ISO (rootful podman required — artools chroots mount devtmpfs,
+# which rootless containers cannot do)
+sudo podman run --rm --privileged \
+  -v /var/lib/artools-buildiso:/var/lib/artools/buildiso \
+  -v "$(pwd)/iso-output:/workspace/iso-output" \
+  -e WORKSPACE_DIR=/workspace \
+  antergos-build
+```
+
+Or use the helper script:
+
+```bash
+./build-iso-podman.sh
+```
+
+The finished `.iso` lands in `iso-output/`.
+
+### Option B: Native build (just pacman + artools)
+
+You do **not** need an Artix-based system — `buildiso` is plain bash on top of
+`pacman`. You need:
+
+- `pacman` (native on Arch/Artix/**KaOS**; on other distros, install it or
+  extract the `.pkg.tar.zst` files)
+- the artools libraries from the Artix repo: `artools-base` (provides
+  `basestrap`, `artix-chroot`, `fstabgen`) and `artools-iso` (provides
+  `buildiso`) plus their deps
+- `squashfs-tools`, `grub`, `xorriso`/`libisoburn`, `dosfstools`, `mtools`
+
+```bash
+# On Arch/Artix:
 pacman -S artools squashfs-tools
 modprobe loop
+
+# On KaOS (pacman native, but artools not in KaOS repos — extract from Artix):
+pacman -S squashfs-tools
+# grab artools-base/artools-iso from the Artix repo and extract over /
+
+# On other distros: grab the packages from the Artix repo and extract
+# them over / (e.g. into /usr/share/artools and /usr/bin), then install
+# pacman and the deps listed above.
 
 # Clone and enter
 git clone https://github.com/Antergos-NeXT/antergos-iso.git
@@ -58,6 +102,11 @@ sudo ./buildiso -p antergos
 The `.iso` appears in `/var/lib/artools/buildiso/iso/antergos/`.
 
 First build pulls ~5 GB from the internet. Subsequent builds use pacman cache.
+
+> **Which option do I use?**
+>
+> - **Arch / Artix / KaOS / any pacman-based distro** → Option B (native).
+> - **Anything else** (Gentoo, Fedora, Debian, ...) → Option A (podman).
 
 ### Custom packages
 
