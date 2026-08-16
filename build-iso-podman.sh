@@ -7,9 +7,10 @@ set -euo pipefail
 
 cd "$(dirname "$0")"
 
-# 1. Ensure the build image exists
-if ! podman image exists localhost/antergos-build:latest; then
-  podman build -t antergos-build .
+# 1. Ensure the build image exists (rootful — the run step below is rootful,
+# and rootless podman uses a separate image store)
+if ! sudo podman image exists localhost/antergos-build:latest; then
+  sudo podman build -t antergos-build .
 fi
 
 # 2. Run the build (privileged, workspace mounted, tmpfs workdir, ISO exported)
