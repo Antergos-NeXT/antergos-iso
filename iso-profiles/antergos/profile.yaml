@@ -28,6 +28,7 @@ rootfs:
     - calamares
     - python-toml
     - calamares-branding-antergos-next
+    - zenity
     - antergos-welcome
     - yay
     - antergos-next-desktop-settings
