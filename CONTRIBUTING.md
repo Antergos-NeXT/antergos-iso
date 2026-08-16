@@ -28,6 +28,10 @@ git config user.signingkey <your-key>
 git config commit.gpgsign true
 ```
 
+**Unsigned PRs will be closed without merging.** If your change is genuinely useful,
+the maintainer will re-implement it their own way and you'll still be credited for the
+original idea.
+
 ## Building locally
 
 ```bash
