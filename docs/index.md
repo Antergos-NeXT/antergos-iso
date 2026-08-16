@@ -13,15 +13,15 @@ A technical successor to Antergos for the post-systemd era — **Artix Linux** b
 [**Download the latest ISO**](https://github.com/Antergos-NeXT/antergos-iso/releases)
 _Published to GitHub Releases. (The Internet Archive upload step in CI is currently disabled — see [CI](ci).)_
 
-### Latest release — v2026.08.16 (Arranxo)
+### Latest release — v2026.08.17 (Arranxo)
 
-Hotfix release. What's fixed in v2026.08.16 "Arranxo":
+Hotfix release. What's fixed in v2026.08.17 "Arranxo":
 
 - **COSMIC display manager now works** — `cosmic-greeter-dinit` ships as its own package and the online `displaymanager.conf` lists `greetd`, so `/etc/greetd/config.toml` gets written and the greeter starts. The Xeitoso-era COSMIC-breaks-DM bug is gone.
 - **zsh login lockout fixed** — `users.conf` forces `/bin/zsh` but nothing installed it, so a freshly installed system couldn't log in. `zsh` is now in the netinstall Default group. Thanks to jtadlock91 for reporting it.
 - **New KDE Plasma (Minimal) entry** — a stripped-down Wayland-only Plasma for low-end hardware: `plasma-meta`, kitty, pcmanfm-qt, featherpad, grim, slurp. No XWayland, no branding, no bloat.
 
-Only KDE Plasma was tested this release. The other DEs are in the installer but best-effort — see the [release notes](https://github.com/Antergos-NeXT/antergos-iso/releases/tag/v2026.08.16-release). The offline installer is also **experimental and best-effort** — the online Calamares flow is the supported path.
+Only KDE Plasma was tested this release. The other DEs are in the installer but best-effort — see the [release notes](https://github.com/Antergos-NeXT/antergos-iso/releases/tag/v2026.08.17-release). The offline installer is also **experimental and best-effort** — the online Calamares flow is the supported path.
 
 ### Known issues in this release
 
