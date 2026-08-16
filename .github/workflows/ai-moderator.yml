@@ -3,13 +3,9 @@ name: AI Moderator
 on:
   issues:
     types: [opened]
-  issue_comment:
-    types: [created]
-  pull_request_review_comment:
-    types: [created]
+  pull_request:
+    types: [opened]
   discussion:
-    types: [created]
-  discussion_comment:
     types: [created]
 
 permissions:
@@ -34,8 +30,8 @@ jobs:
             const contributing = (() => { try { return fs.readFileSync('CONTRIBUTING.md', 'utf8'); } catch (e) { return ''; } })();
 
             const content = context.payload.issue?.body
+              || context.payload.pull_request?.body
               || context.payload.discussion?.body
-              || context.payload.comment?.body
               || '';
             if (!content.trim()) {
               console.log('No content to analyze');
@@ -48,13 +44,25 @@ jobs:
               return;
             }
 
-            const isComment = context.payload.comment !== undefined;
             const isDiscussion = context.payload.discussion !== undefined;
 
             const prompt = [
-              'You are an AI moderator for the Antergos NeXT project.',
+              'You are an AI moderator for the Antergos NeXT project, an Artix-based',
+              'Linux distribution (dinit init, KDE Plasma).',
               'Speak in first person. Be direct, confident, and have some snark.',
               'The project has a playful but no-nonsense tone - match it.',
+              '',
+              'Your job is NOT to police opinions, bug reports, feature requests,',
+              'pull requests, technical questions, or constructive criticism.',
+              'Those are all normal and welcome. A normal PR description or issue',
+              'is NEVER a violation, no matter how long, detailed, or assertive it is.',
+              '',
+              'ONLY flag content that genuinely violates the Code of Conduct:',
+              'harassment, personal attacks, hate speech, slurs, spam, scams,',
+              'doxxing, malicious links, or threats.',
+              '',
+              'When in doubt, or if the content is merely technical, opinionated,',
+              'or critical of the project - violation is FALSE.',
               '',
               'If the content says it is a test or contains phrases like moderator',
               'or test or reply here, play along with the joke but still enforce the rules.',
@@ -77,6 +85,7 @@ jobs:
               '',
               '"action" options: "warn" (post warning), "hide" (minimize comment), "lock" (lock issue/discussion)',
               'For issues use "warn" or "lock". For comments you may use "hide".',
+              'Only use "lock" or "hide" for severe violations.',
               '',
               'Content:',
               content
@@ -117,6 +126,11 @@ jobs:
               return;
             }
 
+            if (typeof decision.severity === 'number' && decision.severity < 4) {
+              console.log(`Low severity (${decision.severity}), no action taken`);
+              return;
+            }
+
             const number = context.payload.issue?.number
               || context.payload.pull_request?.number
               || context.payload.discussion?.number;
@@ -150,8 +164,8 @@ jobs:
                 });
               }
 
-              if (decision.action === 'hide' && isComment) {
-                const commentId = context.payload.comment.node_id;
+              if (decision.action === 'hide') {
+                const commentId = context.payload.comment?.node_id;
                 if (commentId) {
                   await github.graphql(`
                     mutation {
