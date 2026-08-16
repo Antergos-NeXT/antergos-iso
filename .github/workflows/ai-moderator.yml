@@ -42,6 +42,12 @@ jobs:
               return;
             }
 
+            const actor = context.payload.sender?.login;
+            if (actor === 'c-ludenberg') {
+              console.log('Repo owner, skipping moderation');
+              return;
+            }
+
             const isComment = context.payload.comment !== undefined;
             const isDiscussion = context.payload.discussion !== undefined;
 
@@ -179,4 +185,4 @@ jobs:
               console.log('Action completed: ' + decision.action);
             } catch (err) {
               console.log(`GitHub API error: ${err}`);
-            }
+            } 
