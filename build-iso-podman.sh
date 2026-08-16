@@ -22,6 +22,11 @@ sudo podman run --rm --privileged --entrypoint sh \
     set -euo pipefail
     mkdir -p /var/lib/artools/buildiso
     mount -t tmpfs -o size=12G,exec,suid,dev tmpfs /var/lib/artools/buildiso
+    modprobe loop 2>/dev/null || true
+    [ -e /dev/loop-control ] || mknod -m 0660 /dev/loop-control c 10 237
+    for i in $(seq 0 15); do
+      [ -e "/dev/loop$i" ] || mknod -m 0660 "/dev/loop$i" b 7 "$i"
+    done
     /workspace/buildiso -p antergos
     echo "=== BUILD FINISHED ==="
     mkdir -p /workspace/iso-output
