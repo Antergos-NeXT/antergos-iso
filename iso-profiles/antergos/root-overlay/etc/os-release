@@ -1,9 +1,9 @@
 NAME="Antergos NeXT"
-PRETTY_NAME="Antergos NeXT 2026.08.11 Xeitoso"
+PRETTY_NAME="Antergos NeXT 2026.08.16 Arranxo"
 ID=antergos
 ID_LIKE=artix
-VERSION_ID=2026.08.11
-VERSION_CODENAME=xeitoso
+VERSION_ID=2026.08.16
+VERSION_CODENAME=arranxo
 BUILD_ID=rolling
 ANSI_COLOR="38;2;0;136;204"
 HOME_URL="https://github.com/Antergos-NeXT"
