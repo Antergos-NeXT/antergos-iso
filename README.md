@@ -11,7 +11,7 @@
 [![Docs](https://img.shields.io/badge/docs-site-blue.svg)](https://antergos-next.github.io/antergos-iso/)
 [![Dla mojego narodu](https://img.shields.io/badge/README-Polski-crimson.svg)](README.pl.md)
 
-A community revival of Antergos — built on **Artix Linux** with **Dinit**, **KDE Plasma** desktop, the **Calamares** installer (online mode), and a BYODE script for offline installs.
+A technical successor to Antergos — built on **Artix Linux** with **Dinit**, **KDE Plasma** desktop, the **Calamares** installer (online mode), and a BYODE script for offline installs. It's its own thing with its own branding — not a replacement for the Antergos feeling, but a continuation of its lineage.
 
 ## What changed
 
@@ -162,4 +162,4 @@ Overlays are self-contained (no symlinks to external directories) so the repo bu
 
 *Antergos launched in 2012 as **Cinnarch** (Cinnamon + Arch), renamed in 2013, and ran until 2019. NeXT continues the spirit with a modernized, Artix-based foundation — KDE Plasma, Calamares, and the same multi-desktop ambition you remember.*
 
-*Dustin Falgout, one of the original Antergos developers, has given his blessing for this community revival ([see NOTICES](NOTICES)). Antergos NeXT is not affiliated with, endorsed by, or connected to the original Antergos project.*
+*Dustin Falgout, one of the original Antergos developers, has given his blessing for this technical successor to carry the name and logo forward ([see NOTICES](NOTICES)). Antergos NeXT is not affiliated with, endorsed by, or connected to the original Antergos project.*

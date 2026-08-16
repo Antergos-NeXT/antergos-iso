@@ -3,14 +3,17 @@
 ## Disclaimers
 
 ### Project Status
-This project is a **community-driven revival** and is **not affiliated with**,
+This project is a **technical successor** to Antergos and is **not affiliated with**,
 **not endorsed by**, and **not supported by** the original Antergos team or any
-corporate entity.
+corporate entity. It is an independent project by different people, continuing the
+lineage rather than cloning it.
 
 ### Branding
-The "Antergos" name and associated visual elements are used in a referential
-capacity to indicate this project's inspiration. The original Antergos project
-ended in 2019. This is an independent project by different people.
+The "Antergos" name and logo are used with the blessing of Dustin Falgout, one of the original
+Antergos developers. Everything else — themes, artwork, the synthwave video wallpaper, desktop
+settings, and branding elements — is Antergos NeXT's own, created for this project. The original
+Antergos wallpapers are shipped only as a fallback. The Antergos feeling is not replaced; it lives
+on in a new form with its own identity.
 
 ### No Warranty
 This software is provided "as is", without warranty of any kind, express or
@@ -27,12 +30,11 @@ dependencies and source files for specific licensing information.
 ### Sources & Inspiration
 - [artools](https://gitea.artixlinux.org/artix/artools) - ISO build system
 - [Calamares](https://codeberg.org/Calamares/calamares) - Installer framework
-- [Antergos Wallpapers](https://github.com/Antergos/wallpapers) - Original wallpapers
 
 ### Original Antergos Team
-Thanks to the original Antergos team (2012-2019) for creating the project that
-inspired this revival. Dustin Falgout, one of the original developers, has given his
-blessing for this community project to carry the Antergos name forward.
+Thanks to the original Antergos team (2012-2019) for creating the project that this
+project succeeds. Dustin Falgout, one of the original developers, has given his
+blessing for this successor to carry the Antergos name forward.
 
 ### Contributors
 Thanks to everyone who tested, provided feedback, and kept the Antergos

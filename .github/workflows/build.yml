@@ -97,7 +97,7 @@ jobs:
           --metadata="title:Antergos NeXT $(date +%Y.%m.%d)" \
           --metadata="mediatype:software" \
           --metadata="collection:open_source_software" \
-          --metadata="description:Antergos NeXT community revival ISO — KDE Plasma, Dinit, Calamares installer" \
+          --metadata="description:Antergos NeXT technical successor ISO — KDE Plasma, Dinit, Calamares installer" \
           --metadata="subject:Antergos; Linux; Artix; Dinit; KDE Plasma; Calamares" \
           --retries 5
 

@@ -2,7 +2,7 @@
 
 > Szukasz starej wersji Arch/systemd? Zobacz gałąź [`before-systemd-change`](https://github.com/Antergos-NeXT/antergos-iso/tree/before-systemd-change).
 
-Odrodzenie społeczności Antergos — zbudowane na **Artix Linux** z **Dinit**, **KDE Plasma** i instalatorem **Calamares** (tryb online) + skrypt BYODE do instalacji offline.
+Następca techniczny Antergos — zbudowane na **Artix Linux** z **Dinit**, **KDE Plasma** i instalatorem **Calamares** (tryb online) + skrypt BYODE do instalacji offline.
 
 ## Co się zmieniło
 
@@ -62,4 +62,4 @@ ISO pojawi się w `/var/lib/artools/buildiso/iso/antergos/`.
 
 *Antergos wystartował w 2012 jako **Cinnarch**, przemianowany w 2013, działał do 2019. NeXT kontynuuje ducha oryginału na nowoczesnym, Artixowym fundamencie — KDE Plasma, Calamares, ta sama wielośrodowiskowa ambicja.*
 
-*Dustin Falgout, jeden z oryginalnych twórców Antergos, pobłogosławił to odrodzenie ([NOTICES](NOTICES)). Antergos NeXT nie jest powiązane z oryginalnym projektem Antergos.*
+*Dustin Falgout, jeden z oryginalnych twórców Antergos, pobłogosławił temu następcy technicznemu używanie nazwy i logo ([NOTICES](NOTICES)). Antergos NeXT nie jest powiązane z oryginalnym projektem Antergos.*

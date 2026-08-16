@@ -90,8 +90,8 @@ The `filesystem` package owns `/usr/lib/os-release` with "Artix Linux". To get "
 ### pipewire launcher patching for dinit
 `artix-pipewire-launcher` detects the init system. Upstream sets `dinit|openrc) SUPPORT=''`. The forked package changes this to `dinit|runit|s6) SUPPORT='YES'`. The package also ships `pipewire.desktop` at `/etc/xdg/autostart/` so online installs get the XDG autostart entry.
 
-### CI: manual dispatch only, IA upload enabled
-`build.yml` only runs on `workflow_dispatch` (push trigger removed). Internet Archive upload is enabled with unique identifier format `antergos-next-YYYYMMDD-<run_number>`.
+### CI: manual dispatch only, IA upload disabled (temporarily)
+`build.yml` only runs on `workflow_dispatch` (push trigger removed). Internet Archive upload is currently **disabled** (`if: false` in the workflow) — builds are manually verified first. When re-enabled it uploads with unique identifier format `antergos-next-YYYYMMDD-<run_number>`.
 
 
 ## Repo Structure
