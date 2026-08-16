@@ -84,7 +84,7 @@ If you prefer to supply your own config, you can deselect the config package in 
 
 ## Display manager selector
 
-The DM selector (`packagechooser@dm`) uses `method: netinstall-select`. Available options:
+The DM selector (`packagechooser@dm`) uses `method: netinstall-add`, with each display manager's packages defined inline in the chooser items. Available options:
 
 - **SDDM** — KDE's QML-based display manager (default). Ships with `pixie-sddm-git` theme.
 - **LightDM** — GTK-based, cross-desktop
@@ -92,7 +92,7 @@ The DM selector (`packagechooser@dm`) uses `method: netinstall-select`. Availabl
 - **greetd** — Minimal, recommended for COSMIC
 - **LY** — TUI-based, minimal
 
-The selected DM's group is marked as checked in the netinstall tree automatically.
+The selected DM's inline group is appended to the netinstall tree via the `netinstallAdd` key, exactly like the DE selector.
 
 ## Branding
 

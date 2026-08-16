@@ -16,7 +16,6 @@ antergos-iso/
 │   │   ├── profile.yaml        # Packages, services (rootfs + livefs), compression
 │   │   ├── root-overlay/       # Merged into rootfs → live session + offline install
 │   │   └── live-overlay/       # Merged into live environment only
-│   ├── antergos-minimal/       # Minimal profile (unmaintained)
 │   └── common/
 │       └── common.yaml         # Shared base packages (kernel, firmware, filesystem)
 ├── pacman.conf.d/

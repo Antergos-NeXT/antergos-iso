@@ -63,7 +63,7 @@ live-overlay/
 The online install sequence. Defines two `packagechooser` instances:
 
 - `packagechooser@de` — desktop environment selector using `method: netinstall-add`. Writes the selected DE's package group to the `netinstallAdd` global storage key. The DE group is dynamically appended to the netinstall tree when the netinstall module loads.
-- `packagechooser@dm` — display manager selector using `method: netinstall-select`. Marks the chosen DM group as checked in the netinstall tree.
+- `packagechooser@dm` — display manager selector using `method: netinstall-add` with inline DM groups. Appends the chosen DM group to the netinstall tree.
 
 The `modules-search: [ local ]` directive resolves module configs from the same directory as the settings file (`/etc/calamares/modules/`).
 

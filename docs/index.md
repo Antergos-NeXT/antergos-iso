@@ -6,29 +6,38 @@ nav_order: 1
 
 # Antergos NeXT
 
-A community revival of Antergos for the post-systemd era — **Artix Linux** base with **Dinit**, **KDE Plasma**, and the **Calamares** installer.
+A technical successor to Antergos for the post-systemd era — **Artix Linux** base with **Dinit**, **KDE Plasma**, and the **Calamares** installer. Its own branding, its own identity — the lineage continues, the Antergos feeling doesn't get replaced.
 
 ## Download
 
 [**Download the latest ISO**](https://github.com/Antergos-NeXT/antergos-iso/releases)
 _Published to GitHub Releases. (The Internet Archive upload step in CI is currently disabled — see [CI](ci).)_
 
-### Latest release — v2026.07.11
+### Latest release — v2026.08.11 (Xeitoso)
 
-What works in the latest release:
+What's in the latest release (v2026.08.11 "Xeitoso"):
 
-- KDE Plasma 6 on Wayland (with SDDM)
-- Full audio support on installed systems
-- Custom SDDM theme (not Breeze)
+- KDE Plasma 6 on Wayland (with SDDM) — KDE installs correctly (DE/DM choosers no longer fight over the netinstall queue)
+- Clock syncs after install (`ntp-dinit` installed, `ntpd` enabled)
+- Full audio support on installed systems (patched pipewire launcher for dinit)
+- Custom SDDM theme — `pixie-sddm-git` (Material Design 3, not Breeze)
 - Correct `/usr/lib/os-release` (shows "Antergos NeXT", not "Artix Linux")
 - Choose your desktop (Plasma/Xfce/Cinnamon/MATE/LXQt/i3/Sway/Hyprland/COSMIC)
+- Choose your init during install (dinit/runit/s6)
 - GRUB with Antergos theme
-- Custom Calamares slideshow
+- Custom Calamares slideshow + DM selector with screenshots
+- LightDM with slick-greeter and proper config out of the box
+- Filesystem tools in the default group (btrfs-progs, xfsprogs, f2fs-tools, snapper)
 - Xlibre X server included
+- Offline bare-minimum installer (`antergos-offline-install`)
 
-> Note: the current `master` branch moves the SDDM theme to `pixie` (`pixie-sddm-git`). The v2026.07.11 release used the older theme — see the [releases page](https://github.com/Antergos-NeXT/antergos-iso/releases) for per-release changes.
+Only KDE Plasma was tested this release. The other DEs are in the installer but best-effort — see the [release notes](https://github.com/Antergos-NeXT/antergos-iso/releases/tag/v2026.08.11-release). The offline installer is also **experimental and best-effort** — the online Calamares flow is the supported path.
 
-The offline bare-minimum installer is **experimental and best-effort** — the online Calamares flow is the supported path.
+### Known issues in this release
+
+- **COSMIC breaks the display manager on an online install** — the online `displaymanager.conf` never listed `greetd`, so Calamares skips `DMgreetd` and never writes `/etc/greetd/config.toml`. Fixed on `master` (`00e1390`, hotfix, Aug 13) and will ship in the next release.
+- **KDE Plasma is the only tested DE** — Xfce, Cinnamon, MATE, LXQt, i3, Sway, Hyprland and COSMIC are in the installer but unverified. Report results in an issue.
+- **The offline installer is experimental and best-effort** — the online Calamares flow is the supported path.
 
 ## Quick links
 

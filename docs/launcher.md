@@ -35,14 +35,14 @@ The installer runs two `packagechooser` instances in sequence, followed by the `
 | Step | Instance | Module Config | Method | Purpose |
 |------|----------|---------------|--------|---------|
 | 4 | `packagechooser@de` | `packagechooser_de.conf` | `netinstall-add` | Desktop environment picker (required, default Plasma) |
-| 5 | `packagechooser@dm` | `packagechooser_dm.conf` | `netinstall-select` | Display manager picker (required, default SDDM) |
+| 5 | `packagechooser@dm` | `packagechooser_dm.conf` | `netinstall-add` | Display manager picker (required, default SDDM) |
 | 6 | `netinstall` | `netinstall.yaml` | — | Refine packages, add optional groups |
 
 ### How `netinstall-add` works
 
 When the user selects a DE, `packagechooser@de` writes a group definition to the `netinstallAdd` global storage key. When the `netinstall` module loads, it reads this key and appends the DE's package group to the tree. This allows users to see and refine the packages for their chosen DE — for example, deselecting specific applications.
 
-The DM selector uses `netinstall-select`, which marks the chosen DM group (e.g. SDDM) as checked in the netinstall tree. Both keys are read by the netinstall module's `onActivate()` method at runtime. See `NetInstallPage.cpp` in the Calamares source for details.
+The DM selector (`packagechooser@dm`) works the same way — `netinstall-add` with each DM's packages defined inline in the chooser items. Selecting a DM appends its group to the netinstall tree. Both keys are read by the netinstall module's `onActivate()` method at runtime. See `NetInstallPage.cpp` in the Calamares source for details.
 
 ### Available DE groups
 
@@ -69,7 +69,7 @@ The `calamares-extensions` package ships an "Install Artix Linux" desktop entry 
 Configs live in `live-overlay/etc/calamares/modules/` (overriding the copies installed by `calamares-branding-antergos-next`):
 
 - `packagechooser_de.conf` — desktop environment selector using `method: netinstall-add`
-- `packagechooser_dm.conf` — display manager selector using `method: netinstall-select`
+- `packagechooser_dm.conf` — display manager selector using `method: netinstall-add` with inline DM groups
 - `netinstall.yaml` / `netinstall.conf` — the netinstall package tree
 - `services-artix.conf` — service enablement via `artix-service`
 - `grubcfg.conf` — GRUB default configuration (`/etc/default/grub`)

@@ -6,13 +6,53 @@ nav_order: 2
 
 # Building the ISO
 
-The ISO is built with `buildiso` (from Artix `artools` package) plus a customized profile. You need an **Artix-based** system to build.
+The ISO is built with `buildiso` (from Artix `artools` package) plus a customized profile. There are two supported paths: **Option A (container)** for systems without pacman, and **Option B (native)** for pacman-based systems.
 
-## Prerequisites
+## Option A: Build in a container (non-pacman distros — recommended)
+
+No Artix/Arch needed. Works on Gentoo, Fedora, Debian — anything **without pacman** that has podman. This is the same path GitHub Actions CI uses.
 
 ```bash
+# Build the image (installs artools + deps inside an Artix container)
+podman build -t antergos-build .
+
+# Build the ISO (rootful podman required — artools chroots mount devtmpfs,
+# which rootless containers cannot do)
+sudo podman run --rm --privileged \
+  -v /var/lib/artools-buildiso:/var/lib/artools/buildiso \
+  -v "$(pwd)/iso-output:/workspace/iso-output" \
+  -e WORKSPACE_DIR=/workspace \
+  antergos-build
+```
+
+Or use the helper script:
+
+```bash
+./build-iso-podman.sh
+```
+
+The finished `.iso` lands in `iso-output/`.
+
+## Option B: Native build (just pacman + artools)
+
+You do **not** need an Artix-based system — `buildiso` is plain bash on top of `pacman`. You need:
+
+- `pacman` (native on Arch/Artix/**KaOS**; on other distros, install it or extract the `.pkg.tar.zst` files)
+- the artools libraries from the Artix repo: `artools-base` (provides `basestrap`, `artix-chroot`, `fstabgen`) and `artools-iso` (provides `buildiso`) plus their deps
+- `squashfs-tools`, `grub`, `xorriso`/`libisoburn`, `dosfstools`, `mtools`
+
+## Prerequisites (native path)
+
+```bash
+# On Arch/Artix:
 pacman -S artools squashfs-tools
 modprobe loop
+
+# On KaOS (pacman native, but artools not in KaOS repos — extract from Artix):
+pacman -S squashfs-tools
+
+# On other distros: grab artools-base/artools-iso from the Artix repo and
+# extract them over /, then install pacman and the deps listed above.
 ```
 
 `squashfs-tools` is needed for `mksquashfs`. The `loop` module must be loaded for `mount -o loop` during image assembly.
@@ -119,6 +159,11 @@ rm -rf /var/lib/artools/buildiso/pkg/antergos/cache/
 ```
 
 Then rebuild.
+
+## Which option do I use?
+
+> - **Arch / Artix / KaOS / any pacman-based distro** → Option B (native).
+> - **Anything else** (Gentoo, Fedora, Debian, ...) → Option A (podman).
 
 ## CI builds
 

@@ -29,14 +29,12 @@ Built and published in this order (from `packages.yaml` in `antergos-packages`):
 | `antergos-release` | `/usr/lib/os-release` with "Antergos NeXT" identification |
 | `pixie-sddm-git` | Material Design 3 SDDM theme (from AUR) |
 | `antergos-wallpapers` | Default wallpapers for KDE and other DEs |
-| `antergos-plasma-theme` | Plasma theme / start-here icons |
 | `antergos-welcome` | "About Antergos NeXT" welcome app (KF6 + Qt6) |
 | `antergos-grub-theme` | GRUB boot theme |
-| `antergos-live` | Live session meta package (per-init: `antergos-live-dinit`, `antergos-live-openrc`) |
+| `antergos-live` | Live session meta package (per-init: `antergos-live-base`, `antergos-live-dinit`, `antergos-live-openrc`) |
 | `pipewire` (forked) | Patched `artix-pipewire-launcher` for dinit support + XDG autostart entry |
 | `calamares` | Built with `packagechooser` module enabled |
 | `calamares-branding-antergos-next` | Branding: slideshow, `branding.desc`, launcher script, packagechooser configs |
-| `calamares-branding-antergos-next-minimal` | Minimal branding variant |
 | `antergos-xfce-theme` | Xfce theme |
 | `downgrade` | AUR package (downgrade helper) |
 | `yay` | AUR helper |
