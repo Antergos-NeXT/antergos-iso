@@ -17,7 +17,7 @@ sudo podman run --rm --privileged \
   -v "$(pwd):/workspace" \
   -e WORKSPACE_DIR=/workspace \
   -e INITSYS=dinit \
-  antergos-build sh -c '
+  localhost/antergos-build:latest sh -c '
     set -euo pipefail
     mkdir -p /var/lib/artools/buildiso
     mount -t tmpfs -o size=12G,exec,suid,dev tmpfs /var/lib/artools/buildiso
