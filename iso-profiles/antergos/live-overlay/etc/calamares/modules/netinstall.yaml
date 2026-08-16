@@ -28,6 +28,7 @@
     - xfsprogs
     - f2fs-tools
     - snapper
+    - zsh
 
 
 - name: "Kernel"
