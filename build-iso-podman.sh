@@ -30,6 +30,6 @@ sudo podman run --rm --privileged --entrypoint sh \
     /workspace/buildiso -p antergos
     echo "=== BUILD FINISHED ==="
     mkdir -p /workspace/iso-output
-    cp -a /var/lib/artools/buildiso/iso/antergos/. /workspace/iso-output/ 2>/dev/null || true
+    cp -a /workspace/iso/antergos/. /workspace/iso-output/ 2>/dev/null || true
     ls -la /workspace/iso-output/ | head -20
   '
