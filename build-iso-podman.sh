@@ -20,9 +20,6 @@ sudo podman run --rm --privileged --entrypoint sh \
   -e INITSYS=dinit \
   localhost/antergos-build:latest -c '
     set -euo pipefail
-    # Clear the image-layer pacman cache so a truncated/corrupt download
-    # (e.g. noto-fonts-emoji "Truncated tar archive") can never be reused.
-    pacman -Scc --noconfirm >/dev/null 2>&1 || true
     mkdir -p /var/lib/artools/buildiso
     mount -t tmpfs -o size=12G,exec,suid,dev tmpfs /var/lib/artools/buildiso
     modprobe loop 2>/dev/null || true
