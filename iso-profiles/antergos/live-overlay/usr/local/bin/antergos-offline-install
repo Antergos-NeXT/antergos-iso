@@ -115,7 +115,7 @@ estat "Mounting subvolumes..."
 TARGET=/mnt/target
 cmd mkdir -p "$TARGET"
 cmd mount -o subvol=@ "$PART_ROOT" "$TARGET"
-cmd mkdir -p "$TARGET/{home,var/cache,var/log,.snapshots,boot}"
+cmd mkdir -p "$TARGET"/{home,var/cache,var/log,.snapshots,boot}
 cmd mount -o subvol=@home "$PART_ROOT" "$TARGET/home"
 cmd mount -o subvol=@cache "$PART_ROOT" "$TARGET/var/cache"
 cmd mount -o subvol=@log "$PART_ROOT" "$TARGET/var/log"
@@ -154,11 +154,17 @@ cmd mount --bind /run "$TARGET/run"
 
 # Generate initramfs
 estat "Generating initramfs..."
-cmd chroot "$TARGET" /bin/bash -c "mkinitcpio -P" 2>/dev/null || true
+if ! cmd chroot "$TARGET" /bin/bash -c "mkinitcpio -P"; then
+  ewarn "mkinitcpio failed — continuing anyway; the rootfs squashfs already ships an initramfs"
+fi
 
-# Install GRUB
+# Install GRUB (detect EFI vs BIOS boot)
 estat "Installing GRUB..."
-cmd chroot "$TARGET" /bin/bash -c "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=Antergos"
+if [[ -d /sys/firmware/efi/efivars ]]; then
+  cmd chroot "$TARGET" /bin/bash -c "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=Antergos"
+else
+  cmd chroot "$TARGET" /bin/bash -c "grub-install --target=i386-pc $DISK"
+fi
 cmd chroot "$TARGET" /bin/bash -c "grub-mkconfig -o /boot/grub/grub.cfg" 2>/dev/null || true
 
 # Set hostname and hosts
