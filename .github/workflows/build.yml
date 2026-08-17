@@ -13,6 +13,21 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Bootstrap Antergos packages signing key
+      run: |
+        KEY_FINGERPRINT=AA644A095D2AF5F950FADB57C51BFE8D3A985236
+        curl -fsSL \
+https://raw.githubusercontent.com/Antergos-NeXT/antergos-packages/master/packages/antergos-next-keyring/antergos-next.gpg
+\
+          -o /tmp/antergos-next.gpg
+        pacman-key --init
+        pacman-key --add /tmp/antergos-next.gpg
+        gpg --homedir /etc/pacman.d/gnupg --batch --with-colons \
+          --fingerprint "$KEY_FINGERPRINT" | grep -q "fpr:::::::::$KEY_FINGERPRINT:"
+        pacman-key --lsign-key "$KEY_FINGERPRINT"
+        rm -f /tmp/antergos-next.gpg
+
+
     - name: Install dependencies
       run: |
         pacman -Syu --noconfirm --needed --overwrite='*' \
