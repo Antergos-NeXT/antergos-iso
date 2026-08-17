@@ -31,5 +31,10 @@ sudo podman run --rm --privileged --entrypoint sh \
     echo "=== BUILD FINISHED ==="
     mkdir -p /workspace/iso-output
     cp -a /workspace/iso/antergos/. /workspace/iso-output/ 2>/dev/null || true
+    cd /workspace/iso-output
+    ISO=$(ls antergos-*.iso 2>/dev/null | head -1)
+    [[ -z "$ISO" || ! -f "$ISO" ]] && { echo "No ISO found in iso-output/"; exit 1; }
+    sha256sum "$ISO" > "$ISO.sha256"
+    cat "$ISO.sha256"
     ls -la /workspace/iso-output/ | head -20
   '

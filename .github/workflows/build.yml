@@ -59,6 +59,14 @@ jobs:
       run: |
         sudo -E ./buildiso -p antergos
 
+    - name: Generate checksums
+      run: |
+        cd "${WORKSPACE_DIR}/iso/antergos"
+        ISO=$(ls antergos-*.iso | head -1)
+        [[ -z "$ISO" || ! -f "$ISO" ]] && { echo "No ISO found"; exit 1; }
+        sha256sum "$ISO" > "$ISO.sha256"
+        cat "$ISO.sha256"
+
     - name: Upload ISO artifact
       uses: actions/upload-artifact@v4
       with:
