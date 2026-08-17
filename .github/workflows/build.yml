@@ -17,8 +17,7 @@ jobs:
       run: |
         KEY_FINGERPRINT=AA644A095D2AF5F950FADB57C51BFE8D3A985236
         curl -fsSL \
-https://raw.githubusercontent.com/Antergos-NeXT/antergos-packages/master/packages/antergos-next-keyring/antergos-next.gpg
-\
+https://raw.githubusercontent.com/Antergos-NeXT/antergos-packages/master/packages/antergos-next-keyring/antergos-next.gpg \
           -o /tmp/antergos-next.gpg
         pacman-key --init
         pacman-key --add /tmp/antergos-next.gpg
