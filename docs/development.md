@@ -74,7 +74,7 @@ If `$COMPRESSION` is unset in `profile.yaml`, `mksquashfs` produces a sparse zer
 
 ### Calamares module precedence
 
-`/etc/calamares/modules/` overrides `/usr/share/calamares/modules/`. The `calamares-next` launcher copies the online settings file to `/etc/calamares/settings.conf`, and the `modules-search: [ local ]` directive in that file resolves modules from `/etc/calamares/modules/`. Module configs placed in `calamares-online/modules/` are not used directly during installation — only `calamares/modules/` is consulted.
+`/etc/calamares/modules/` overrides `/usr/share/calamares/modules/`. The `calamares-next` launcher copies the online settings file to `/etc/calamares/settings.conf`, and the `modules-search: [ local ]` directive in that file resolves modules from `/etc/calamares/modules/`. Both `calamares/modules/` and `calamares-online/modules/` in the live-overlay are for the **online** installer — there is no offline Calamares config. Module configs placed in `calamares-online/modules/` are not loaded directly during installation — only `calamares/modules/` is consulted at runtime; the `calamares-online/modules/` tree is the self-contained companion copy.
 
 ### GRUB config overwrite must be enabled
 

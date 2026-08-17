@@ -61,11 +61,11 @@ The selector uses `method: netinstall-add` — the chosen DE's package group is 
 
 | Desktop | Repo | Type | Notes |
 |---------|------|------|-------|
-| **KDE Plasma** | world | Full DE | Default. Wayland + X11. Listed as individual packages in the active config; the reference copy in `calamares-online/modules/` uses the `plasma` meta-group + `antergos-next-desktop-settings` |
-| **Xfce** | galaxy | Full DE | Lightweight. GTK-based. Individual packages; reference copy uses `xfce4` group |
+| **KDE Plasma** | world | Full DE | Default. Wayland + X11. Listed as individual packages in the active config; the companion copy in `calamares-online/modules/` uses the `plasma` meta-group + `antergos-next-desktop-settings` |
+| **Xfce** | galaxy | Full DE | Lightweight. GTK-based. Individual packages; companion copy uses `xfce4` group |
 | **Cinnamon** | galaxy | Full DE | Traditional layout. GNOME-based |
-| **MATE** | galaxy | Full DE | GNOME 2 continuation. Individual packages; reference copy uses `mate` + `mate-extra` |
-| **LXQt** | galaxy | Full DE | Lightweight Qt desktop. Individual packages; reference copy uses `lxqt` group |
+| **MATE** | galaxy | Full DE | GNOME 2 continuation. Individual packages; companion copy uses `mate` + `mate-extra` |
+| **LXQt** | galaxy | Full DE | Lightweight Qt desktop. Individual packages; companion copy uses `lxqt` group |
 | **i3** | world | Tiling WM | Keyboard-driven. Individual packages (i3-wm, i3blocks, i3lock, i3status). Requires `antergos-i3-config` for a usable experience |
 | **Sway** | world | Tiling WM | i3-compatible Wayland compositor. Requires `antergos-sway-config` |
 | **Hyprland** | world | Tiling WM | Dynamic Wayland compositor with eye candy. Requires `antergos-hyprland-config` |

@@ -57,8 +57,8 @@ Built and published in this order (from `packages.yaml` in `antergos-packages`):
 ### calamares-branding-antergos-next
 
 - Ships `calamares-next.sh` — installed as `/usr/bin/calamares-next`, the online installer launcher
-- Ships both settings files: `/etc/calamares-offline/settings.conf` and `/etc/calamares-online/settings.conf`. `/etc/calamares/settings.conf` is a symlink to the offline one by default; the launcher's `SetConfig()` replaces it with the online config at runtime
-- Ships module configs to `/etc/calamares/modules/`: `unpackfs.conf`, `initcpiocfg.conf`, `initcpio.conf`, `netinstall.conf`, `netinstall.yaml`, `packagechooser_de.conf`, `packagechooser_dm.conf`, `welcome.conf`
+- Ships the online settings file as `/etc/calamares-online/settings.conf`. It also ships an `settings_offline.conf` installed as `/etc/calamares-offline/settings.conf` (with `/etc/calamares/settings.conf` symlinked to it by default) — but this is **unused**: the launcher's `SetConfig()` always replaces it with the online config at runtime. Calamares is online-only.
+- Ships module configs to `/etc/calamares/modules/`: `unpackfs.conf`, `initcpiocfg.conf`, `initcpio.conf`, `netinstall.conf`, `netinstall.yaml`, `packagechooser_de.conf`, `packagechooser_dm.conf`, `services-artix.conf`, `welcome.conf`
 - Also overwrites `/usr/share/calamares/branding/default/` so the Artix default branding can't sneak in
 - `SetConfig()` must `rm -f` the symlink at `/etc/calamares/settings.conf` before copying, otherwise `cp` follows the symlink and overwrites the wrong file
 

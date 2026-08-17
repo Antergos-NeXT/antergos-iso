@@ -26,7 +26,7 @@ Both use `sudo -E`, which preserves environment variables (`WAYLAND_DISPLAY`, `X
 
 ## Module config resolution
 
-The online settings file specifies `modules-search: [ local ]`, which resolves to the directory containing the settings file itself. After `SetConfig()` copies the file to `/etc/calamares/settings.conf`, modules are loaded from `/etc/calamares/modules/`. The `calamares-online/modules/` directory in the live-overlay is not used as a module source during installation — its contents exist only as a reference; the active module configs are those under `calamares/modules/`.
+The online settings file specifies `modules-search: [ local ]`, which resolves to the directory containing the settings file itself. After `SetConfig()` copies the file to `/etc/calamares/settings.conf`, modules are loaded from `/etc/calamares/modules/`. Both `calamares/modules/` and `calamares-online/modules/` in the live-overlay belong to the **online** installer — there is no offline Calamares config. The active module configs at runtime are those under `calamares/modules/`; the `calamares-online/modules/` tree is the self-contained companion copy for the online flow.
 
 ## Calamares sequence
 

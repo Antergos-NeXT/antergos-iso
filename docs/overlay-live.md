@@ -15,7 +15,7 @@ Files in `iso-profiles/antergos/live-overlay/` exist only in the live environmen
 live-overlay/
 ├── etc/
 │   ├── calamares/
-│   │   └── modules/                # Active runtime module configs
+│   │   └── modules/                # Active runtime module configs (online installer)
 │   │       ├── basestrap.conf      # Package installation (operations incl. antergos-release)
 │   │       ├── bootloader.conf
 │   │       ├── displaymanager.conf # DM selector backend
@@ -30,7 +30,7 @@ live-overlay/
 │   │       └── services-artix.conf
 │   ├── calamares-online/
 │   │   ├── settings.conf           # Online install sequence
-│   │   └── modules/                # Online flow modules (reference + extra)
+│   │   └── modules/                # Companion module copies (kept in sync)
 │   │       ├── packagechooser_de.conf / packagechooser_dm.conf
 │   │       ├── initcpio.conf / locale.conf / mount.conf / partition.conf
 │   │       ├── umount.conf / users.conf / welcome.conf
@@ -58,6 +58,13 @@ live-overlay/
 
 ## Key files
 
+### `etc/calamares/` and `etc/calamares-online/` — both online
+
+Both directories serve the **online** installer. There is no offline Calamares config in this overlay (and no offline Calamares mode at all — see [Installer](installer)).
+
+- `etc/calamares/modules/` — the active module configs at runtime. After `calamares-next.sh` copies `calamares-online/settings.conf` to `/etc/calamares/settings.conf`, the `modules-search: [ local ]` directive resolves modules from this directory.
+- `etc/calamares-online/` — the online install sequence (`settings.conf`) plus its own `modules/` tree. The two module trees are kept in sync; the `calamares-online/modules/` copies exist so the online flow has a self-contained config source. The copies under `calamares/modules/` are what actually loads at runtime.
+
 ### `etc/calamares-online/settings.conf`
 
 The online install sequence. Defines two `packagechooser` instances:
@@ -67,12 +74,7 @@ The online install sequence. Defines two `packagechooser` instances:
 
 The `modules-search: [ local ]` directive resolves module configs from the same directory as the settings file (`/etc/calamares/modules/`).
 
-> There is **no** `settings.conf` at `etc/calamares/` in this overlay. The `/etc/calamares/settings.conf` on a live system is a symlink installed by the `calamares-branding-antergos-next` package (`ln -sf ../calamares-offline/settings.conf`), and `calamares-next.sh` swaps it to the online config at runtime.
-
-### `etc/calamares/modules/` vs `etc/calamares-online/modules/`
-
-- `calamares/modules/` — active module configs at runtime. The settings file resolves modules from this directory after being copied to `/etc/calamares/`.
-- `calamares-online/modules/` — reference copies and additional modules (e.g. `partition.conf`, `mount.conf`) that are used during the online install flow. These are not loaded directly but serve as the source of truth for the install sequence.
+> There is **no** `settings.conf` at `etc/calamares/` in this overlay. The `/etc/calamares/settings.conf` on a live system is a symlink installed by the `calamares-branding-antergos-next` package (`ln -sf ../calamares-offline/settings.conf`), and `calamares-next.sh` swaps it to the online config at runtime. The `calamares-offline` fallback is unused — the launcher always overwrites the symlink with the online config.
 
 ### `etc/calamares/modules/basestrap.conf`
 
