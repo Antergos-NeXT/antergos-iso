@@ -1,4 +1,14 @@
-# Antergos NeXT ISO
+# Antergos‑NeXT ISO Repository — Migration Notice
+
+This repository will be archived once the project completes its migration to our self‑hosted Gitea forge.  
+All ISO tooling, installer configuration, and build scripts now continue on Gitea, following upstream direction from Artix Linux.
+
+Active development is located at:
+
+https://antergos-nas.taild4360b.ts.net/Antergos-NeXT/antergos-iso
+
+After migration, the GitHub organization will remain online only as a secondary issue tracker for users who prefer GitHub.  
+All authoritative code and ISO development now take place on the Gitea platform. 
 
 > Looking for the old Arch/systemd version? See the [`before-systemd-change` branch](https://github.com/Antergos-NeXT/antergos-iso/tree/before-systemd-change).
 
