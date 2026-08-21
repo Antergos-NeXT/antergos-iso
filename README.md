@@ -1,3 +1,14 @@
+> [!WARNING]
+> **This project has moved.**
+>
+> Euri Linux (formerly Antergos NeXT) is no longer hosted on GitHub.
+> Development continues on our self-hosted Gitea:
+>
+> **https://antergos-nas.taild4360b.ts.net/Euri-Linux**
+
+---
+
+
 # Antergos‑NeXT ISO Repository — Migration Notice
 
 This repository will be archived once the project completes its migration to our self‑hosted Gitea forge.  
